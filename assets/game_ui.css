@@ -1,0 +1,293 @@
+/* RACA PPE serious-game visual layer. Component-scoped; no remote resources. */
+
+.game-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.125rem;
+  margin: 0 0 1rem;
+  color: #f7fbfd;
+  background: #173f55;
+  border: 1px solid #2c6078;
+  border-radius: 0.75rem;
+}
+
+.game-header-title {
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.game-subtitle {
+  margin: 0.35rem 0 0;
+  color: #d8e9f0;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.scenario-card,
+.risk-panel,
+.feedback-card,
+.adaptation-card,
+.competence-card,
+.metric-tile {
+  padding: 1rem;
+  background: #ffffff;
+  color: #17242c;
+  border: 1px solid #ccd8de;
+  border-radius: 0.7rem;
+  box-shadow: 0 1px 2px rgba(17, 39, 51, 0.08);
+}
+
+.dynamic-worker-frame {
+  position: relative;
+  width: min(100%, 320px);
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid #94a3b8;
+  border-radius: 0.75rem;
+  background: #f8fafc;
+}
+
+.dynamic-worker-base {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.dynamic-worker-frame .ppe-overlay {
+  position: absolute;
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+  filter: drop-shadow(0 1px 2px rgba(15, 23, 42, 0.35));
+}
+
+.paper-screenshot-panel {
+  min-height: 12rem;
+  margin: 0.9rem 0;
+  padding: 1rem;
+  color: #17242c;
+  background: #ffffff;
+  border: 1px solid #bccbd1;
+  border-radius: 0.7rem;
+  box-shadow: 0 1px 2px rgba(17, 39, 51, 0.06);
+}
+
+.paper-screenshot-footer {
+  margin-top: 1.5rem;
+  padding-top: 0.65rem;
+  color: #536770;
+  border-top: 1px solid #cbd7dc;
+  font-size: 0.88rem;
+  text-align: center;
+}
+
+@media print {
+  .paper-screenshot-panel {
+    break-inside: avoid;
+    box-shadow: none;
+  }
+}
+
+.scenario-image-frame,
+.character-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+  background: #edf3f5;
+  border: 1px solid #c6d4da;
+  border-radius: 0.65rem;
+}
+
+.scenario-image-frame img,
+.character-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 34rem;
+  object-fit: contain;
+}
+
+.character-frame img {
+  max-height: 28rem;
+}
+
+.risk-panel {
+  border-left: 0.35rem solid #456979;
+}
+
+.risk-low,
+.risk-medium,
+.risk-high,
+.risk-critical,
+.status-badge,
+.difficulty-badge,
+.assistance-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.9rem;
+  padding: 0.25rem 0.65rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 650;
+  line-height: 1.25;
+}
+
+.risk-low {
+  color: #0b4b30;
+  background: #d9f2e5;
+  border-color: #69a787;
+}
+
+.risk-medium {
+  color: #583d00;
+  background: #fff0c2;
+  border-color: #bc8b19;
+}
+
+.risk-high {
+  color: #713100;
+  background: #ffe2c5;
+  border-color: #c66a22;
+}
+
+.risk-critical {
+  color: #741f28;
+  background: #f8d7da;
+  border-color: #bf5963;
+}
+
+.hazard-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2.25rem;
+  padding: 0.4rem 0.65rem;
+  color: #283940;
+  background: #f2f6f7;
+  border: 1px solid #bccbd1;
+  border-radius: 0.55rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
+.ppe-card {
+  min-height: 11rem;
+  padding: 0.85rem;
+  color: #1a2a31;
+  background: #ffffff;
+  border: 1px solid #c8d5da;
+  border-radius: 0.7rem;
+  transition: border-color 120ms ease, background-color 120ms ease;
+}
+
+.ppe-card-selected {
+  color: #12394a;
+  background: #e8f4f8;
+  border: 2px solid #236881;
+}
+
+.ppe-card:focus-within,
+.ppe-card-selected:focus-within,
+.scenario-card:focus-within {
+  outline: 3px solid #2c79a0;
+  outline-offset: 2px;
+}
+
+.feedback-card {
+  border-left: 0.35rem solid #546b76;
+}
+
+.feedback-correct {
+  background: #e7f4eb;
+  border-color: #39855a;
+}
+
+.feedback-warning {
+  background: #fff4d6;
+  border-color: #ad7611;
+}
+
+.feedback-incorrect {
+  background: #fbe5e7;
+  border-color: #ad3f4b;
+}
+
+.adaptation-card {
+  background: #eef5f8;
+  border-color: #8caeba;
+}
+
+.competence-card {
+  min-height: 7rem;
+}
+
+.status-badge {
+  color: #163b4b;
+  background: #e6f1f5;
+  border-color: #7da4b4;
+}
+
+.difficulty-badge {
+  color: #4d3505;
+  background: #f9ebc8;
+  border-color: #ae842b;
+}
+
+.assistance-badge {
+  color: #3e3163;
+  background: #ece7f8;
+  border-color: #8d7ab5;
+}
+
+.placeholder-notice {
+  margin-top: 0.4rem;
+  padding: 0.45rem 0.6rem;
+  color: #4b3b13;
+  background: #fff5d8;
+  border: 1px dashed #9e7a23;
+  border-radius: 0.4rem;
+  font-size: 0.88rem;
+  line-height: 1.4;
+}
+
+.metric-tile {
+  min-height: 5.75rem;
+  border-top: 0.25rem solid #47798e;
+}
+
+@media (max-width: 800px) {
+  .game-header {
+    flex-direction: column;
+    gap: 0.65rem;
+    padding: 0.9rem;
+  }
+
+  .scenario-card,
+  .risk-panel,
+  .feedback-card,
+  .adaptation-card,
+  .competence-card,
+  .metric-tile {
+    padding: 0.8rem;
+  }
+
+  .scenario-image-frame img,
+  .character-frame img {
+    max-height: 24rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ppe-card,
+  .ppe-card-selected {
+    transition: none;
+  }
+}

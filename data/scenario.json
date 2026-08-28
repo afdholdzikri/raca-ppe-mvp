@@ -1,0 +1,28 @@
+{
+  "scenario_id": "S5",
+  "zone": "Chemical Mixing Area",
+  "task": "Mixing chemical materials",
+  "hazards": [
+    "toxic vapour",
+    "liquid chemical splash"
+  ],
+  "required_ppe": [
+    "safety goggles",
+    "respirator",
+    "chemical-resistant gloves"
+  ],
+  "available_ppe": [
+    "safety helmet",
+    "safety goggles",
+    "respirator",
+    "chemical-resistant gloves",
+    "safety vest",
+    "safety shoes"
+  ],
+  "risk_parameters": {
+    "probability": 4,
+    "severity": 5,
+    "exposure": 5,
+    "context_modifier": 1.0
+  }
+}

@@ -1,0 +1,8 @@
+[
+ {"id":"corrosive_liquid","display_name":"Corrosive Liquid","description":"Corrosive contact.","probability":4,"severity":5,"base_exposure":4,"criticality":"critical","associated_ppe":["laboratory_goggles","face_shield","chemical_gloves","laboratory_coat"],"associated_competence_id":"hand_protection"},
+ {"id":"toxic_vapour","display_name":"Toxic Vapour","description":"Toxic inhalation.","probability":4,"severity":5,"base_exposure":5,"criticality":"critical","associated_ppe":["respirator","laboratory_goggles"],"associated_competence_id":"respiratory_protection"},
+ {"id":"chemical_splash","display_name":"Chemical Splash","description":"Eye and skin splash.","probability":4,"severity":4,"base_exposure":4,"criticality":"high","associated_ppe":["laboratory_goggles","face_shield","chemical_gloves","laboratory_coat"],"associated_competence_id":"eye_protection"},
+ {"id":"broken_glass","display_name":"Broken Glass","description":"Laceration hazard.","probability":3,"severity":4,"base_exposure":4,"criticality":"high","associated_ppe":["chemical_gloves","closed_safety_footwear"],"associated_competence_id":"hand_protection"},
+ {"id":"flammable_solvent","display_name":"Flammable Solvent","description":"Fire and vapour hazard.","probability":4,"severity":5,"base_exposure":4,"criticality":"critical","associated_ppe":["laboratory_goggles","laboratory_coat","chemical_gloves"],"associated_competence_id":"body_protection"},
+ {"id":"inadequate_ventilation","display_name":"Inadequate Ventilation","description":"Elevated inhalation exposure.","probability":5,"severity":5,"base_exposure":5,"criticality":"critical","associated_ppe":["respirator"],"associated_competence_id":"respiratory_protection"}
+]

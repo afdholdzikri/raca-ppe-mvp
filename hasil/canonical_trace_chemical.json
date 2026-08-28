@@ -1,0 +1,254 @@
+{
+  "trace_id": "36bc2982-c3f4-4edf-b0b5-960c99698e4c",
+  "session_id": "b5ee063b-4d60-4bd9-8f0e-4fd0ca52dbcf",
+  "trainee_id": "Anonymous Reviewer",
+  "timestamp_utc": "2026-08-28T08:03:52.136535+00:00",
+  "episode": 1,
+  "domain": "chemical_laboratory",
+  "scenario_id": "CL1",
+  "zone": "Wet Chemistry Laboratory",
+  "task": "Transferring corrosive liquid",
+  "narrative": "Transfer a corrosive reagent between vessels.",
+  "difficulty": 2,
+  "current_difficulty": 2,
+  "active_hazards": [
+    "corrosive_liquid",
+    "chemical_splash"
+  ],
+  "risk_hat": {
+    "eye_protection": 0.8667,
+    "face_protection": 0.512,
+    "hand_protection": 0.8667,
+    "body_protection": 0.8667,
+    "respiratory_protection": 0.8667,
+    "foot_protection": 0.512,
+    "hazard_identification": 0.8667
+  },
+  "scenario_risk": 0.512,
+  "risk_category": "High",
+  "hazard_risk_values": {
+    "corrosive_liquid": 0.512,
+    "chemical_splash": 0.4096
+  },
+  "mean_risk": 0.4608,
+  "competence": "respiratory_protection",
+  "selected_ppe": [
+    "chemical_gloves",
+    "face_shield",
+    "laboratory_coat",
+    "laboratory_goggles"
+  ],
+  "required_ppe": [
+    "laboratory_goggles",
+    "face_shield",
+    "chemical_gloves",
+    "laboratory_coat",
+    "closed_safety_footwear"
+  ],
+  "missing_ppe": [
+    "closed_safety_footwear"
+  ],
+  "unnecessary_ppe": [],
+  "correct": false,
+  "observable_response_features": {
+    "action_accuracy": {
+      "eye_protection": true,
+      "face_protection": true,
+      "hand_protection": true,
+      "body_protection": true,
+      "foot_protection": false
+    },
+    "response_quality": 1.0,
+    "independence": 0.5,
+    "response_time_seconds": 23.832,
+    "hint_used": true
+  },
+  "time_limit_seconds": 50,
+  "response_time_seconds": 23.832,
+  "response_score": 1.0,
+  "hint_used": true,
+  "independence_score": 0.5,
+  "observation_scores": {
+    "eye_protection": 0.9,
+    "face_protection": 0.9,
+    "hand_protection": 0.9,
+    "body_protection": 0.9,
+    "foot_protection": 0.30000000000000004
+  },
+  "affected_competencies": [
+    "eye_protection",
+    "face_protection",
+    "hand_protection",
+    "body_protection",
+    "foot_protection"
+  ],
+  "competence_before": {
+    "eye_protection": 0.4,
+    "face_protection": 0.4,
+    "hand_protection": 0.4,
+    "body_protection": 0.4,
+    "foot_protection": 0.4
+  },
+  "competence_after": {
+    "eye_protection": 0.5000000000000001,
+    "face_protection": 0.5000000000000001,
+    "hand_protection": 0.5000000000000001,
+    "body_protection": 0.5000000000000001,
+    "foot_protection": 0.38000000000000006
+  },
+  "learner_estimate_before": {
+    "eye_protection": 0.4,
+    "face_protection": 0.4,
+    "hand_protection": 0.4,
+    "body_protection": 0.4,
+    "respiratory_protection": 0.4,
+    "foot_protection": 0.4,
+    "hazard_identification": 0.4
+  },
+  "learner_estimate_after": {
+    "eye_protection": 0.5000000000000001,
+    "face_protection": 0.5000000000000001,
+    "hand_protection": 0.5000000000000001,
+    "body_protection": 0.5000000000000001,
+    "respiratory_protection": 0.4,
+    "foot_protection": 0.38000000000000006,
+    "hazard_identification": 0.4
+  },
+  "repeated_errors": {
+    "eye_protection": 0,
+    "face_protection": 0,
+    "hand_protection": 0,
+    "body_protection": 0,
+    "respiratory_protection": 0,
+    "foot_protection": 1,
+    "hazard_identification": 0
+  },
+  "competence_gap": {
+    "eye_protection": 0.29999999999999993,
+    "face_protection": 0.29999999999999993,
+    "hand_protection": 0.29999999999999993,
+    "body_protection": 0.29999999999999993,
+    "respiratory_protection": 0.4,
+    "foot_protection": 0.42,
+    "hazard_identification": 0.4
+  },
+  "competence_gaps": {
+    "eye_protection": 0.29999999999999993,
+    "face_protection": 0.29999999999999993,
+    "hand_protection": 0.29999999999999993,
+    "body_protection": 0.29999999999999993,
+    "respiratory_protection": 0.4,
+    "foot_protection": 0.42,
+    "hazard_identification": 0.4
+  },
+  "repetition_factor": {
+    "eye_protection": 1.0,
+    "face_protection": 1.0,
+    "hand_protection": 1.0,
+    "body_protection": 1.0,
+    "respiratory_protection": 1.0,
+    "foot_protection": 1.1666666666666667,
+    "hazard_identification": 1.0
+  },
+  "urgency": {
+    "eye_protection": 1.0,
+    "face_protection": 0.9,
+    "hand_protection": 1.0,
+    "body_protection": 0.8,
+    "respiratory_protection": 1.0,
+    "foot_protection": 0.7,
+    "hazard_identification": 0.9
+  },
+  "priority_q": {
+    "eye_protection": 0.26,
+    "face_protection": 0.1382,
+    "hand_protection": 0.26,
+    "body_protection": 0.208,
+    "respiratory_protection": 0.3467,
+    "foot_protection": 0.1756,
+    "hazard_identification": 0.312
+  },
+  "priority_by_competence": {
+    "eye_protection": 0.26,
+    "face_protection": 0.1382,
+    "hand_protection": 0.26,
+    "body_protection": 0.208,
+    "respiratory_protection": 0.3467,
+    "foot_protection": 0.1756,
+    "hazard_identification": 0.312
+  },
+  "highest_priority_competence": "respiratory_protection",
+  "highest_priority_value": 0.3467,
+  "priority_ranking": [
+    [
+      "respiratory_protection",
+      0.3467
+    ],
+    [
+      "hazard_identification",
+      0.312
+    ],
+    [
+      "eye_protection",
+      0.26
+    ],
+    [
+      "hand_protection",
+      0.26
+    ],
+    [
+      "body_protection",
+      0.208
+    ],
+    [
+      "foot_protection",
+      0.1756
+    ],
+    [
+      "face_protection",
+      0.1382
+    ]
+  ],
+  "eligible_rules": [
+    "default_reinforcement"
+  ],
+  "active_rules": [
+    "default_reinforcement"
+  ],
+  "selected_rule": "default_reinforcement",
+  "adaptation": "reinforcement_adaptation",
+  "requested_action": {
+    "next_scenario": "CL2",
+    "next_difficulty": 2,
+    "assistance": "limited_visual_guidance",
+    "feedback": "direct_explanation",
+    "repeat_required": false,
+    "adaptation": "reinforcement_adaptation"
+  },
+  "applied_action": {
+    "next_scenario": "CL2",
+    "next_difficulty": 2,
+    "assistance": "limited_visual_guidance",
+    "feedback": "direct_explanation",
+    "repeat_required": false,
+    "adaptation": "reinforcement_adaptation"
+  },
+  "next_difficulty": 2,
+  "next_assistance": "limited_visual_guidance",
+  "assistance": "limited_visual_guidance",
+  "distractor_level": "low",
+  "next_distractor_level": "low",
+  "feedback": "direct_explanation",
+  "repeat_required": false,
+  "next_scenario": "CL2",
+  "current_scenario": "CL1",
+  "bounded_rotation_flag": false,
+  "engine_version": "canonical_v15",
+  "parameter_version": "canonical-v15:591ff4f1fa1b850e",
+  "ruleset_version": "canonical-R1-R5-corrected",
+  "knowledge_base_version": "chemical_laboratory:38f05b8e3148f889",
+  "simulation_only_state_exposed": false,
+  "adaptation_latency_ms": 0.0994,
+  "explanation": "Canonical priority selected respiratory protection (Q=0.3467). Rule default_reinforcement applied reinforcement_adaptation and returned CL2 at difficulty 2 with limited_visual_guidance.",
+  "persisted_to_file": true
+}

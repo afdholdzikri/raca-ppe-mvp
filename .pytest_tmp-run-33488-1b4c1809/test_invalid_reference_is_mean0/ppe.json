@@ -1,0 +1,8 @@
+[
+  {"id":"helmet","display_name":"Safety Helmet","description":"Protects the head from impact and falling objects.","associated_competence_id":"helmet_selection"},
+  {"id":"goggles","display_name":"Safety Goggles","description":"Protects eyes from fragments, radiation, dust, and splashes.","associated_competence_id":"eye_protection_selection"},
+  {"id":"respirator","display_name":"Respirator","description":"Reduces inhalation exposure to dust and chemical vapour.","associated_competence_id":"respiratory_protection_selection"},
+  {"id":"gloves","display_name":"Safety Gloves","description":"Protects hands from sharp surfaces, heat, and chemicals.","associated_competence_id":"hand_protection_selection"},
+  {"id":"vest","display_name":"Safety Vest","description":"Improves worker visibility near vehicle traffic.","associated_competence_id":"visibility_protection_selection"},
+  {"id":"shoes","display_name":"Safety Shoes","description":"Protects feet and supports safe movement in industrial zones.","associated_competence_id":"foot_protection_selection"}
+]

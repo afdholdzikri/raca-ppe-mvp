@@ -1,0 +1,5 @@
+[
+ {"id":"CL_RULE_SPLASH","scenario_ids":["CL1","CL4"],"required_ppe":["laboratory_goggles","face_shield","chemical_gloves","laboratory_coat"]},
+ {"id":"CL_RULE_VAPOUR","scenario_ids":["CL2","CL5"],"required_ppe":["respirator","laboratory_goggles"]},
+ {"id":"CL_RULE_GLASS","scenario_ids":["CL3"],"required_ppe":["chemical_gloves","closed_safety_footwear"]}
+]

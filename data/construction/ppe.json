@@ -1,0 +1,10 @@
+[
+ {"id":"safety_helmet","display_name":"Safety Helmet","description":"Head protection.","associated_competence_id":"head_protection"},
+ {"id":"high_visibility_vest","display_name":"High-Visibility Vest","description":"Visibility protection.","associated_competence_id":"visibility_protection"},
+ {"id":"safety_footwear","display_name":"Safety Footwear","description":"Foot protection.","associated_competence_id":"foot_protection"},
+ {"id":"safety_goggles","display_name":"Safety Goggles","description":"Eye protection.","associated_competence_id":"eye_protection"},
+ {"id":"work_gloves","display_name":"Work Gloves","description":"Hand protection.","associated_competence_id":"hand_protection"},
+ {"id":"hearing_protection","display_name":"Hearing Protection","description":"Noise protection.","associated_competence_id":"hearing_protection_selection"},
+ {"id":"fall_arrest_system","display_name":"Fall-Arrest System","description":"Fall protection.","associated_competence_id":"fall_protection"},
+ {"id":"dust_respirator","display_name":"Dust Respirator","description":"Dust inhalation protection.","associated_competence_id":"respiratory_protection"}
+]

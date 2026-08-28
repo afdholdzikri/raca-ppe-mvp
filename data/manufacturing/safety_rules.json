@@ -1,0 +1,5 @@
+[
+  {"id":"M_RULE_1","scenario_ids":["S1","S6"],"required_ppe":["helmet","vest","shoes"]},
+  {"id":"M_RULE_2","scenario_ids":["S2","S3","S4"],"required_ppe":["goggles","gloves","respirator"]},
+  {"id":"M_RULE_3","scenario_ids":["S5"],"required_ppe":["goggles","gloves","respirator"]}
+]

@@ -1,0 +1,11 @@
+[
+ {"id":"head_protection","display_name":"Head Protection","description":"Select a helmet.","target_mastery":0.8,"urgency":0.9,"high_risk_related":true,"initial_mastery":0.4},
+ {"id":"visibility_protection","display_name":"Visibility Protection","description":"Select visibility PPE.","target_mastery":0.8,"urgency":0.8,"high_risk_related":true,"initial_mastery":0.4},
+ {"id":"foot_protection","display_name":"Foot Protection","description":"Select safety footwear.","target_mastery":0.8,"urgency":0.8,"high_risk_related":false,"initial_mastery":0.4},
+ {"id":"eye_protection","display_name":"Eye Protection","description":"Select goggles.","target_mastery":0.8,"urgency":0.9,"high_risk_related":true,"initial_mastery":0.4},
+ {"id":"hand_protection","display_name":"Hand Protection","description":"Select gloves.","target_mastery":0.8,"urgency":0.8,"high_risk_related":true,"initial_mastery":0.4},
+ {"id":"hearing_protection_selection","display_name":"Hearing Protection","description":"Select hearing PPE.","target_mastery":0.8,"urgency":0.9,"high_risk_related":true,"initial_mastery":0.4},
+ {"id":"fall_protection","display_name":"Fall Protection","description":"Select fall arrest.","target_mastery":0.8,"urgency":1.0,"high_risk_related":true,"initial_mastery":0.4},
+ {"id":"respiratory_protection","display_name":"Respiratory Protection","description":"Select dust respiratory PPE.","target_mastery":0.8,"urgency":0.9,"high_risk_related":true,"initial_mastery":0.4},
+ {"id":"hazard_identification","display_name":"Hazard Identification","description":"Recognize site hazards.","target_mastery":0.8,"urgency":0.8,"high_risk_related":true,"initial_mastery":0.4}
+]

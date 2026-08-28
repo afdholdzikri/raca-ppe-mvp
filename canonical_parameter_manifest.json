@@ -1,0 +1,14 @@
+{
+  "protocol": "canonical_v15",
+  "assistance_encoding": {"none": 0.0, "minimal": 0.25, "limited_visual_guidance": 0.5, "full_visual_guidance": 1.0},
+  "difficulty_encoding": {"1": 0.0, "2": 0.5, "3": 1.0},
+  "episode_limit": 30,
+  "repetitions": 30,
+  "posttest_repetitions": 3,
+  "learner_parameters": {"eta": 0.2, "target_mastery": 0.8, "w_action": 0.6, "w_response": 0.2, "w_independence": 0.2, "response_assistance_coefficient": 0.08, "assistance_independence_coefficient": 0.44},
+  "latent_parameters": {"rho": 0.18, "kappa": 0.12, "practice_rate": 0.12, "sigma_g": 0.35, "latent_decay": 0.002},
+  "priority": {"competence_gap": "max(0, target_mastery-l)", "error_factor": "1 + 0.50 * min(1, repeated_errors/3)", "error_factor_cap": 1.5, "risk": "R_hat excludes urgency", "urgency_application_count": 1},
+  "rwcs_weight": "W_j = R_hat_j * U_j",
+  "thresholds": {"critical_posttest_risk": 0.75, "repetition_weight": 0.5, "target_mastery": 0.8, "risk_categories": {"low_lt": 0.25, "medium_lt": 0.5, "high_lt": 0.75, "critical_gte": 0.75}},
+  "risk_parameters": {"normalization_maximum": 187.5, "probability_scale": [1,5], "severity_scale": [1,5], "exposure_scale": [1,5], "context_modifier_positive": true}
+}

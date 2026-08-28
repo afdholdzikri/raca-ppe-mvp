@@ -1,0 +1,6 @@
+[
+ {"id":"C_RULE_SITE","scenario_ids":["C1","C3"],"required_ppe":["safety_helmet","high_visibility_vest","safety_footwear"]},
+ {"id":"C_RULE_CUT","scenario_ids":["C2","C4"],"required_ppe":["safety_goggles","work_gloves"]},
+ {"id":"C_RULE_HEIGHT","scenario_ids":["C5"],"required_ppe":["fall_arrest_system","safety_helmet"]},
+ {"id":"C_RULE_NOISE","scenario_ids":["C6"],"required_ppe":["hearing_protection"]}
+]

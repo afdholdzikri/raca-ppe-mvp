@@ -1,0 +1,8 @@
+[
+  {"id":"helmet","display_name":"Safety Helmet","description":"Head impact protection.","associated_competence_id":"helmet_selection"},
+  {"id":"goggles","display_name":"Safety Goggles","description":"Eye protection.","associated_competence_id":"eye_protection_selection"},
+  {"id":"respirator","display_name":"Respirator","description":"Respiratory protection.","associated_competence_id":"respiratory_protection_selection"},
+  {"id":"gloves","display_name":"Safety Gloves","description":"Hand protection.","associated_competence_id":"hand_protection_selection"},
+  {"id":"vest","display_name":"Safety Vest","description":"Visibility protection.","associated_competence_id":"visibility_protection_selection"},
+  {"id":"shoes","display_name":"Safety Shoes","description":"Foot protection.","associated_competence_id":"foot_protection_selection"}
+]

@@ -1,0 +1,10 @@
+{
+  "CCG_star": {"formula": "(1/|Ccrit|) sum[j in Ccrit] (theta_star[j,T]-theta_star[j,0])", "scope": "7 competencies with high_risk_related=true", "higher_is_better": true},
+  "RWCS_star": {"formula": "sum[j] W[j]*theta_star[j,T] / sum[j] W[j]", "weight": "W[j]=R_hat[j]*U[j], with urgency applied exactly once", "risk_definition": "R_hat[j]=maximum contextual risk mapped to competence j, excluding urgency", "scope": "all 10 competencies", "higher_is_better": true},
+  "TAR": {"formula": "(1/10) sum[j] 1(theta_star[j,T] >= 0.80)", "scope": "all 10 competencies", "higher_is_better": true},
+  "target_reached": {"formula": "all theta_star[j,t] >= 0.80 for j with high_risk_related=true", "scope": "7 critical competencies"},
+  "episodes_to_target": {"formula": "first target_reached episode; otherwise episode limit", "censored": "true when never reached"},
+  "CER": {"formula": "incorrect fixed-post-test critical items / fixed-post-test critical items", "critical_threshold": 0.75, "manufacturing_critical_scenarios": ["S5"], "lower_is_better": true},
+  "CMR": {"formula": "total missing required PPE selections / total required-PPE opportunities across all fixed-post-test items", "lower_is_better": true},
+  "SOR": {"formula": "A-B-A oscillations / (episode_count-2)", "lower_is_better": true}
+}

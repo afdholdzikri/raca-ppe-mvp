@@ -1,0 +1,8 @@
+[
+ {"id":"laboratory_goggles","display_name":"Laboratory Goggles","description":"Sealed eye protection.","associated_competence_id":"eye_protection"},
+ {"id":"face_shield","display_name":"Face Shield","description":"Face splash protection.","associated_competence_id":"face_protection"},
+ {"id":"chemical_gloves","display_name":"Chemical Gloves","description":"Chemical hand protection.","associated_competence_id":"hand_protection"},
+ {"id":"laboratory_coat","display_name":"Laboratory Coat","description":"Body protection.","associated_competence_id":"body_protection"},
+ {"id":"respirator","display_name":"Respirator","description":"Vapour inhalation protection.","associated_competence_id":"respiratory_protection"},
+ {"id":"closed_safety_footwear","display_name":"Closed Safety Footwear","description":"Foot protection.","associated_competence_id":"foot_protection"}
+]

@@ -1,0 +1,274 @@
+{
+  "trace_id": "807a78c6-c462-4354-89f8-67881ef9a70b",
+  "session_id": "b5ee063b-4d60-4bd9-8f0e-4fd0ca52dbcf",
+  "trainee_id": "Anonymous Reviewer",
+  "timestamp_utc": "2026-08-28T08:04:46.472371+00:00",
+  "episode": 1,
+  "domain": "construction",
+  "scenario_id": "C1",
+  "zone": "Construction Site",
+  "task": "Ground-level site inspection",
+  "narrative": "Inspect an active site.",
+  "difficulty": 1,
+  "current_difficulty": 1,
+  "active_hazards": [
+    "falling_object",
+    "sharp_material"
+  ],
+  "risk_hat": {
+    "head_protection": 0.6933,
+    "visibility_protection": 0.64,
+    "foot_protection": 0.6933,
+    "eye_protection": 0.512,
+    "hand_protection": 0.6933,
+    "hearing_protection_selection": 0.64,
+    "fall_protection": 0.6933,
+    "respiratory_protection": 0.512,
+    "hazard_identification": 0.6933
+  },
+  "scenario_risk": 0.4267,
+  "risk_category": "Medium",
+  "hazard_risk_values": {
+    "falling_object": 0.4267,
+    "sharp_material": 0.256
+  },
+  "mean_risk": 0.3414,
+  "competence": "fall_protection",
+  "selected_ppe": [
+    "high_visibility_vest",
+    "safety_footwear",
+    "safety_helmet",
+    "work_gloves"
+  ],
+  "required_ppe": [
+    "safety_helmet",
+    "high_visibility_vest",
+    "safety_footwear",
+    "work_gloves"
+  ],
+  "missing_ppe": [],
+  "unnecessary_ppe": [],
+  "correct": true,
+  "observable_response_features": {
+    "action_accuracy": {
+      "head_protection": true,
+      "visibility_protection": true,
+      "foot_protection": true,
+      "hand_protection": true
+    },
+    "response_quality": 1.0,
+    "independence": 0.5,
+    "response_time_seconds": 24.832,
+    "hint_used": true
+  },
+  "time_limit_seconds": 75,
+  "response_time_seconds": 24.832,
+  "response_score": 1.0,
+  "hint_used": true,
+  "independence_score": 0.5,
+  "observation_scores": {
+    "head_protection": 0.9,
+    "visibility_protection": 0.9,
+    "foot_protection": 0.9,
+    "hand_protection": 0.9
+  },
+  "affected_competencies": [
+    "head_protection",
+    "visibility_protection",
+    "foot_protection",
+    "hand_protection"
+  ],
+  "competence_before": {
+    "head_protection": 0.4,
+    "visibility_protection": 0.4,
+    "foot_protection": 0.4,
+    "hand_protection": 0.4
+  },
+  "competence_after": {
+    "head_protection": 0.5000000000000001,
+    "visibility_protection": 0.5000000000000001,
+    "foot_protection": 0.5000000000000001,
+    "hand_protection": 0.5000000000000001
+  },
+  "learner_estimate_before": {
+    "head_protection": 0.4,
+    "visibility_protection": 0.4,
+    "foot_protection": 0.4,
+    "eye_protection": 0.4,
+    "hand_protection": 0.4,
+    "hearing_protection_selection": 0.4,
+    "fall_protection": 0.4,
+    "respiratory_protection": 0.4,
+    "hazard_identification": 0.4
+  },
+  "learner_estimate_after": {
+    "head_protection": 0.5000000000000001,
+    "visibility_protection": 0.5000000000000001,
+    "foot_protection": 0.5000000000000001,
+    "eye_protection": 0.4,
+    "hand_protection": 0.5000000000000001,
+    "hearing_protection_selection": 0.4,
+    "fall_protection": 0.4,
+    "respiratory_protection": 0.4,
+    "hazard_identification": 0.4
+  },
+  "repeated_errors": {
+    "head_protection": 0,
+    "visibility_protection": 0,
+    "foot_protection": 0,
+    "eye_protection": 0,
+    "hand_protection": 0,
+    "hearing_protection_selection": 0,
+    "fall_protection": 0,
+    "respiratory_protection": 0,
+    "hazard_identification": 0
+  },
+  "competence_gap": {
+    "head_protection": 0.29999999999999993,
+    "visibility_protection": 0.29999999999999993,
+    "foot_protection": 0.29999999999999993,
+    "eye_protection": 0.4,
+    "hand_protection": 0.29999999999999993,
+    "hearing_protection_selection": 0.4,
+    "fall_protection": 0.4,
+    "respiratory_protection": 0.4,
+    "hazard_identification": 0.4
+  },
+  "competence_gaps": {
+    "head_protection": 0.29999999999999993,
+    "visibility_protection": 0.29999999999999993,
+    "foot_protection": 0.29999999999999993,
+    "eye_protection": 0.4,
+    "hand_protection": 0.29999999999999993,
+    "hearing_protection_selection": 0.4,
+    "fall_protection": 0.4,
+    "respiratory_protection": 0.4,
+    "hazard_identification": 0.4
+  },
+  "repetition_factor": {
+    "head_protection": 1.0,
+    "visibility_protection": 1.0,
+    "foot_protection": 1.0,
+    "eye_protection": 1.0,
+    "hand_protection": 1.0,
+    "hearing_protection_selection": 1.0,
+    "fall_protection": 1.0,
+    "respiratory_protection": 1.0,
+    "hazard_identification": 1.0
+  },
+  "urgency": {
+    "head_protection": 0.9,
+    "visibility_protection": 0.8,
+    "foot_protection": 0.8,
+    "eye_protection": 0.9,
+    "hand_protection": 0.8,
+    "hearing_protection_selection": 0.9,
+    "fall_protection": 1.0,
+    "respiratory_protection": 0.9,
+    "hazard_identification": 0.8
+  },
+  "priority_q": {
+    "head_protection": 0.1872,
+    "visibility_protection": 0.1536,
+    "foot_protection": 0.1664,
+    "eye_protection": 0.1843,
+    "hand_protection": 0.1664,
+    "hearing_protection_selection": 0.2304,
+    "fall_protection": 0.2773,
+    "respiratory_protection": 0.1843,
+    "hazard_identification": 0.2219
+  },
+  "priority_by_competence": {
+    "head_protection": 0.1872,
+    "visibility_protection": 0.1536,
+    "foot_protection": 0.1664,
+    "eye_protection": 0.1843,
+    "hand_protection": 0.1664,
+    "hearing_protection_selection": 0.2304,
+    "fall_protection": 0.2773,
+    "respiratory_protection": 0.1843,
+    "hazard_identification": 0.2219
+  },
+  "highest_priority_competence": "fall_protection",
+  "highest_priority_value": 0.2773,
+  "priority_ranking": [
+    [
+      "fall_protection",
+      0.2773
+    ],
+    [
+      "hearing_protection_selection",
+      0.2304
+    ],
+    [
+      "hazard_identification",
+      0.2219
+    ],
+    [
+      "head_protection",
+      0.1872
+    ],
+    [
+      "eye_protection",
+      0.1843
+    ],
+    [
+      "respiratory_protection",
+      0.1843
+    ],
+    [
+      "foot_protection",
+      0.1664
+    ],
+    [
+      "hand_protection",
+      0.1664
+    ],
+    [
+      "visibility_protection",
+      0.1536
+    ]
+  ],
+  "eligible_rules": [
+    "default_reinforcement"
+  ],
+  "active_rules": [
+    "default_reinforcement"
+  ],
+  "selected_rule": "default_reinforcement",
+  "adaptation": "reinforcement_adaptation",
+  "requested_action": {
+    "next_scenario": "C5",
+    "next_difficulty": 1,
+    "assistance": "limited_visual_guidance",
+    "feedback": "direct_explanation",
+    "repeat_required": false,
+    "adaptation": "reinforcement_adaptation"
+  },
+  "applied_action": {
+    "next_scenario": "C5",
+    "next_difficulty": 1,
+    "assistance": "limited_visual_guidance",
+    "feedback": "direct_explanation",
+    "repeat_required": false,
+    "adaptation": "reinforcement_adaptation"
+  },
+  "next_difficulty": 1,
+  "next_assistance": "limited_visual_guidance",
+  "assistance": "limited_visual_guidance",
+  "distractor_level": "low",
+  "next_distractor_level": "low",
+  "feedback": "direct_explanation",
+  "repeat_required": false,
+  "next_scenario": "C5",
+  "current_scenario": "C1",
+  "bounded_rotation_flag": false,
+  "engine_version": "canonical_v15",
+  "parameter_version": "canonical-v15:591ff4f1fa1b850e",
+  "ruleset_version": "canonical-R1-R5-corrected",
+  "knowledge_base_version": "construction:e6e58a0faf2e6c12",
+  "simulation_only_state_exposed": false,
+  "adaptation_latency_ms": 0.4145,
+  "explanation": "Canonical priority selected fall protection (Q=0.2773). Rule default_reinforcement applied reinforcement_adaptation and returned C5 at difficulty 1 with limited_visual_guidance.",
+  "persisted_to_file": true
+}

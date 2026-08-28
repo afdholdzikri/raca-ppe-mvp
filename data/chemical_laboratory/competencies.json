@@ -1,0 +1,9 @@
+[
+ {"id":"eye_protection","display_name":"Eye Protection","description":"Select laboratory eye PPE.","target_mastery":0.8,"urgency":1.0,"high_risk_related":true,"initial_mastery":0.4},
+ {"id":"face_protection","display_name":"Face Protection","description":"Select face PPE.","target_mastery":0.8,"urgency":0.9,"high_risk_related":true,"initial_mastery":0.4},
+ {"id":"hand_protection","display_name":"Hand Protection","description":"Select chemical gloves.","target_mastery":0.8,"urgency":1.0,"high_risk_related":true,"initial_mastery":0.4},
+ {"id":"body_protection","display_name":"Body Protection","description":"Select laboratory coat.","target_mastery":0.8,"urgency":0.8,"high_risk_related":true,"initial_mastery":0.4},
+ {"id":"respiratory_protection","display_name":"Respiratory Protection","description":"Select respiratory PPE.","target_mastery":0.8,"urgency":1.0,"high_risk_related":true,"initial_mastery":0.4},
+ {"id":"foot_protection","display_name":"Foot Protection","description":"Select closed footwear.","target_mastery":0.8,"urgency":0.7,"high_risk_related":false,"initial_mastery":0.4},
+ {"id":"hazard_identification","display_name":"Hazard Identification","description":"Recognize laboratory hazards.","target_mastery":0.8,"urgency":0.9,"high_risk_related":true,"initial_mastery":0.4}
+]

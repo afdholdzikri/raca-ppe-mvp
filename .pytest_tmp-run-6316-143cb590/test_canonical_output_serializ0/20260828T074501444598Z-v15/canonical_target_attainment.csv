@@ -1,0 +1,7 @@
+method,profile,repetition,repetition_seed,target_reached,episodes_to_target,censored,TAR
+static,T1,0,2532612968,False,1,True,0.0
+random,T1,0,2532612968,False,1,True,0.0
+score_adaptive,T1,0,2532612968,False,1,True,0.0
+competence_adaptive,T1,0,2532612968,False,1,True,0.0
+proposed,T1,0,2532612968,False,1,True,0.0
+oracle,T1,0,2532612968,False,1,True,0.0

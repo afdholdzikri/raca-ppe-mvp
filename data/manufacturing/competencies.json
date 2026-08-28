@@ -1,0 +1,12 @@
+[
+  {"id":"helmet_selection","display_name":"Helmet Selection","description":"Select head protection.","target_mastery":0.8,"urgency":0.8,"high_risk_related":true,"initial_mastery":0.4},
+  {"id":"eye_protection_selection","display_name":"Eye Protection","description":"Select eye protection.","target_mastery":0.8,"urgency":0.9,"high_risk_related":true,"initial_mastery":0.4},
+  {"id":"respiratory_protection_selection","display_name":"Respiratory Protection","description":"Select respiratory protection.","target_mastery":0.8,"urgency":1.0,"high_risk_related":true,"initial_mastery":0.4},
+  {"id":"hand_protection_selection","display_name":"Hand Protection","description":"Select hand protection.","target_mastery":0.8,"urgency":0.9,"high_risk_related":true,"initial_mastery":0.4},
+  {"id":"visibility_protection_selection","display_name":"Visibility Protection","description":"Select visibility protection.","target_mastery":0.8,"urgency":0.7,"high_risk_related":false,"initial_mastery":0.4},
+  {"id":"foot_protection_selection","display_name":"Foot Protection","description":"Select foot protection.","target_mastery":0.8,"urgency":0.7,"high_risk_related":false,"initial_mastery":0.4},
+  {"id":"multi_ppe_selection","display_name":"Multi-PPE Selection","description":"Combine PPE.","target_mastery":0.8,"urgency":0.8,"high_risk_related":true,"initial_mastery":0.4},
+  {"id":"hazard_identification","display_name":"Hazard Identification","description":"Recognize hazards.","target_mastery":0.8,"urgency":0.8,"high_risk_related":true,"initial_mastery":0.4},
+  {"id":"zone_compliance","display_name":"Zone Compliance","description":"Follow zone rules.","target_mastery":0.8,"urgency":0.7,"high_risk_related":false,"initial_mastery":0.4},
+  {"id":"chemical_ppe_selection","display_name":"Chemical PPE","description":"Select chemical PPE.","target_mastery":0.8,"urgency":1.0,"high_risk_related":true,"initial_mastery":0.4}
+]

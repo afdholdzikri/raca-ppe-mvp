@@ -1,0 +1,9 @@
+[
+ {"id":"falling_object","display_name":"Falling Object","description":"Overhead impact.","probability":4,"severity":5,"base_exposure":4,"criticality":"critical","associated_ppe":["safety_helmet","safety_footwear"],"associated_competence_id":"head_protection"},
+ {"id":"moving_equipment","display_name":"Moving Equipment","description":"Vehicle strike.","probability":4,"severity":5,"base_exposure":4,"criticality":"critical","associated_ppe":["high_visibility_vest","safety_footwear","safety_helmet"],"associated_competence_id":"visibility_protection"},
+ {"id":"airborne_dust","display_name":"Airborne Dust","description":"Dust inhalation.","probability":4,"severity":4,"base_exposure":5,"criticality":"high","associated_ppe":["dust_respirator","safety_goggles"],"associated_competence_id":"respiratory_protection"},
+ {"id":"flying_debris","display_name":"Flying Debris","description":"Eye injury.","probability":4,"severity":4,"base_exposure":4,"criticality":"high","associated_ppe":["safety_goggles","safety_helmet"],"associated_competence_id":"eye_protection"},
+ {"id":"excessive_noise","display_name":"Excessive Noise","description":"Hearing damage.","probability":5,"severity":4,"base_exposure":5,"criticality":"critical","associated_ppe":["hearing_protection"],"associated_competence_id":"hearing_protection_selection"},
+ {"id":"work_at_height","display_name":"Work at Height","description":"Fall hazard.","probability":4,"severity":5,"base_exposure":5,"criticality":"critical","associated_ppe":["fall_arrest_system","safety_helmet","safety_footwear"],"associated_competence_id":"fall_protection"},
+ {"id":"sharp_material","display_name":"Sharp Material","description":"Cut hazard.","probability":3,"severity":4,"base_exposure":4,"criticality":"high","associated_ppe":["work_gloves","safety_footwear"],"associated_competence_id":"hand_protection"}
+]

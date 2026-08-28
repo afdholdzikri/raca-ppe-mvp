@@ -1,0 +1,12 @@
+[
+  {"id":"helmet_selection","display_name":"Helmet Selection","description":"Select head protection appropriately.","target_mastery":0.8,"urgency":0.8,"high_risk_related":true,"initial_mastery":0.4},
+  {"id":"eye_protection_selection","display_name":"Eye Protection Selection","description":"Select eye protection appropriately.","target_mastery":0.8,"urgency":0.9,"high_risk_related":true,"initial_mastery":0.4},
+  {"id":"respiratory_protection_selection","display_name":"Respiratory Protection Selection","description":"Select respiratory protection appropriately.","target_mastery":0.8,"urgency":1.0,"high_risk_related":true,"initial_mastery":0.4},
+  {"id":"hand_protection_selection","display_name":"Hand Protection Selection","description":"Select hand protection appropriately.","target_mastery":0.8,"urgency":0.9,"high_risk_related":true,"initial_mastery":0.4},
+  {"id":"visibility_protection_selection","display_name":"Visibility Protection Selection","description":"Select high-visibility protection.","target_mastery":0.8,"urgency":0.7,"high_risk_related":false,"initial_mastery":0.4},
+  {"id":"foot_protection_selection","display_name":"Foot Protection Selection","description":"Select foot protection appropriately.","target_mastery":0.8,"urgency":0.7,"high_risk_related":false,"initial_mastery":0.4},
+  {"id":"multi_ppe_selection","display_name":"Multi-PPE Selection","description":"Combine PPE for multiple hazards.","target_mastery":0.8,"urgency":0.8,"high_risk_related":true,"initial_mastery":0.4},
+  {"id":"hazard_identification","display_name":"Hazard Identification","description":"Recognize active workplace hazards.","target_mastery":0.8,"urgency":0.8,"high_risk_related":true,"initial_mastery":0.4},
+  {"id":"zone_compliance","display_name":"Zone Compliance","description":"Comply with zone PPE requirements.","target_mastery":0.8,"urgency":0.7,"high_risk_related":false,"initial_mastery":0.4},
+  {"id":"chemical_ppe_selection","display_name":"Chemical PPE Selection","description":"Combine PPE for chemical exposure.","target_mastery":0.8,"urgency":1.0,"high_risk_related":true,"initial_mastery":0.4}
+]

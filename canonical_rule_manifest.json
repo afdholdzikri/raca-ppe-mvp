@@ -1,0 +1,20 @@
+{
+  "precedence": ["R1", "R2", "R3", "R4", "R5"],
+  "source": "core/adaptation_engine.py:74-116 choose_adaptation_v2",
+  "rules": {
+    "R1": {"condition": "risk >= 0.75 and mastery < 0.60", "unsafe_decision_required": false, "difficulty_delta": -1, "assistance": "full_visual_guidance", "feedback": "immediate_corrective", "repeat_required": true, "scenario_behavior": "repeat current scenario, subject to bounded rotation after repeated consecutive use"},
+    "R2": {"condition": "risk >= 0.50 and repeated_errors >= 2", "difficulty_delta": -1, "assistance": "limited_visual_guidance", "feedback": "immediate_explanation", "repeat_required": true, "scenario_behavior": "repeat current scenario, subject to bounded rotation after repeated consecutive use"},
+    "R3": {"condition": "mastery >= 0.80 and risk >= 0.50 and recent_correct", "difficulty_delta": 1, "assistance": "none", "feedback": "delayed_reflective", "repeat_required": false, "scenario_behavior": "least-used scenario practicing the highest-priority competence"},
+    "R4": {"condition": "mastery >= 0.65 and recent_correct", "difficulty_delta": 1, "assistance": "minimal", "feedback": "summary", "repeat_required": false, "scenario_behavior": "least-used scenario practicing the highest-priority competence"},
+    "R5": {"condition": "otherwise", "difficulty_delta": 0, "assistance": "limited_visual_guidance", "feedback": "direct_explanation", "repeat_required": false, "scenario_behavior": "least-used scenario practicing the highest-priority competence"}
+  },
+  "difficulty_clamp": [1, 3],
+  "priority": {
+    "competence_gap": "max(0, target_mastery - engine_estimate)",
+    "error_factor": "1 + 0.50 * min(1, repeated_errors / 3)",
+    "maximum_error_factor": 1.5,
+    "formula": "R_hat * competence_gap * error_factor * urgency",
+    "urgency_application_count": 1
+  },
+  "bounded_rotation": "experiments/proposed_method.py:15-24 prevents a third consecutive presentation by rotating once the current scenario appears twice consecutively"
+}
