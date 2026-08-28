@@ -1,1 +1,0 @@
-# Experiment 20260828T073912885385Z-a0d3f086c6\n\nComputational proof-of-work using synthetic participants.\n\nRuns: 1\nEpisodes: 1\n
