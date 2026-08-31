@@ -1,0 +1,16 @@
+domain,rule,activations,cycle_percentage,execution_validity,repeat_request_rate,bounded_rotation_count,assistance_distribution,difficulty_distribution,exercised
+chemical_laboratory,R1,7,0.35,1,0.571429,3,"{""full_visual_guidance"": 3, ""limited_visual_guidance"": 4}","{""1"": 4, ""2"": 3}",True
+chemical_laboratory,R2,2,0.1,1,0.5,1,"{""limited_visual_guidance"": 2}","{""1"": 1, ""2"": 1}",True
+chemical_laboratory,R3,0,0.0,,,0,{},{},False
+chemical_laboratory,R4,0,0.0,,,0,{},{},False
+chemical_laboratory,R5,11,0.55,1,0,0,"{""full_visual_guidance"": 2, ""limited_visual_guidance"": 9}","{""1"": 3, ""2"": 8}",True
+construction,R1,0,0.0,,,0,{},{},False
+construction,R2,10,0.5,1,0.6,4,"{""limited_visual_guidance"": 10}","{""1"": 10}",True
+construction,R3,0,0.0,,,0,{},{},False
+construction,R4,0,0.0,,,0,{},{},False
+construction,R5,10,0.5,1,0,0,"{""limited_visual_guidance"": 10}","{""1"": 10}",True
+manufacturing,R1,8,0.4,1,0.5,4,"{""full_visual_guidance"": 4, ""limited_visual_guidance"": 4}","{""1"": 8}",True
+manufacturing,R2,8,0.4,1,0.5,4,"{""full_visual_guidance"": 4, ""limited_visual_guidance"": 4}","{""1"": 8}",True
+manufacturing,R3,0,0.0,,,0,{},{},False
+manufacturing,R4,0,0.0,,,0,{},{},False
+manufacturing,R5,4,0.2,1,0,0,"{""limited_visual_guidance"": 4}","{""1"": 4}",True

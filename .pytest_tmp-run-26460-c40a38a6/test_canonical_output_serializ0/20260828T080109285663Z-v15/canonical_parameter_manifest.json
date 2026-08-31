@@ -1,0 +1,93 @@
+{
+  "assistance_encoding": {
+    "full_visual_guidance": 1.0,
+    "limited_visual_guidance": 0.5,
+    "minimal": 0.25,
+    "none": 0.0
+  },
+  "difficulty_encoding": {
+    "1": 0.0,
+    "2": 0.5,
+    "3": 1.0
+  },
+  "episode_limit": 1,
+  "latent_parameters": {
+    "kappa": 0.12,
+    "latent_decay": 0.002,
+    "practice_rate": 0.12,
+    "rho": 0.18,
+    "sigma_g": 0.35
+  },
+  "learner_parameters": {
+    "assistance_independence_coefficient": 0.44,
+    "eta": 0.2,
+    "response_assistance_coefficient": 0.08,
+    "target_mastery": 0.8,
+    "w_action": 0.6,
+    "w_independence": 0.2,
+    "w_response": 0.2
+  },
+  "posttest_repetitions": 1,
+  "priority": {
+    "competence_gap": "max(0, target_mastery-l)",
+    "error_factor": "1 + repetition_weight * min(1, repeated_errors/3)",
+    "risk": "R_hat excludes urgency",
+    "urgency_application_count": 1
+  },
+  "protocol": "canonical_v15",
+  "repetitions": 1,
+  "risk_parameters": {
+    "context_modifier_positive": true,
+    "exposure_scale": [
+      1,
+      5
+    ],
+    "normalization_maximum": 187.5,
+    "probability_scale": [
+      1,
+      5
+    ],
+    "severity_scale": [
+      1,
+      5
+    ]
+  },
+  "rule_definitions": {
+    "R1": {
+      "adaptation": "priority_remediation",
+      "mastery_lt": 0.6,
+      "risk_gte": 0.75
+    },
+    "R2": {
+      "adaptation": "targeted_remediation",
+      "repeated_errors_gte": 2,
+      "risk_gte": 0.5
+    },
+    "R3": {
+      "adaptation": "challenge_adaptation",
+      "mastery_gte": 0.8,
+      "recent_correct": true,
+      "risk_gte": 0.5
+    },
+    "R4": {
+      "adaptation": "progressive_adaptation",
+      "mastery_gte": 0.65,
+      "recent_correct": true
+    },
+    "R5": {
+      "adaptation": "reinforcement_adaptation"
+    }
+  },
+  "rwcs_weight": "W_j = R_hat_j * U_j",
+  "thresholds": {
+    "critical_posttest_risk": 0.75,
+    "repetition_weight": 0.5,
+    "risk_categories": {
+      "critical_gte": 0.75,
+      "high_lt": 0.75,
+      "low_lt": 0.25,
+      "medium_lt": 0.5
+    },
+    "target_mastery": 0.8
+  }
+}

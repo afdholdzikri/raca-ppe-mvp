@@ -1,0 +1,71 @@
+{
+  "protocol": "canonical_v15",
+  "timestamp_utc": "2026-08-28T11:05:39.431762+00:00",
+  "git_commit": "9f218ab16eda4f3f359f50d2f08d69f71e820360",
+  "python_version": "3.10.20",
+  "base_seed": 42,
+  "episodes": 5,
+  "repetitions": 2,
+  "profiles": [
+    "T1",
+    "T2"
+  ],
+  "methods": [
+    "static",
+    "random",
+    "score_adaptive",
+    "competence_adaptive",
+    "proposed",
+    "oracle"
+  ],
+  "canonical_parameters": {
+    "methods": [
+      "static",
+      "random",
+      "score_adaptive",
+      "competence_adaptive",
+      "proposed",
+      "oracle"
+    ],
+    "profiles": [
+      "T1",
+      "T2"
+    ],
+    "episodes": 5,
+    "repetitions": 2,
+    "base_seed": 42,
+    "target_mastery": 0.8,
+    "eta": 0.2,
+    "w_action": 0.6,
+    "w_response": 0.2,
+    "w_independence": 0.2,
+    "rho": 0.18,
+    "kappa": 0.12,
+    "practice_rate": 0.12,
+    "sigma_g": 0.35,
+    "latent_decay": 0.002,
+    "response_assistance_coefficient": 0.08,
+    "repetition_weight": 0.5,
+    "critical_risk_threshold": 0.75,
+    "minimum_difficulty": 1,
+    "maximum_difficulty": 3,
+    "posttest_repetitions": 3
+  },
+  "knowledge_base_version": "repository-domain-json",
+  "ruleset_version": "R1-R5-deployable-core",
+  "metric_definitions": {
+    "CCG_star": "mean latent competence gain over critical competencies (higher better)",
+    "RWCS_star": "risk-weighted latent competence at run end (higher better)",
+    "TAR": "share of latent competencies attaining target mastery (higher better)",
+    "CER": "fixed-post-test critical-scenario error rate (lower better)",
+    "CMR": "fixed-post-test missing required PPE count / required PPE opportunities (lower better)",
+    "SOR": "A-B-A scenario oscillations / eligible transitions (lower better)",
+    "episodes_to_target": "first episode attaining latent critical targets; episode limit when censored",
+    "AR": "implementation-fidelity adaptation relevance proxy",
+    "DC": "decision consistency",
+    "TC": "trace completeness",
+    "CDRS": "cross-domain rule stability",
+    "adaptation_latency_ms": "measured implementation latency, not learning outcome"
+  },
+  "oracle_note": "Oracle is privileged simulation-only and excluded from deployable claims."
+}

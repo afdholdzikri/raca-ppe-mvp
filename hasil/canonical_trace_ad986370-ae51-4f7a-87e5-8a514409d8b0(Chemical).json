@@ -1,0 +1,288 @@
+{
+  "trace_id": "ad986370-ae51-4f7a-87e5-8a514409d8b0",
+  "session_id": "aef21328-2c07-4bd8-a508-eb610c478b87",
+  "trainee_id": "Anonymous Reviewer",
+  "timestamp_utc": "2026-08-28T09:42:24.975240+00:00",
+  "episode": 2,
+  "domain": "manufacturing",
+  "scenario_id": "S5",
+  "zone": "Chemical Mixing Area",
+  "task": "Mixing chemical materials",
+  "narrative": "Mix chemicals with vapour and splash exposure.",
+  "difficulty": 1,
+  "current_difficulty": 1,
+  "active_hazards": [
+    "chemical_vapour",
+    "liquid_chemical_splash"
+  ],
+  "risk_hat": {
+    "helmet_selection": 0.5867,
+    "eye_protection_selection": 0.8,
+    "respiratory_protection_selection": 0.8,
+    "hand_protection_selection": 0.8,
+    "visibility_protection_selection": 0.288,
+    "foot_protection_selection": 0.288,
+    "multi_ppe_selection": 0.5867,
+    "hazard_identification": 0.512,
+    "zone_compliance": 0.288,
+    "chemical_ppe_selection": 0.8
+  },
+  "scenario_risk": 0.8,
+  "risk_category": "Critical",
+  "hazard_risk_values": {
+    "chemical_vapour": 0.8,
+    "liquid_chemical_splash": 0.64
+  },
+  "mean_risk": 0.72,
+  "competence": "chemical_ppe_selection",
+  "selected_ppe": [
+    "gloves",
+    "goggles",
+    "respirator"
+  ],
+  "required_ppe": [
+    "respirator",
+    "goggles",
+    "gloves"
+  ],
+  "missing_ppe": [],
+  "unnecessary_ppe": [],
+  "correct": true,
+  "observable_response_features": {
+    "action_accuracy": {
+      "chemical_ppe_selection": true,
+      "respiratory_protection_selection": true,
+      "eye_protection_selection": true,
+      "hand_protection_selection": true
+    },
+    "response_quality": 0.8,
+    "independence": 0.5,
+    "response_time_seconds": 28.585,
+    "hint_used": true
+  },
+  "time_limit_seconds": 50,
+  "response_time_seconds": 28.585,
+  "response_score": 0.8,
+  "hint_used": true,
+  "independence_score": 0.5,
+  "observation_scores": {
+    "chemical_ppe_selection": 0.86,
+    "respiratory_protection_selection": 0.86,
+    "eye_protection_selection": 0.86,
+    "hand_protection_selection": 0.86
+  },
+  "affected_competencies": [
+    "chemical_ppe_selection",
+    "respiratory_protection_selection",
+    "eye_protection_selection",
+    "hand_protection_selection"
+  ],
+  "competence_before": {
+    "chemical_ppe_selection": 0.4,
+    "respiratory_protection_selection": 0.4,
+    "eye_protection_selection": 0.4,
+    "hand_protection_selection": 0.4
+  },
+  "competence_after": {
+    "chemical_ppe_selection": 0.4920000000000001,
+    "respiratory_protection_selection": 0.4920000000000001,
+    "eye_protection_selection": 0.4920000000000001,
+    "hand_protection_selection": 0.4920000000000001
+  },
+  "learner_estimate_before": {
+    "helmet_selection": 0.4,
+    "eye_protection_selection": 0.4,
+    "respiratory_protection_selection": 0.4,
+    "hand_protection_selection": 0.4,
+    "visibility_protection_selection": 0.3520000000000001,
+    "foot_protection_selection": 0.4720000000000001,
+    "multi_ppe_selection": 0.4,
+    "hazard_identification": 0.4,
+    "zone_compliance": 0.3520000000000001,
+    "chemical_ppe_selection": 0.4
+  },
+  "learner_estimate_after": {
+    "helmet_selection": 0.4,
+    "eye_protection_selection": 0.4920000000000001,
+    "respiratory_protection_selection": 0.4920000000000001,
+    "hand_protection_selection": 0.4920000000000001,
+    "visibility_protection_selection": 0.3520000000000001,
+    "foot_protection_selection": 0.4720000000000001,
+    "multi_ppe_selection": 0.4,
+    "hazard_identification": 0.4,
+    "zone_compliance": 0.3520000000000001,
+    "chemical_ppe_selection": 0.4920000000000001
+  },
+  "repeated_errors": {
+    "helmet_selection": 0,
+    "eye_protection_selection": 0,
+    "respiratory_protection_selection": 0,
+    "hand_protection_selection": 0,
+    "visibility_protection_selection": 1,
+    "foot_protection_selection": 0,
+    "multi_ppe_selection": 0,
+    "hazard_identification": 0,
+    "zone_compliance": 1,
+    "chemical_ppe_selection": 0
+  },
+  "competence_gap": {
+    "helmet_selection": 0.4,
+    "eye_protection_selection": 0.30799999999999994,
+    "respiratory_protection_selection": 0.30799999999999994,
+    "hand_protection_selection": 0.30799999999999994,
+    "visibility_protection_selection": 0.44799999999999995,
+    "foot_protection_selection": 0.32799999999999996,
+    "multi_ppe_selection": 0.4,
+    "hazard_identification": 0.4,
+    "zone_compliance": 0.44799999999999995,
+    "chemical_ppe_selection": 0.30799999999999994
+  },
+  "competence_gaps": {
+    "helmet_selection": 0.4,
+    "eye_protection_selection": 0.30799999999999994,
+    "respiratory_protection_selection": 0.30799999999999994,
+    "hand_protection_selection": 0.30799999999999994,
+    "visibility_protection_selection": 0.44799999999999995,
+    "foot_protection_selection": 0.32799999999999996,
+    "multi_ppe_selection": 0.4,
+    "hazard_identification": 0.4,
+    "zone_compliance": 0.44799999999999995,
+    "chemical_ppe_selection": 0.30799999999999994
+  },
+  "repetition_factor": {
+    "helmet_selection": 1.0,
+    "eye_protection_selection": 1.0,
+    "respiratory_protection_selection": 1.0,
+    "hand_protection_selection": 1.0,
+    "visibility_protection_selection": 1.1666666666666667,
+    "foot_protection_selection": 1.0,
+    "multi_ppe_selection": 1.0,
+    "hazard_identification": 1.0,
+    "zone_compliance": 1.1666666666666667,
+    "chemical_ppe_selection": 1.0
+  },
+  "urgency": {
+    "helmet_selection": 0.8,
+    "eye_protection_selection": 0.9,
+    "respiratory_protection_selection": 1.0,
+    "hand_protection_selection": 0.9,
+    "visibility_protection_selection": 0.7,
+    "foot_protection_selection": 0.7,
+    "multi_ppe_selection": 0.8,
+    "hazard_identification": 0.8,
+    "zone_compliance": 0.7,
+    "chemical_ppe_selection": 1.0
+  },
+  "priority_q": {
+    "helmet_selection": 0.1877,
+    "eye_protection_selection": 0.2218,
+    "respiratory_protection_selection": 0.2464,
+    "hand_protection_selection": 0.2218,
+    "visibility_protection_selection": 0.1054,
+    "foot_protection_selection": 0.0661,
+    "multi_ppe_selection": 0.1877,
+    "hazard_identification": 0.1638,
+    "zone_compliance": 0.1054,
+    "chemical_ppe_selection": 0.2464
+  },
+  "priority_by_competence": {
+    "helmet_selection": 0.1877,
+    "eye_protection_selection": 0.2218,
+    "respiratory_protection_selection": 0.2464,
+    "hand_protection_selection": 0.2218,
+    "visibility_protection_selection": 0.1054,
+    "foot_protection_selection": 0.0661,
+    "multi_ppe_selection": 0.1877,
+    "hazard_identification": 0.1638,
+    "zone_compliance": 0.1054,
+    "chemical_ppe_selection": 0.2464
+  },
+  "highest_priority_competence": "chemical_ppe_selection",
+  "highest_priority_value": 0.2464,
+  "priority_ranking": [
+    [
+      "chemical_ppe_selection",
+      0.2464
+    ],
+    [
+      "respiratory_protection_selection",
+      0.2464
+    ],
+    [
+      "eye_protection_selection",
+      0.2218
+    ],
+    [
+      "hand_protection_selection",
+      0.2218
+    ],
+    [
+      "helmet_selection",
+      0.1877
+    ],
+    [
+      "multi_ppe_selection",
+      0.1877
+    ],
+    [
+      "hazard_identification",
+      0.1638
+    ],
+    [
+      "visibility_protection_selection",
+      0.1054
+    ],
+    [
+      "zone_compliance",
+      0.1054
+    ],
+    [
+      "foot_protection_selection",
+      0.0661
+    ]
+  ],
+  "eligible_rules": [
+    "critical_risk_low_mastery",
+    "default_reinforcement"
+  ],
+  "active_rules": [
+    "critical_risk_low_mastery",
+    "default_reinforcement"
+  ],
+  "selected_rule": "critical_risk_low_mastery",
+  "adaptation": "priority_remediation",
+  "requested_action": {
+    "next_scenario": "S5",
+    "next_difficulty": 1,
+    "assistance": "full_visual_guidance",
+    "feedback": "immediate_corrective",
+    "repeat_required": true,
+    "adaptation": "priority_remediation"
+  },
+  "applied_action": {
+    "next_scenario": "S5",
+    "next_difficulty": 1,
+    "assistance": "full_visual_guidance",
+    "feedback": "immediate_corrective",
+    "repeat_required": true,
+    "adaptation": "priority_remediation"
+  },
+  "next_difficulty": 1,
+  "next_assistance": "full_visual_guidance",
+  "assistance": "full_visual_guidance",
+  "distractor_level": "none",
+  "next_distractor_level": "none",
+  "feedback": "immediate_corrective",
+  "repeat_required": true,
+  "next_scenario": "S5",
+  "current_scenario": "S5",
+  "bounded_rotation_flag": false,
+  "engine_version": "canonical_v15",
+  "parameter_version": "canonical-v15:591ff4f1fa1b850e",
+  "ruleset_version": "canonical-R1-R5-corrected",
+  "knowledge_base_version": "manufacturing:d87d52aa50d7f69b",
+  "simulation_only_state_exposed": false,
+  "adaptation_latency_ms": 0.16735,
+  "explanation": "Canonical priority selected chemical ppe selection (Q=0.2464). Rule critical_risk_low_mastery applied priority_remediation and returned S5 at difficulty 1 with full_visual_guidance.",
+  "persisted_to_file": true
+}

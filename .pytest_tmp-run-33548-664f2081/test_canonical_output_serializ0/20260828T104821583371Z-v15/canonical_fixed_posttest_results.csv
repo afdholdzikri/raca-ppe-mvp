@@ -1,0 +1,37 @@
+canonical_run_id,method,profile,repetition,repetition_seed,scenario_id,item,assistance,scenario_risk,selected_ppe,required_ppe,missing_ppe,correct,critical_error,critical_miss
+v15-s42-T1-r0-static,static,T1,0,2532612968,S1,0,none,0.288,[],"[""vest"", ""shoes""]","[""shoes"", ""vest""]",False,False,False
+v15-s42-T1-r0-static,static,T1,0,2532612968,S2,0,none,0.512,[],"[""gloves"", ""goggles""]","[""gloves"", ""goggles""]",False,False,False
+v15-s42-T1-r0-static,static,T1,0,2532612968,S3,0,none,0.5867,"[""gloves"", ""helmet""]","[""helmet"", ""goggles"", ""gloves""]","[""goggles""]",False,False,False
+v15-s42-T1-r0-static,static,T1,0,2532612968,S4,0,none,0.512,"[""respirator""]","[""respirator"", ""goggles""]","[""goggles""]",False,False,False
+v15-s42-T1-r0-static,static,T1,0,2532612968,S5,0,none,0.8,"[""respirator""]","[""respirator"", ""goggles"", ""gloves""]","[""gloves"", ""goggles""]",False,True,True
+v15-s42-T1-r0-static,static,T1,0,2532612968,S6,0,none,0.288,"[""helmet""]","[""helmet"", ""shoes""]","[""shoes""]",False,False,False
+v15-s42-T1-r0-random,random,T1,0,2532612968,S1,0,none,0.288,[],"[""vest"", ""shoes""]","[""shoes"", ""vest""]",False,False,False
+v15-s42-T1-r0-random,random,T1,0,2532612968,S2,0,none,0.512,[],"[""gloves"", ""goggles""]","[""gloves"", ""goggles""]",False,False,False
+v15-s42-T1-r0-random,random,T1,0,2532612968,S3,0,none,0.5867,"[""gloves"", ""helmet""]","[""helmet"", ""goggles"", ""gloves""]","[""goggles""]",False,False,False
+v15-s42-T1-r0-random,random,T1,0,2532612968,S4,0,none,0.512,"[""respirator""]","[""respirator"", ""goggles""]","[""goggles""]",False,False,False
+v15-s42-T1-r0-random,random,T1,0,2532612968,S5,0,none,0.8,"[""respirator""]","[""respirator"", ""goggles"", ""gloves""]","[""gloves"", ""goggles""]",False,True,True
+v15-s42-T1-r0-random,random,T1,0,2532612968,S6,0,none,0.288,"[""helmet""]","[""helmet"", ""shoes""]","[""shoes""]",False,False,False
+v15-s42-T1-r0-score_adaptive,score_adaptive,T1,0,2532612968,S1,0,none,0.288,[],"[""vest"", ""shoes""]","[""shoes"", ""vest""]",False,False,False
+v15-s42-T1-r0-score_adaptive,score_adaptive,T1,0,2532612968,S2,0,none,0.512,[],"[""gloves"", ""goggles""]","[""gloves"", ""goggles""]",False,False,False
+v15-s42-T1-r0-score_adaptive,score_adaptive,T1,0,2532612968,S3,0,none,0.5867,"[""gloves"", ""helmet""]","[""helmet"", ""goggles"", ""gloves""]","[""goggles""]",False,False,False
+v15-s42-T1-r0-score_adaptive,score_adaptive,T1,0,2532612968,S4,0,none,0.512,"[""respirator""]","[""respirator"", ""goggles""]","[""goggles""]",False,False,False
+v15-s42-T1-r0-score_adaptive,score_adaptive,T1,0,2532612968,S5,0,none,0.8,"[""respirator""]","[""respirator"", ""goggles"", ""gloves""]","[""gloves"", ""goggles""]",False,True,True
+v15-s42-T1-r0-score_adaptive,score_adaptive,T1,0,2532612968,S6,0,none,0.288,"[""helmet""]","[""helmet"", ""shoes""]","[""shoes""]",False,False,False
+v15-s42-T1-r0-competence_adaptive,competence_adaptive,T1,0,2532612968,S1,0,none,0.288,[],"[""vest"", ""shoes""]","[""shoes"", ""vest""]",False,False,False
+v15-s42-T1-r0-competence_adaptive,competence_adaptive,T1,0,2532612968,S2,0,none,0.512,[],"[""gloves"", ""goggles""]","[""gloves"", ""goggles""]",False,False,False
+v15-s42-T1-r0-competence_adaptive,competence_adaptive,T1,0,2532612968,S3,0,none,0.5867,"[""gloves"", ""helmet""]","[""helmet"", ""goggles"", ""gloves""]","[""goggles""]",False,False,False
+v15-s42-T1-r0-competence_adaptive,competence_adaptive,T1,0,2532612968,S4,0,none,0.512,"[""respirator""]","[""respirator"", ""goggles""]","[""goggles""]",False,False,False
+v15-s42-T1-r0-competence_adaptive,competence_adaptive,T1,0,2532612968,S5,0,none,0.8,"[""respirator""]","[""respirator"", ""goggles"", ""gloves""]","[""gloves"", ""goggles""]",False,True,True
+v15-s42-T1-r0-competence_adaptive,competence_adaptive,T1,0,2532612968,S6,0,none,0.288,"[""helmet""]","[""helmet"", ""shoes""]","[""shoes""]",False,False,False
+v15-s42-T1-r0-proposed,proposed,T1,0,2532612968,S1,0,none,0.288,[],"[""vest"", ""shoes""]","[""shoes"", ""vest""]",False,False,False
+v15-s42-T1-r0-proposed,proposed,T1,0,2532612968,S2,0,none,0.512,[],"[""gloves"", ""goggles""]","[""gloves"", ""goggles""]",False,False,False
+v15-s42-T1-r0-proposed,proposed,T1,0,2532612968,S3,0,none,0.5867,"[""gloves"", ""helmet""]","[""helmet"", ""goggles"", ""gloves""]","[""goggles""]",False,False,False
+v15-s42-T1-r0-proposed,proposed,T1,0,2532612968,S4,0,none,0.512,"[""respirator""]","[""respirator"", ""goggles""]","[""goggles""]",False,False,False
+v15-s42-T1-r0-proposed,proposed,T1,0,2532612968,S5,0,none,0.8,"[""respirator""]","[""respirator"", ""goggles"", ""gloves""]","[""gloves"", ""goggles""]",False,True,True
+v15-s42-T1-r0-proposed,proposed,T1,0,2532612968,S6,0,none,0.288,"[""helmet""]","[""helmet"", ""shoes""]","[""shoes""]",False,False,False
+v15-s42-T1-r0-oracle,oracle,T1,0,2532612968,S1,0,none,0.288,[],"[""vest"", ""shoes""]","[""shoes"", ""vest""]",False,False,False
+v15-s42-T1-r0-oracle,oracle,T1,0,2532612968,S2,0,none,0.512,[],"[""gloves"", ""goggles""]","[""gloves"", ""goggles""]",False,False,False
+v15-s42-T1-r0-oracle,oracle,T1,0,2532612968,S3,0,none,0.5867,"[""gloves"", ""helmet""]","[""helmet"", ""goggles"", ""gloves""]","[""goggles""]",False,False,False
+v15-s42-T1-r0-oracle,oracle,T1,0,2532612968,S4,0,none,0.512,"[""respirator""]","[""respirator"", ""goggles""]","[""goggles""]",False,False,False
+v15-s42-T1-r0-oracle,oracle,T1,0,2532612968,S5,0,none,0.8,"[""respirator""]","[""respirator"", ""goggles"", ""gloves""]","[""gloves"", ""goggles""]",False,True,True
+v15-s42-T1-r0-oracle,oracle,T1,0,2532612968,S6,0,none,0.288,"[""helmet""]","[""helmet"", ""shoes""]","[""shoes""]",False,False,False

@@ -8,7 +8,6 @@ from pathlib import Path
 from typing import Any
 
 import streamlit as st
-import streamlit.components.v1 as components
 
 import assets_manager
 
@@ -145,18 +144,12 @@ def render_scenario_visual(
     caption: str | None = None,
     selected_ppe: list[str] | None = None,
 ) -> None:
-    """Render animated 2D workplace context and an animated PPE worker."""
+    """Render responsive background and character imagery with safe fallbacks."""
     background = _safe_image_path(background_path, "background")
     character = _safe_image_path(character_path, "character")
-    scene_text = " ".join(
-        part for part in (
-            str(caption or ""),
-            Path(background_path).stem if background_path is not None else "",
-        ) if part
-    ).lower()
     background_column, character_column = st.columns([3, 1])
     with background_column:
-        components.html(_animated_workplace_scene(scene_text, caption), height=385, scrolling=False)
+        st.image(str(background), caption=caption or None, use_column_width=True)
     with character_column:
         render_dynamic_ppe_worker(character, selected_ppe or [])
     for path in (background, character):
@@ -223,230 +216,25 @@ def _ppe_overlay_model(selected_ppe: list[str]) -> list[dict[str, str]]:
     return layers
 
 
-
-def _normalized_ppe_set(selected_ppe: list[str]) -> set[str]:
-    """Normalize PPE identifiers into visual categories only."""
-    categories: set[str] = set()
-    for raw in selected_ppe:
-        key = assets_manager.normalize_asset_key(raw)
-        if key in {"helmet", "safety_helmet"}:
-            categories.add("helmet")
-        elif key in {"goggles", "safety_goggles", "laboratory_goggles"}:
-            categories.add("goggles")
-        elif key == "face_shield":
-            categories.add("face_shield")
-        elif key in {"respirator", "dust_respirator"}:
-            categories.add("respirator")
-        elif key in {"hearing_protection", "earmuff", "earmuffs"}:
-            categories.add("hearing")
-        elif key in {"vest", "safety_vest", "high_visibility_vest"}:
-            categories.add("vest")
-        elif key == "laboratory_coat":
-            categories.add("coat")
-        elif key in {"fall_arrest_system", "body_harness", "harness"}:
-            categories.add("harness")
-        elif key in {"gloves", "work_gloves", "chemical_gloves"}:
-            categories.add("gloves")
-        elif key in {"shoes", "safety_shoes", "safety_footwear", "closed_safety_footwear"}:
-            categories.add("shoes")
-    return categories
-
-
-def _animated_worker_svg(selected_ppe: list[str]) -> str:
-    """Return a self-contained animated SVG worker with attached PPE layers."""
-    ppe = _normalized_ppe_set(selected_ppe)
-
-    helmet = """
-      <g class="ppe-layer">
-        <path d="M77 42 Q100 19 123 42 L122 49 L78 49 Z"
-              fill="#FACC15" stroke="#A16207" stroke-width="2"/>
-        <rect x="76" y="47" width="48" height="5" rx="2.5" fill="#6B4F15"/>
-      </g>
-    """ if "helmet" in ppe else ""
-
-    goggles = """
-      <g class="ppe-layer">
-        <rect x="83" y="55" width="14" height="9" rx="4" fill="#BAE6FD" stroke="#0F172A" stroke-width="2"/>
-        <rect x="103" y="55" width="14" height="9" rx="4" fill="#BAE6FD" stroke="#0F172A" stroke-width="2"/>
-        <line x1="97" y1="59.5" x2="103" y2="59.5" stroke="#0F172A" stroke-width="2"/>
-      </g>
-    """ if "goggles" in ppe else ""
-
-    shield = """
-      <g class="ppe-layer">
-        <path d="M79 49 Q100 42 121 49 L118 78 Q100 88 82 78 Z"
-              fill="#DBEAFE" fill-opacity=".36" stroke="#60A5FA" stroke-width="2"/>
-      </g>
-    """ if "face_shield" in ppe else ""
-
-    respirator = """
-      <g class="ppe-layer">
-        <path d="M90 67 Q100 61 110 67 L107 77 Q100 82 93 77 Z"
-              fill="#F1F5F9" stroke="#475569" stroke-width="2"/>
-        <circle cx="89" cy="71" r="4" fill="#94A3B8"/>
-        <circle cx="111" cy="71" r="4" fill="#94A3B8"/>
-      </g>
-    """ if "respirator" in ppe else ""
-
-    hearing = """
-      <g class="ppe-layer">
-        <path d="M79 58 Q79 39 100 39 Q121 39 121 58"
-              fill="none" stroke="#111827" stroke-width="4"/>
-        <rect x="74" y="55" width="10" height="21" rx="5" fill="#EF4444"/>
-        <rect x="116" y="55" width="10" height="21" rx="5" fill="#EF4444"/>
-      </g>
-    """ if "hearing" in ppe else ""
-
-    vest = """
-      <g class="ppe-layer">
-        <path d="M69 89 L86 78 L100 91 L114 78 L131 89 L124 143 L76 143 Z"
-              fill="#F97316" stroke="#B45309" stroke-width="2"/>
-        <path d="M82 84 L92 97 L85 140 M118 84 L108 97 L115 140"
-              stroke="#FEF08A" stroke-width="6" fill="none"/>
-        <line x1="77" y1="118" x2="123" y2="118" stroke="#FFF7B3" stroke-width="6"/>
-      </g>
-    """ if "vest" in ppe else ""
-
-    coat = """
-      <g class="ppe-layer">
-        <path d="M67 88 L86 78 L100 91 L114 78 L133 88 L129 158 L71 158 Z"
-              fill="#F8FAFC" stroke="#94A3B8" stroke-width="2"/>
-        <line x1="100" y1="91" x2="100" y2="157" stroke="#CBD5E1" stroke-width="2"/>
-        <line x1="81" y1="120" x2="92" y2="120" stroke="#CBD5E1" stroke-width="2"/>
-        <line x1="108" y1="120" x2="119" y2="120" stroke="#CBD5E1" stroke-width="2"/>
-      </g>
-    """ if "coat" in ppe else ""
-
-    harness = """
-      <g class="ppe-layer">
-        <path d="M80 84 L116 143 M120 84 L84 143"
-              stroke="#F59E0B" stroke-width="5" fill="none"/>
-        <rect x="82" y="113" width="36" height="6" rx="3" fill="#F59E0B"/>
-      </g>
-    """ if "harness" in ppe else ""
-
-    gloves = """
-      <g class="ppe-layer">
-        <circle cx="54" cy="140" r="10" fill="#FACC15" stroke="#A16207" stroke-width="2"/>
-        <circle cx="146" cy="140" r="10" fill="#FACC15" stroke="#A16207" stroke-width="2"/>
-      </g>
-    """ if "gloves" in ppe else ""
-
-    shoes = """
-      <g class="ppe-layer">
-        <path d="M75 178 H99 V190 H69 Q65 182 75 178Z"
-              fill="#7C3F16" stroke="#4B260D" stroke-width="2"/>
-        <path d="M101 178 H125 Q135 182 131 190 H101Z"
-              fill="#7C3F16" stroke="#4B260D" stroke-width="2"/>
-      </g>
-    """ if "shoes" in ppe else ""
-
-    return f"""
-    <svg viewBox="0 0 200 205" xmlns="http://www.w3.org/2000/svg"
-         role="img" aria-label="Animated PPE training worker">
-      <ellipse cx="100" cy="195" rx="48" ry="7" fill="#0F172A" fill-opacity=".10"/>
-      <g class="worker-idle">
-        <circle cx="100" cy="64" r="21" fill="#E8B17D" stroke="#7C5232" stroke-width="2"/>
-        <path d="M81 57 Q100 42 119 57" fill="#263238"/>
-        <rect x="73" y="88" width="54" height="61" rx="15" fill="#2563EB"/>
-        <rect x="52" y="92" width="18" height="55" rx="9" fill="#2563EB" transform="rotate(7 61 92)"/>
-        <rect x="130" y="92" width="18" height="55" rx="9" fill="#2563EB" transform="rotate(-7 139 92)"/>
-        <circle cx="54" cy="140" r="7" fill="#E8B17D"/>
-        <circle cx="146" cy="140" r="7" fill="#E8B17D"/>
-        <rect x="78" y="145" width="20" height="37" rx="8" fill="#1E3A8A"/>
-        <rect x="102" y="145" width="20" height="37" rx="8" fill="#1E3A8A"/>
-        <rect x="72" y="178" width="29" height="11" rx="5" fill="#374151"/>
-        <rect x="99" y="178" width="29" height="11" rx="5" fill="#374151"/>
-        {coat}{vest}{harness}{helmet}{hearing}{goggles}{shield}{respirator}{gloves}{shoes}
-      </g>
-    </svg>
-    """
-
-
-def _ppe_symbol(ppe_id: str) -> str:
-    """Return a licensing-safe visual symbol for a PPE card."""
-    key = assets_manager.normalize_asset_key(ppe_id)
-    if "helmet" in key:
-        return "⛑️"
-    if "goggle" in key or "eye" in key:
-        return "🥽"
-    if "face_shield" in key:
-        return "🛡️"
-    if "respirator" in key:
-        return "😷"
-    if "hearing" in key:
-        return "🎧"
-    if "vest" in key or "visibility" in key:
-        return "🦺"
-    if "coat" in key:
-        return "🥼"
-    if "harness" in key or "fall_arrest" in key:
-        return "🪢"
-    if "glove" in key:
-        return "🧤"
-    if "shoe" in key or "footwear" in key:
-        return "🥾"
-    return "🧰"
-
-
-def _animated_workplace_scene(scene_text: str, caption: str | None) -> str:
-    """Create a dynamic, licensing-safe 2D scene for the active task."""
-    label = _safe_text(caption or "Active workplace training scenario")
-    lower = (scene_text or "").lower()
-    if any(token in lower for token in ("chemical", "laboratory", "lab", "reagent")):
-        theme, title, moving, station, secondary = "laboratory", "CHEMICAL LABORATORY", "🧪", "⚗️", "🧫"
-        floor, sky = "#e8eef5", "#eaf7ff"
-    elif any(token in lower for token in ("construction", "ground site", "height", "lifting", "crane")):
-        theme, title, moving, station, secondary = "construction", "CONSTRUCTION SITE", "🚜", "🏗️", "🚧"
-        floor, sky = "#e4d2b4", "#e8f4ff"
-    else:
-        theme, title, moving, station, secondary = "manufacturing", "MATERIAL HANDLING", "🚜", "🏭", "📦"
-        floor, sky = "#e5e7eb", "#e7f5ff"
-    conveyor = '<div class="conveyor"></div>' if theme == 'manufacturing' else ''
-    return f"""<!doctype html>
-<html><head><meta charset='utf-8'><style>
-html,body{{margin:0;padding:0;background:transparent;font-family:Arial,sans-serif;overflow:hidden}}
-.scene{{height:350px;position:relative;overflow:hidden;border:1px solid #cbd5e1;border-radius:18px;background:linear-gradient(180deg,{sky} 0 64%,{floor} 64% 100%);box-shadow:0 8px 22px rgba(15,23,42,.08)}}
-.title{{position:absolute;top:20px;left:0;right:0;text-align:center;font-weight:700;font-size:21px;color:#475569;letter-spacing:.04em}}
-.station{{position:absolute;right:8%;bottom:78px;font-size:78px;filter:drop-shadow(0 3px 2px rgba(0,0,0,.13));animation:bob 2.4s ease-in-out infinite}}
-.secondary{{position:absolute;right:31%;bottom:81px;font-size:45px;animation:bob 2s ease-in-out infinite reverse}}
-.vehicle{{position:absolute;left:-95px;bottom:77px;font-size:70px;animation:travel 6.5s linear infinite;filter:drop-shadow(0 3px 2px rgba(0,0,0,.15))}}
-.line{{position:absolute;left:5%;right:5%;bottom:67px;border-bottom:4px dashed #64748b}}
-.warning{{position:absolute;right:22%;top:28%;width:78px;height:78px;border:5px solid rgba(239,68,68,.34);border-radius:50%;animation:pulse 1.55s ease-out infinite}}
-.cloud{{position:absolute;width:86px;height:22px;background:rgba(255,255,255,.75);border-radius:30px}}
-.cloud:before,.cloud:after{{content:"";position:absolute;background:inherit;border-radius:50%}}
-.cloud:before{{width:32px;height:32px;left:14px;top:-14px}}.cloud:after{{width:40px;height:40px;right:11px;top:-19px}}
-.c1{{left:8%;top:17%;animation:cloud 11s linear infinite}}.c2{{left:48%;top:12%;animation:cloud 15s linear infinite reverse}}
-.conveyor{{position:absolute;left:15%;bottom:105px;width:46%;height:12px;background:#64748b;border-radius:7px}}
-.conveyor:before{{content:"📦  📦  📦";position:absolute;left:5%;top:-38px;font-size:27px;letter-spacing:28px;white-space:nowrap;animation:boxes 4s linear infinite}}
-.caption{{position:absolute;left:20px;right:20px;bottom:18px;text-align:center;color:#475569;font-size:13px;font-weight:600}}
-@keyframes travel{{0%{{transform:translateX(0)}}100%{{transform:translateX(780px)}}}}
-@keyframes pulse{{0%{{transform:scale(.55);opacity:.9}}100%{{transform:scale(1.75);opacity:0}}}}
-@keyframes bob{{0%,100%{{transform:translateY(0)}}50%{{transform:translateY(-5px)}}}}
-@keyframes cloud{{0%{{transform:translateX(-40px)}}100%{{transform:translateX(150px)}}}}
-@keyframes boxes{{0%{{transform:translateX(-40px)}}100%{{transform:translateX(65px)}}}}
-</style></head><body>
-<div class='scene'><div class='title'>{title}</div><div class='cloud c1'></div><div class='cloud c2'></div><div class='station'>{station}</div><div class='secondary'>{secondary}</div>{conveyor}<div class='vehicle'>{moving}</div><div class='warning'></div><div class='line'></div><div class='caption'>{label}</div></div>
-</body></html>"""
-
-
 def render_dynamic_ppe_worker(character_path: str | Path | None, selected_ppe: list[str]) -> None:
-    """Render animated SVG worker with selected PPE visibly attached."""
-    selected_label = ", ".join(_label(item) for item in selected_ppe) or "No PPE selected"
-    worker_html = f"""<!doctype html>
-<html><head><meta charset='utf-8'><style>
-html,body{{margin:0;padding:0;background:transparent;font-family:Arial,sans-serif;overflow:hidden}}
-.card{{height:350px;border-radius:18px;padding:8px 8px 0;background:linear-gradient(180deg,#e0f2fe 0 69%,#f8fafc 69%);border:1px solid #cbd5e1;position:relative;overflow:hidden;box-shadow:0 8px 22px rgba(15,23,42,.08)}}
-.card:before{{content:"";position:absolute;left:-10%;right:-10%;bottom:25%;height:4px;background:#94a3b8;box-shadow:0 17px 0 #cbd5e1}}
-.stage{{position:relative;z-index:2;max-width:230px;margin:10px auto 0}}.stage svg{{display:block;width:100%;height:auto}}
-.worker-idle{{transform-origin:100px 190px;animation:idle 1.65s ease-in-out infinite}}.ppe-layer{{animation:attach .22s ease-out both}}
-.pulse{{position:absolute;right:8%;top:13%;width:60px;height:60px;border:4px solid rgba(239,68,68,.27);border-radius:50%;animation:pulse 1.6s ease-out infinite}}
-.label{{position:absolute;z-index:3;left:8px;right:8px;bottom:11px;text-align:center;font-size:12px;color:#334155;background:rgba(255,255,255,.78);padding:5px;border-radius:8px}}
-@keyframes idle{{0%,100%{{transform:translateY(0) rotate(0)}}50%{{transform:translateY(-5px) rotate(.45deg)}}}}
-@keyframes attach{{from{{opacity:0;transform:scale(.78)}}to{{opacity:1;transform:scale(1)}}}}
-@keyframes pulse{{0%{{transform:scale(.5);opacity:.8}}100%{{transform:scale(1.65);opacity:0}}}}
-</style></head><body><div class='card'><div class='pulse'></div><div class='stage'>{_animated_worker_svg(selected_ppe)}</div><div class='label'><b>Selected PPE:</b> {_safe_text(selected_label)}</div></div></body></html>"""
-    components.html(worker_html, height=370, scrolling=False)
+    """Render a local character with immediately updated PPE overlays."""
+    character = _safe_image_path(character_path, "character")
+    source = _image_data_uri(character)
+    if source is None:
+        st.image(str(character), use_column_width=True)
+        return
+    layer_markup = "".join(
+        '<img class="ppe-overlay" src="{}" alt="{}" style="left:{};top:{};width:{}">'.format(
+            layer["src"], _safe_text(_label(layer["ppe_id"])), layer["left"], layer["top"], layer["width"]
+        )
+        for layer in _ppe_overlay_model(selected_ppe)
+    )
+    st.markdown(
+        '<div class="dynamic-worker-frame" aria-label="Worker with selected PPE">'
+        f'<img class="dynamic-worker-base" src="{source}" alt="Training worker">'
+        f"{layer_markup}</div>",
+        unsafe_allow_html=True,
+    )
 
 
 def render_hazard_badges(hazards: list[dict[str, Any]] | list[str]) -> None:
@@ -461,22 +249,15 @@ def render_hazard_badges(hazards: list[dict[str, Any]] | list[str]) -> None:
         name = str(record.get("display_name") or record.get("name") or _label(hazard_id))
         metadata = record.get("severity", record.get("risk", record.get("criticality")))
         icon = assets_manager.get_hazard_icon(hazard_id)
-        placeholder, category, asset_name = _placeholder_details(icon)
         with columns[index % len(columns)]:
             with st.container(border=True):
-                if placeholder:
-                    hazard_symbol = "⚠️"
-                    st.markdown(
-                        f'<div style="font-size:2.2rem;line-height:1;text-align:center;margin:.2rem 0 .55rem">{hazard_symbol}</div>',
-                        unsafe_allow_html=True,
-                    )
-                else:
-                    st.image(str(icon), width=52)
+                st.image(str(icon), width=52)
                 st.markdown(f"**{name}**")
                 if metadata is not None:
                     st.caption(f"Severity / risk: {metadata}")
+                placeholder, category, asset_name = _placeholder_details(icon)
                 if placeholder:
-                    st.caption("Built-in presentation symbol in use.")
+                    render_placeholder_notice(category, asset_name)
 
 
 def render_risk_panel(
@@ -491,13 +272,7 @@ def render_risk_panel(
         st.subheader("Contextual Risk")
         badge_column, detail_column = st.columns([1, 4])
         with badge_column:
-            risk_symbol = {"low": "✅", "medium": "⚠️", "high": "🟠", "critical": "🔴"}.get(
-                model["category"], "ℹ️"
-            )
-            st.markdown(
-                f'<div style="font-size:2.7rem;text-align:center;padding-top:.25rem">{risk_symbol}</div>',
-                unsafe_allow_html=True,
-            )
+            st.image(str(assets_manager.get_risk_badge(model["category"])), width=72)
         with detail_column:
             if model["score"] is None:
                 st.write("Risk score: Not available")
@@ -551,14 +326,7 @@ def render_ppe_selection_cards(
         icon = assets_manager.get_ppe_icon(ppe_id)
         with columns[index % len(columns)]:
             with st.container(border=True):
-                placeholder, category, asset_name = _placeholder_details(icon)
-                if placeholder:
-                    st.markdown(
-                        f'<div style="font-size:2.6rem;line-height:1;text-align:center;margin:.25rem 0 .65rem">{_ppe_symbol(ppe_id)}</div>',
-                        unsafe_allow_html=True,
-                    )
-                else:
-                    st.image(str(icon), width=72)
+                st.image(str(icon), width=72)
                 checked = st.checkbox(
                     label,
                     value=ppe_id in previously_selected,
@@ -569,8 +337,9 @@ def render_ppe_selection_cards(
                 st.caption("Status: Selected" if checked else "Status: Not selected")
                 if checked:
                     selected.append(ppe_id)
+                placeholder, category, asset_name = _placeholder_details(icon)
                 if placeholder:
-                    st.caption("Built-in vector/symbol presentation asset in use.")
+                    render_placeholder_notice(category, asset_name)
     return selected
 
 

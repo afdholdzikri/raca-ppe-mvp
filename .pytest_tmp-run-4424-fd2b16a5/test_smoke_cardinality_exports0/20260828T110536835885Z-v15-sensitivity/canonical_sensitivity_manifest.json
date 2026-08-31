@@ -1,0 +1,1393 @@
+{
+  "conditions": [
+    {
+      "id": "eta_0p1",
+      "study_type": "policy_sensitivity",
+      "parameter_name": "eta",
+      "parameter_value": "0.1",
+      "regime_name": "eta_0p1",
+      "overrides": {
+        "eta": 0.1
+      },
+      "urgency_regime": "nominal",
+      "r1_risk": 0.75,
+      "r2_risk": 0.5,
+      "r3_mastery": 0.8,
+      "methods": [
+        "static",
+        "random",
+        "score_adaptive",
+        "competence_adaptive",
+        "proposed"
+      ],
+      "resolved_config": {
+        "methods": [
+          "proposed"
+        ],
+        "profiles": [
+          "T1",
+          "T2"
+        ],
+        "episodes": 5,
+        "repetitions": 2,
+        "base_seed": 42,
+        "target_mastery": 0.8,
+        "eta": 0.1,
+        "w_action": 0.6,
+        "w_response": 0.2,
+        "w_independence": 0.2,
+        "rho": 0.18,
+        "kappa": 0.12,
+        "practice_rate": 0.12,
+        "sigma_g": 0.35,
+        "latent_decay": 0.002,
+        "response_assistance_coefficient": 0.08,
+        "repetition_weight": 0.5,
+        "critical_risk_threshold": 0.75,
+        "minimum_difficulty": 1,
+        "maximum_difficulty": 3,
+        "posttest_repetitions": 3
+      },
+      "resolved_lambda_a": 0.44,
+      "nominal_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "effective_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "urgency_delta": {
+        "helmet_selection": 0.0,
+        "eye_protection_selection": 0.0,
+        "respiratory_protection_selection": 0.0,
+        "hand_protection_selection": 0.0,
+        "visibility_protection_selection": 0.0,
+        "foot_protection_selection": 0.0,
+        "multi_ppe_selection": 0.0,
+        "hazard_identification": 0.0,
+        "zone_compliance": 0.0,
+        "chemical_ppe_selection": 0.0
+      }
+    },
+    {
+      "id": "eta_0p2",
+      "study_type": "policy_sensitivity",
+      "parameter_name": "eta",
+      "parameter_value": "0.2",
+      "regime_name": "eta_0p2",
+      "overrides": {
+        "eta": 0.2
+      },
+      "urgency_regime": "nominal",
+      "r1_risk": 0.75,
+      "r2_risk": 0.5,
+      "r3_mastery": 0.8,
+      "methods": [
+        "static",
+        "random",
+        "score_adaptive",
+        "competence_adaptive",
+        "proposed"
+      ],
+      "resolved_config": {
+        "methods": [
+          "proposed"
+        ],
+        "profiles": [
+          "T1",
+          "T2"
+        ],
+        "episodes": 5,
+        "repetitions": 2,
+        "base_seed": 42,
+        "target_mastery": 0.8,
+        "eta": 0.2,
+        "w_action": 0.6,
+        "w_response": 0.2,
+        "w_independence": 0.2,
+        "rho": 0.18,
+        "kappa": 0.12,
+        "practice_rate": 0.12,
+        "sigma_g": 0.35,
+        "latent_decay": 0.002,
+        "response_assistance_coefficient": 0.08,
+        "repetition_weight": 0.5,
+        "critical_risk_threshold": 0.75,
+        "minimum_difficulty": 1,
+        "maximum_difficulty": 3,
+        "posttest_repetitions": 3
+      },
+      "resolved_lambda_a": 0.44,
+      "nominal_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "effective_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "urgency_delta": {
+        "helmet_selection": 0.0,
+        "eye_protection_selection": 0.0,
+        "respiratory_protection_selection": 0.0,
+        "hand_protection_selection": 0.0,
+        "visibility_protection_selection": 0.0,
+        "foot_protection_selection": 0.0,
+        "multi_ppe_selection": 0.0,
+        "hazard_identification": 0.0,
+        "zone_compliance": 0.0,
+        "chemical_ppe_selection": 0.0
+      }
+    },
+    {
+      "id": "eta_0p3",
+      "study_type": "policy_sensitivity",
+      "parameter_name": "eta",
+      "parameter_value": "0.3",
+      "regime_name": "eta_0p3",
+      "overrides": {
+        "eta": 0.3
+      },
+      "urgency_regime": "nominal",
+      "r1_risk": 0.75,
+      "r2_risk": 0.5,
+      "r3_mastery": 0.8,
+      "methods": [
+        "static",
+        "random",
+        "score_adaptive",
+        "competence_adaptive",
+        "proposed"
+      ],
+      "resolved_config": {
+        "methods": [
+          "proposed"
+        ],
+        "profiles": [
+          "T1",
+          "T2"
+        ],
+        "episodes": 5,
+        "repetitions": 2,
+        "base_seed": 42,
+        "target_mastery": 0.8,
+        "eta": 0.3,
+        "w_action": 0.6,
+        "w_response": 0.2,
+        "w_independence": 0.2,
+        "rho": 0.18,
+        "kappa": 0.12,
+        "practice_rate": 0.12,
+        "sigma_g": 0.35,
+        "latent_decay": 0.002,
+        "response_assistance_coefficient": 0.08,
+        "repetition_weight": 0.5,
+        "critical_risk_threshold": 0.75,
+        "minimum_difficulty": 1,
+        "maximum_difficulty": 3,
+        "posttest_repetitions": 3
+      },
+      "resolved_lambda_a": 0.44,
+      "nominal_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "effective_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "urgency_delta": {
+        "helmet_selection": 0.0,
+        "eye_protection_selection": 0.0,
+        "respiratory_protection_selection": 0.0,
+        "hand_protection_selection": 0.0,
+        "visibility_protection_selection": 0.0,
+        "foot_protection_selection": 0.0,
+        "multi_ppe_selection": 0.0,
+        "hazard_identification": 0.0,
+        "zone_compliance": 0.0,
+        "chemical_ppe_selection": 0.0
+      }
+    },
+    {
+      "id": "rho_0p12",
+      "study_type": "policy_sensitivity",
+      "parameter_name": "rho",
+      "parameter_value": "0.12",
+      "regime_name": "rho_0p12",
+      "overrides": {
+        "rho": 0.12
+      },
+      "urgency_regime": "nominal",
+      "r1_risk": 0.75,
+      "r2_risk": 0.5,
+      "r3_mastery": 0.8,
+      "methods": [
+        "static",
+        "random",
+        "score_adaptive",
+        "competence_adaptive",
+        "proposed"
+      ],
+      "resolved_config": {
+        "methods": [
+          "proposed"
+        ],
+        "profiles": [
+          "T1",
+          "T2"
+        ],
+        "episodes": 5,
+        "repetitions": 2,
+        "base_seed": 42,
+        "target_mastery": 0.8,
+        "eta": 0.2,
+        "w_action": 0.6,
+        "w_response": 0.2,
+        "w_independence": 0.2,
+        "rho": 0.12,
+        "kappa": 0.12,
+        "practice_rate": 0.12,
+        "sigma_g": 0.35,
+        "latent_decay": 0.002,
+        "response_assistance_coefficient": 0.08,
+        "repetition_weight": 0.5,
+        "critical_risk_threshold": 0.75,
+        "minimum_difficulty": 1,
+        "maximum_difficulty": 3,
+        "posttest_repetitions": 3
+      },
+      "resolved_lambda_a": 0.44,
+      "nominal_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "effective_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "urgency_delta": {
+        "helmet_selection": 0.0,
+        "eye_protection_selection": 0.0,
+        "respiratory_protection_selection": 0.0,
+        "hand_protection_selection": 0.0,
+        "visibility_protection_selection": 0.0,
+        "foot_protection_selection": 0.0,
+        "multi_ppe_selection": 0.0,
+        "hazard_identification": 0.0,
+        "zone_compliance": 0.0,
+        "chemical_ppe_selection": 0.0
+      }
+    },
+    {
+      "id": "rho_0p18",
+      "study_type": "policy_sensitivity",
+      "parameter_name": "rho",
+      "parameter_value": "0.18",
+      "regime_name": "rho_0p18",
+      "overrides": {
+        "rho": 0.18
+      },
+      "urgency_regime": "nominal",
+      "r1_risk": 0.75,
+      "r2_risk": 0.5,
+      "r3_mastery": 0.8,
+      "methods": [
+        "static",
+        "random",
+        "score_adaptive",
+        "competence_adaptive",
+        "proposed"
+      ],
+      "resolved_config": {
+        "methods": [
+          "proposed"
+        ],
+        "profiles": [
+          "T1",
+          "T2"
+        ],
+        "episodes": 5,
+        "repetitions": 2,
+        "base_seed": 42,
+        "target_mastery": 0.8,
+        "eta": 0.2,
+        "w_action": 0.6,
+        "w_response": 0.2,
+        "w_independence": 0.2,
+        "rho": 0.18,
+        "kappa": 0.12,
+        "practice_rate": 0.12,
+        "sigma_g": 0.35,
+        "latent_decay": 0.002,
+        "response_assistance_coefficient": 0.08,
+        "repetition_weight": 0.5,
+        "critical_risk_threshold": 0.75,
+        "minimum_difficulty": 1,
+        "maximum_difficulty": 3,
+        "posttest_repetitions": 3
+      },
+      "resolved_lambda_a": 0.44,
+      "nominal_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "effective_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "urgency_delta": {
+        "helmet_selection": 0.0,
+        "eye_protection_selection": 0.0,
+        "respiratory_protection_selection": 0.0,
+        "hand_protection_selection": 0.0,
+        "visibility_protection_selection": 0.0,
+        "foot_protection_selection": 0.0,
+        "multi_ppe_selection": 0.0,
+        "hazard_identification": 0.0,
+        "zone_compliance": 0.0,
+        "chemical_ppe_selection": 0.0
+      }
+    },
+    {
+      "id": "rho_0p24",
+      "study_type": "policy_sensitivity",
+      "parameter_name": "rho",
+      "parameter_value": "0.24",
+      "regime_name": "rho_0p24",
+      "overrides": {
+        "rho": 0.24
+      },
+      "urgency_regime": "nominal",
+      "r1_risk": 0.75,
+      "r2_risk": 0.5,
+      "r3_mastery": 0.8,
+      "methods": [
+        "static",
+        "random",
+        "score_adaptive",
+        "competence_adaptive",
+        "proposed"
+      ],
+      "resolved_config": {
+        "methods": [
+          "proposed"
+        ],
+        "profiles": [
+          "T1",
+          "T2"
+        ],
+        "episodes": 5,
+        "repetitions": 2,
+        "base_seed": 42,
+        "target_mastery": 0.8,
+        "eta": 0.2,
+        "w_action": 0.6,
+        "w_response": 0.2,
+        "w_independence": 0.2,
+        "rho": 0.24,
+        "kappa": 0.12,
+        "practice_rate": 0.12,
+        "sigma_g": 0.35,
+        "latent_decay": 0.002,
+        "response_assistance_coefficient": 0.08,
+        "repetition_weight": 0.5,
+        "critical_risk_threshold": 0.75,
+        "minimum_difficulty": 1,
+        "maximum_difficulty": 3,
+        "posttest_repetitions": 3
+      },
+      "resolved_lambda_a": 0.44,
+      "nominal_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "effective_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "urgency_delta": {
+        "helmet_selection": 0.0,
+        "eye_protection_selection": 0.0,
+        "respiratory_protection_selection": 0.0,
+        "hand_protection_selection": 0.0,
+        "visibility_protection_selection": 0.0,
+        "foot_protection_selection": 0.0,
+        "multi_ppe_selection": 0.0,
+        "hazard_identification": 0.0,
+        "zone_compliance": 0.0,
+        "chemical_ppe_selection": 0.0
+      }
+    },
+    {
+      "id": "kappa_0p08",
+      "study_type": "policy_sensitivity",
+      "parameter_name": "kappa",
+      "parameter_value": "0.08",
+      "regime_name": "kappa_0p08",
+      "overrides": {
+        "kappa": 0.08
+      },
+      "urgency_regime": "nominal",
+      "r1_risk": 0.75,
+      "r2_risk": 0.5,
+      "r3_mastery": 0.8,
+      "methods": [
+        "static",
+        "random",
+        "score_adaptive",
+        "competence_adaptive",
+        "proposed"
+      ],
+      "resolved_config": {
+        "methods": [
+          "proposed"
+        ],
+        "profiles": [
+          "T1",
+          "T2"
+        ],
+        "episodes": 5,
+        "repetitions": 2,
+        "base_seed": 42,
+        "target_mastery": 0.8,
+        "eta": 0.2,
+        "w_action": 0.6,
+        "w_response": 0.2,
+        "w_independence": 0.2,
+        "rho": 0.18,
+        "kappa": 0.08,
+        "practice_rate": 0.12,
+        "sigma_g": 0.35,
+        "latent_decay": 0.002,
+        "response_assistance_coefficient": 0.08,
+        "repetition_weight": 0.5,
+        "critical_risk_threshold": 0.75,
+        "minimum_difficulty": 1,
+        "maximum_difficulty": 3,
+        "posttest_repetitions": 3
+      },
+      "resolved_lambda_a": 0.32,
+      "nominal_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "effective_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "urgency_delta": {
+        "helmet_selection": 0.0,
+        "eye_protection_selection": 0.0,
+        "respiratory_protection_selection": 0.0,
+        "hand_protection_selection": 0.0,
+        "visibility_protection_selection": 0.0,
+        "foot_protection_selection": 0.0,
+        "multi_ppe_selection": 0.0,
+        "hazard_identification": 0.0,
+        "zone_compliance": 0.0,
+        "chemical_ppe_selection": 0.0
+      }
+    },
+    {
+      "id": "kappa_0p12",
+      "study_type": "policy_sensitivity",
+      "parameter_name": "kappa",
+      "parameter_value": "0.12",
+      "regime_name": "kappa_0p12",
+      "overrides": {
+        "kappa": 0.12
+      },
+      "urgency_regime": "nominal",
+      "r1_risk": 0.75,
+      "r2_risk": 0.5,
+      "r3_mastery": 0.8,
+      "methods": [
+        "static",
+        "random",
+        "score_adaptive",
+        "competence_adaptive",
+        "proposed"
+      ],
+      "resolved_config": {
+        "methods": [
+          "proposed"
+        ],
+        "profiles": [
+          "T1",
+          "T2"
+        ],
+        "episodes": 5,
+        "repetitions": 2,
+        "base_seed": 42,
+        "target_mastery": 0.8,
+        "eta": 0.2,
+        "w_action": 0.6,
+        "w_response": 0.2,
+        "w_independence": 0.2,
+        "rho": 0.18,
+        "kappa": 0.12,
+        "practice_rate": 0.12,
+        "sigma_g": 0.35,
+        "latent_decay": 0.002,
+        "response_assistance_coefficient": 0.08,
+        "repetition_weight": 0.5,
+        "critical_risk_threshold": 0.75,
+        "minimum_difficulty": 1,
+        "maximum_difficulty": 3,
+        "posttest_repetitions": 3
+      },
+      "resolved_lambda_a": 0.44,
+      "nominal_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "effective_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "urgency_delta": {
+        "helmet_selection": 0.0,
+        "eye_protection_selection": 0.0,
+        "respiratory_protection_selection": 0.0,
+        "hand_protection_selection": 0.0,
+        "visibility_protection_selection": 0.0,
+        "foot_protection_selection": 0.0,
+        "multi_ppe_selection": 0.0,
+        "hazard_identification": 0.0,
+        "zone_compliance": 0.0,
+        "chemical_ppe_selection": 0.0
+      }
+    },
+    {
+      "id": "kappa_0p16",
+      "study_type": "policy_sensitivity",
+      "parameter_name": "kappa",
+      "parameter_value": "0.16",
+      "regime_name": "kappa_0p16",
+      "overrides": {
+        "kappa": 0.16
+      },
+      "urgency_regime": "nominal",
+      "r1_risk": 0.75,
+      "r2_risk": 0.5,
+      "r3_mastery": 0.8,
+      "methods": [
+        "static",
+        "random",
+        "score_adaptive",
+        "competence_adaptive",
+        "proposed"
+      ],
+      "resolved_config": {
+        "methods": [
+          "proposed"
+        ],
+        "profiles": [
+          "T1",
+          "T2"
+        ],
+        "episodes": 5,
+        "repetitions": 2,
+        "base_seed": 42,
+        "target_mastery": 0.8,
+        "eta": 0.2,
+        "w_action": 0.6,
+        "w_response": 0.2,
+        "w_independence": 0.2,
+        "rho": 0.18,
+        "kappa": 0.16,
+        "practice_rate": 0.12,
+        "sigma_g": 0.35,
+        "latent_decay": 0.002,
+        "response_assistance_coefficient": 0.08,
+        "repetition_weight": 0.5,
+        "critical_risk_threshold": 0.75,
+        "minimum_difficulty": 1,
+        "maximum_difficulty": 3,
+        "posttest_repetitions": 3
+      },
+      "resolved_lambda_a": 0.56,
+      "nominal_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "effective_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "urgency_delta": {
+        "helmet_selection": 0.0,
+        "eye_protection_selection": 0.0,
+        "respiratory_protection_selection": 0.0,
+        "hand_protection_selection": 0.0,
+        "visibility_protection_selection": 0.0,
+        "foot_protection_selection": 0.0,
+        "multi_ppe_selection": 0.0,
+        "hazard_identification": 0.0,
+        "zone_compliance": 0.0,
+        "chemical_ppe_selection": 0.0
+      }
+    },
+    {
+      "id": "weights_canonical",
+      "study_type": "policy_sensitivity",
+      "parameter_name": "observation_weights",
+      "parameter_value": "canonical",
+      "regime_name": "canonical",
+      "overrides": {
+        "w_action": 0.6,
+        "w_response": 0.2,
+        "w_independence": 0.2
+      },
+      "urgency_regime": "nominal",
+      "r1_risk": 0.75,
+      "r2_risk": 0.5,
+      "r3_mastery": 0.8,
+      "methods": [
+        "static",
+        "random",
+        "score_adaptive",
+        "competence_adaptive",
+        "proposed"
+      ],
+      "resolved_config": {
+        "methods": [
+          "proposed"
+        ],
+        "profiles": [
+          "T1",
+          "T2"
+        ],
+        "episodes": 5,
+        "repetitions": 2,
+        "base_seed": 42,
+        "target_mastery": 0.8,
+        "eta": 0.2,
+        "w_action": 0.6,
+        "w_response": 0.2,
+        "w_independence": 0.2,
+        "rho": 0.18,
+        "kappa": 0.12,
+        "practice_rate": 0.12,
+        "sigma_g": 0.35,
+        "latent_decay": 0.002,
+        "response_assistance_coefficient": 0.08,
+        "repetition_weight": 0.5,
+        "critical_risk_threshold": 0.75,
+        "minimum_difficulty": 1,
+        "maximum_difficulty": 3,
+        "posttest_repetitions": 3
+      },
+      "resolved_lambda_a": 0.44,
+      "nominal_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "effective_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "urgency_delta": {
+        "helmet_selection": 0.0,
+        "eye_protection_selection": 0.0,
+        "respiratory_protection_selection": 0.0,
+        "hand_protection_selection": 0.0,
+        "visibility_protection_selection": 0.0,
+        "foot_protection_selection": 0.0,
+        "multi_ppe_selection": 0.0,
+        "hazard_identification": 0.0,
+        "zone_compliance": 0.0,
+        "chemical_ppe_selection": 0.0
+      }
+    },
+    {
+      "id": "weights_balanced",
+      "study_type": "policy_sensitivity",
+      "parameter_name": "observation_weights",
+      "parameter_value": "balanced",
+      "regime_name": "balanced",
+      "overrides": {
+        "w_action": 0.5,
+        "w_response": 0.25,
+        "w_independence": 0.25
+      },
+      "urgency_regime": "nominal",
+      "r1_risk": 0.75,
+      "r2_risk": 0.5,
+      "r3_mastery": 0.8,
+      "methods": [
+        "static",
+        "random",
+        "score_adaptive",
+        "competence_adaptive",
+        "proposed"
+      ],
+      "resolved_config": {
+        "methods": [
+          "proposed"
+        ],
+        "profiles": [
+          "T1",
+          "T2"
+        ],
+        "episodes": 5,
+        "repetitions": 2,
+        "base_seed": 42,
+        "target_mastery": 0.8,
+        "eta": 0.2,
+        "w_action": 0.5,
+        "w_response": 0.25,
+        "w_independence": 0.25,
+        "rho": 0.18,
+        "kappa": 0.12,
+        "practice_rate": 0.12,
+        "sigma_g": 0.35,
+        "latent_decay": 0.002,
+        "response_assistance_coefficient": 0.08,
+        "repetition_weight": 0.5,
+        "critical_risk_threshold": 0.75,
+        "minimum_difficulty": 1,
+        "maximum_difficulty": 3,
+        "posttest_repetitions": 3
+      },
+      "resolved_lambda_a": 0.32,
+      "nominal_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "effective_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "urgency_delta": {
+        "helmet_selection": 0.0,
+        "eye_protection_selection": 0.0,
+        "respiratory_protection_selection": 0.0,
+        "hand_protection_selection": 0.0,
+        "visibility_protection_selection": 0.0,
+        "foot_protection_selection": 0.0,
+        "multi_ppe_selection": 0.0,
+        "hazard_identification": 0.0,
+        "zone_compliance": 0.0,
+        "chemical_ppe_selection": 0.0
+      }
+    },
+    {
+      "id": "urgency_nominal",
+      "study_type": "urgency_robustness",
+      "parameter_name": "urgency",
+      "parameter_value": "nominal",
+      "regime_name": "nominal",
+      "overrides": {},
+      "urgency_regime": "nominal",
+      "r1_risk": 0.75,
+      "r2_risk": 0.5,
+      "r3_mastery": 0.8,
+      "methods": [
+        "static",
+        "random",
+        "score_adaptive",
+        "competence_adaptive",
+        "proposed"
+      ],
+      "resolved_config": {
+        "methods": [
+          "proposed"
+        ],
+        "profiles": [
+          "T1",
+          "T2"
+        ],
+        "episodes": 5,
+        "repetitions": 2,
+        "base_seed": 42,
+        "target_mastery": 0.8,
+        "eta": 0.2,
+        "w_action": 0.6,
+        "w_response": 0.2,
+        "w_independence": 0.2,
+        "rho": 0.18,
+        "kappa": 0.12,
+        "practice_rate": 0.12,
+        "sigma_g": 0.35,
+        "latent_decay": 0.002,
+        "response_assistance_coefficient": 0.08,
+        "repetition_weight": 0.5,
+        "critical_risk_threshold": 0.75,
+        "minimum_difficulty": 1,
+        "maximum_difficulty": 3,
+        "posttest_repetitions": 3
+      },
+      "resolved_lambda_a": 0.44,
+      "nominal_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "effective_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "urgency_delta": {
+        "helmet_selection": 0.0,
+        "eye_protection_selection": 0.0,
+        "respiratory_protection_selection": 0.0,
+        "hand_protection_selection": 0.0,
+        "visibility_protection_selection": 0.0,
+        "foot_protection_selection": 0.0,
+        "multi_ppe_selection": 0.0,
+        "hazard_identification": 0.0,
+        "zone_compliance": 0.0,
+        "chemical_ppe_selection": 0.0
+      }
+    },
+    {
+      "id": "urgency_uniform",
+      "study_type": "urgency_robustness",
+      "parameter_name": "urgency",
+      "parameter_value": "uniform",
+      "regime_name": "uniform",
+      "overrides": {},
+      "urgency_regime": "uniform",
+      "r1_risk": 0.75,
+      "r2_risk": 0.5,
+      "r3_mastery": 0.8,
+      "methods": [
+        "static",
+        "random",
+        "score_adaptive",
+        "competence_adaptive",
+        "proposed"
+      ],
+      "resolved_config": {
+        "methods": [
+          "proposed"
+        ],
+        "profiles": [
+          "T1",
+          "T2"
+        ],
+        "episodes": 5,
+        "repetitions": 2,
+        "base_seed": 42,
+        "target_mastery": 0.8,
+        "eta": 0.2,
+        "w_action": 0.6,
+        "w_response": 0.2,
+        "w_independence": 0.2,
+        "rho": 0.18,
+        "kappa": 0.12,
+        "practice_rate": 0.12,
+        "sigma_g": 0.35,
+        "latent_decay": 0.002,
+        "response_assistance_coefficient": 0.08,
+        "repetition_weight": 0.5,
+        "critical_risk_threshold": 0.75,
+        "minimum_difficulty": 1,
+        "maximum_difficulty": 3,
+        "posttest_repetitions": 3
+      },
+      "resolved_lambda_a": 0.44,
+      "nominal_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "effective_urgency": {
+        "helmet_selection": 1.0,
+        "eye_protection_selection": 1.0,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 1.0,
+        "visibility_protection_selection": 1.0,
+        "foot_protection_selection": 1.0,
+        "multi_ppe_selection": 1.0,
+        "hazard_identification": 1.0,
+        "zone_compliance": 1.0,
+        "chemical_ppe_selection": 1.0
+      },
+      "urgency_delta": {
+        "helmet_selection": null,
+        "eye_protection_selection": null,
+        "respiratory_protection_selection": null,
+        "hand_protection_selection": null,
+        "visibility_protection_selection": null,
+        "foot_protection_selection": null,
+        "multi_ppe_selection": null,
+        "hazard_identification": null,
+        "zone_compliance": null,
+        "chemical_ppe_selection": null
+      }
+    },
+    {
+      "id": "latent_canonical",
+      "study_type": "latent_robustness",
+      "parameter_name": "latent_dynamics",
+      "parameter_value": "canonical",
+      "regime_name": "canonical",
+      "overrides": {
+        "practice_rate": 0.12,
+        "sigma_g": 0.35,
+        "latent_decay": 0.002
+      },
+      "urgency_regime": "nominal",
+      "r1_risk": 0.75,
+      "r2_risk": 0.5,
+      "r3_mastery": 0.8,
+      "methods": [
+        "static",
+        "random",
+        "score_adaptive",
+        "competence_adaptive",
+        "proposed",
+        "oracle"
+      ],
+      "resolved_config": {
+        "methods": [
+          "proposed"
+        ],
+        "profiles": [
+          "T1",
+          "T2"
+        ],
+        "episodes": 5,
+        "repetitions": 2,
+        "base_seed": 42,
+        "target_mastery": 0.8,
+        "eta": 0.2,
+        "w_action": 0.6,
+        "w_response": 0.2,
+        "w_independence": 0.2,
+        "rho": 0.18,
+        "kappa": 0.12,
+        "practice_rate": 0.12,
+        "sigma_g": 0.35,
+        "latent_decay": 0.002,
+        "response_assistance_coefficient": 0.08,
+        "repetition_weight": 0.5,
+        "critical_risk_threshold": 0.75,
+        "minimum_difficulty": 1,
+        "maximum_difficulty": 3,
+        "posttest_repetitions": 3
+      },
+      "resolved_lambda_a": 0.44,
+      "nominal_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "effective_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "urgency_delta": {
+        "helmet_selection": 0.0,
+        "eye_protection_selection": 0.0,
+        "respiratory_protection_selection": 0.0,
+        "hand_protection_selection": 0.0,
+        "visibility_protection_selection": 0.0,
+        "foot_protection_selection": 0.0,
+        "multi_ppe_selection": 0.0,
+        "hazard_identification": 0.0,
+        "zone_compliance": 0.0,
+        "chemical_ppe_selection": 0.0
+      }
+    },
+    {
+      "id": "latent_slower_narrower",
+      "study_type": "latent_robustness",
+      "parameter_name": "latent_dynamics",
+      "parameter_value": "slower_narrower",
+      "regime_name": "slower_narrower",
+      "overrides": {
+        "practice_rate": 0.09,
+        "sigma_g": 0.28,
+        "latent_decay": 0.003
+      },
+      "urgency_regime": "nominal",
+      "r1_risk": 0.75,
+      "r2_risk": 0.5,
+      "r3_mastery": 0.8,
+      "methods": [
+        "static",
+        "random",
+        "score_adaptive",
+        "competence_adaptive",
+        "proposed",
+        "oracle"
+      ],
+      "resolved_config": {
+        "methods": [
+          "proposed"
+        ],
+        "profiles": [
+          "T1",
+          "T2"
+        ],
+        "episodes": 5,
+        "repetitions": 2,
+        "base_seed": 42,
+        "target_mastery": 0.8,
+        "eta": 0.2,
+        "w_action": 0.6,
+        "w_response": 0.2,
+        "w_independence": 0.2,
+        "rho": 0.18,
+        "kappa": 0.12,
+        "practice_rate": 0.09,
+        "sigma_g": 0.28,
+        "latent_decay": 0.003,
+        "response_assistance_coefficient": 0.08,
+        "repetition_weight": 0.5,
+        "critical_risk_threshold": 0.75,
+        "minimum_difficulty": 1,
+        "maximum_difficulty": 3,
+        "posttest_repetitions": 3
+      },
+      "resolved_lambda_a": 0.44,
+      "nominal_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "effective_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "urgency_delta": {
+        "helmet_selection": 0.0,
+        "eye_protection_selection": 0.0,
+        "respiratory_protection_selection": 0.0,
+        "hand_protection_selection": 0.0,
+        "visibility_protection_selection": 0.0,
+        "foot_protection_selection": 0.0,
+        "multi_ppe_selection": 0.0,
+        "hazard_identification": 0.0,
+        "zone_compliance": 0.0,
+        "chemical_ppe_selection": 0.0
+      }
+    },
+    {
+      "id": "latent_faster_broader",
+      "study_type": "latent_robustness",
+      "parameter_name": "latent_dynamics",
+      "parameter_value": "faster_broader",
+      "regime_name": "faster_broader",
+      "overrides": {
+        "practice_rate": 0.15,
+        "sigma_g": 0.42,
+        "latent_decay": 0.001
+      },
+      "urgency_regime": "nominal",
+      "r1_risk": 0.75,
+      "r2_risk": 0.5,
+      "r3_mastery": 0.8,
+      "methods": [
+        "static",
+        "random",
+        "score_adaptive",
+        "competence_adaptive",
+        "proposed",
+        "oracle"
+      ],
+      "resolved_config": {
+        "methods": [
+          "proposed"
+        ],
+        "profiles": [
+          "T1",
+          "T2"
+        ],
+        "episodes": 5,
+        "repetitions": 2,
+        "base_seed": 42,
+        "target_mastery": 0.8,
+        "eta": 0.2,
+        "w_action": 0.6,
+        "w_response": 0.2,
+        "w_independence": 0.2,
+        "rho": 0.18,
+        "kappa": 0.12,
+        "practice_rate": 0.15,
+        "sigma_g": 0.42,
+        "latent_decay": 0.001,
+        "response_assistance_coefficient": 0.08,
+        "repetition_weight": 0.5,
+        "critical_risk_threshold": 0.75,
+        "minimum_difficulty": 1,
+        "maximum_difficulty": 3,
+        "posttest_repetitions": 3
+      },
+      "resolved_lambda_a": 0.44,
+      "nominal_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "effective_urgency": {
+        "helmet_selection": 0.8,
+        "eye_protection_selection": 0.9,
+        "respiratory_protection_selection": 1.0,
+        "hand_protection_selection": 0.9,
+        "visibility_protection_selection": 0.7,
+        "foot_protection_selection": 0.7,
+        "multi_ppe_selection": 0.8,
+        "hazard_identification": 0.8,
+        "zone_compliance": 0.7,
+        "chemical_ppe_selection": 1.0
+      },
+      "urgency_delta": {
+        "helmet_selection": 0.0,
+        "eye_protection_selection": 0.0,
+        "respiratory_protection_selection": 0.0,
+        "hand_protection_selection": 0.0,
+        "visibility_protection_selection": 0.0,
+        "foot_protection_selection": 0.0,
+        "multi_ppe_selection": 0.0,
+        "hazard_identification": 0.0,
+        "zone_compliance": 0.0,
+        "chemical_ppe_selection": 0.0
+      }
+    }
+  ],
+  "ofat": true,
+  "cartesian_product": false,
+  "metrics_invariant": true,
+  "oracle_deployable": false
+}
