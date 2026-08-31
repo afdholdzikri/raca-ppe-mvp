@@ -1,0 +1,32 @@
+{
+  "static": {
+    "label": "Static",
+    "simulation_only": false,
+    "theta_star_access": false
+  },
+  "random": {
+    "label": "Random",
+    "simulation_only": false,
+    "theta_star_access": false
+  },
+  "score_adaptive": {
+    "label": "Score-Adaptive",
+    "simulation_only": false,
+    "theta_star_access": false
+  },
+  "competence_adaptive": {
+    "label": "Competence-Adaptive",
+    "simulation_only": false,
+    "theta_star_access": false
+  },
+  "proposed": {
+    "label": "Proposed Framework",
+    "simulation_only": false,
+    "theta_star_access": false
+  },
+  "oracle": {
+    "label": "Oracle (privileged reference)",
+    "simulation_only": true,
+    "theta_star_access": true
+  }
+}

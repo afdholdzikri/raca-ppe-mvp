@@ -1,0 +1,42 @@
+{
+  "configuration_hash": "2a28b22b24",
+  "dataset_file_hashes": {
+    "adaptation_rules.json": "11ac03b51078a7ad7f5f4510eeaa5570262526599b11e0127ec767b60759b044",
+    "competencies.json": "b6060f07fd120eb3385f1aabb89e847f737af44e24938360c2eb3c32433761cf",
+    "hazards.json": "e5789692fed3043c8b2affa101bd1f5b1bd1c660513ec32e0bce6d758c3d606f",
+    "ppe.json": "35d7d2b30e7f91855317647c3a8476f7cc91929b539a61e4bff07c6167f97aef",
+    "scenario.json": "19af52e3d5bd152d6eddfee04ae516d76f36353d19b6ce8f5c9f4760536fca37",
+    "scenarios.json": "b19ad31766434e70ad766235f931e24bc24d04e7f396e7109d87a074d40b0bbe",
+    "trainee_profiles.json": "d66d1b67ee189245485bdc5b90f9f08a5b8a491105828318196f25265d6c9a24"
+  },
+  "episodes": 1,
+  "execution_timestamp": "2026-08-28T08:01:09.724987+00:00",
+  "experiment_id": "20260828T080109694932Z-a0d3f086c6",
+  "git_commit_hash": null,
+  "master_seed": 42,
+  "methods": [
+    "static"
+  ],
+  "metric_definitions": [
+    "CCG",
+    "RWCS",
+    "CER",
+    "AR",
+    "SE",
+    "decision_consistency",
+    "trace_completeness",
+    "mean_adaptation_latency_ms"
+  ],
+  "platform": "Windows-10-10.0.26200-SP0",
+  "profiles": [
+    "T1"
+  ],
+  "python_version": "3.10.20 | packaged by Anaconda, Inc. | (main, Jun 11 2026, 15:13:20) [MSC v.1942 64 bit (AMD64)]",
+  "repetitions": 1,
+  "software_version": "3.0.0-prototype",
+  "stopping_condition": "All high-risk competencies >= target and mean competence >= target-0.05",
+  "warnings": [
+    "Synthetic-participant simulation only; not evidence of human learning or accident reduction.",
+    "CI95 uses a 1.96 normal approximation."
+  ]
+}

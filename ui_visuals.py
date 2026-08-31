@@ -24,6 +24,16 @@ _FALLBACK_GAME_CSS = """
 .placeholder-notice { padding: .45rem; border: 1px dashed #7c641f; }
 """
 
+# Optional animation enhancement loaded from a CDN inside the isolated
+# components.html iframe only. Every scene/worker/gauge animates fully via
+# self-contained CSS keyframes first; this script only adds extra polish
+# (organic randomised timing) when the reviewer's browser can reach it, and
+# is wrapped so a blocked/offline load never breaks the baseline animation.
+_GSAP_TAG = (
+    '<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" '
+    'referrerpolicy="no-referrer" onerror="window.__racaGsapFailed=true"></script>'
+)
+
 
 def _load_game_css(css_path: Path = _CSS_PATH) -> str:
     """Read project-local game CSS, falling back safely on file errors."""
@@ -105,10 +115,18 @@ def _safe_image_path(path: str | Path | None, category: str) -> Path:
 
 
 def inject_game_css() -> None:
-    """Inject static game styling at most once in the current Streamlit session."""
-    if not st.session_state.get(_CSS_SESSION_KEY, False):
-        st.markdown(f"<style>{_load_game_css()}</style>", unsafe_allow_html=True)
-        st.session_state[_CSS_SESSION_KEY] = True
+    """Inject the static game stylesheet for the current page run.
+
+    Streamlit re-executes the whole page script on every rerun (any widget
+    interaction, page switch, etc.) and only elements emitted *during that
+    run* remain in the rendered DOM — an element skipped this run because it
+    was already emitted on some earlier run simply is not there any more.
+    The stylesheet is therefore re-emitted on every call rather than only
+    once per session; ``_CSS_SESSION_KEY`` is kept (and still set) purely as
+    a lightweight backward-compatible marker, not as a skip guard.
+    """
+    st.markdown(f"<style>{_load_game_css()}</style>", unsafe_allow_html=True)
+    st.session_state[_CSS_SESSION_KEY] = True
 
 
 def render_scenario_header(
@@ -125,27 +143,117 @@ def render_scenario_header(
     scenario_code = _safe_text(scenario_id, "Unassigned")
     difficulty_text = _safe_text(difficulty)
     trainee = _safe_text(trainee_profile, "Anonymous")
+    domain_icon = {
+        "manufacturing": "\U0001F3ED",
+        "chemical_laboratory": "\U0001F9EA",
+        "construction": "\U0001F3D7️",
+    }.get(assets_manager.normalize_asset_key(domain), "\U0001F3AF")
     markup = (
         '<section class="game-header">'
         '<div>'
-        f'<h2 class="game-header-title">{scenario}</h2>'
-        f'<p class="game-subtitle">Domain: {domain_text} · Scenario: {scenario_code}</p>'
+        f'<h2 class="game-header-title">{domain_icon}&nbsp; {scenario}</h2>'
+        f'<p class="game-subtitle">Domain: {domain_text} &middot; Scenario: {scenario_code}</p>'
         "</div>"
         '<div class="game-subtitle">'
-        f'<span class="difficulty-badge">Difficulty: {difficulty_text}</span> '
-        f'<span class="status-badge">Trainee: {trainee}</span>'
+        f'<span class="difficulty-badge">⚡ Difficulty: {difficulty_text}</span> '
+        f'<span class="status-badge">\U0001F464 Trainee: {trainee}</span>'
         "</div></section>"
     )
     st.markdown(markup, unsafe_allow_html=True)
 
+
+def render_page_header(icon: str, title: str, subtitle: str | None = None) -> None:
+    """Render a generic page hero banner sharing the Serious Game header look.
+
+    Used by the landing page and the Dashboard / Decision Trace / Experiment
+    Simulator / Scientific Validation pages so every screen in the app reads
+    as one consistent product instead of one styled screen surrounded by
+    plain Streamlit defaults. Purely presentational — takes no scientific
+    state and changes nothing about how any page computes its results.
+    """
+    inject_game_css()
+    title_text = _safe_text(title)
+    markup = f'<section class="raca-page-hero"><h1 class="raca-page-hero-title">{icon} {title_text}</h1>'
+    if subtitle:
+        markup += f'<p class="raca-page-hero-subtitle">{_safe_text(subtitle)}</p>'
+    markup += "</section>"
+    st.markdown(markup, unsafe_allow_html=True)
+
+
+# --------------------------------------------------------------------------
+# Domain theming shared by the animated scene and the animated worker
+# --------------------------------------------------------------------------
+
+_DOMAIN_THEMES: dict[str, dict[str, str]] = {
+    "manufacturing": {
+        "label": "MANUFACTURING FLOOR",
+        "icon": "\U0001F3ED",
+        "accent": "#f59e0b",
+        "accent_soft": "#fde3b0",
+    },
+    "chemical_laboratory": {
+        "label": "CHEMICAL LABORATORY",
+        "icon": "\U0001F9EA",
+        "accent": "#14b8a6",
+        "accent_soft": "#bdeee6",
+    },
+    "construction": {
+        "label": "CONSTRUCTION SITE",
+        "icon": "\U0001F3D7️",
+        "accent": "#f97316",
+        "accent_soft": "#ffd9b0",
+    },
+}
+
+
+def domain_theme(domain: str | None) -> dict[str, str]:
+    """Return the public icon/label/accent theme for a domain (manufacturing fallback)."""
+    key = assets_manager.normalize_asset_key(domain or "")
+    return _DOMAIN_THEMES.get(key, _DOMAIN_THEMES["manufacturing"])
+
+
+def _resolve_domain_key(domain: str | None, scene_text: str) -> str:
+    """Resolve a domain key from an explicit domain, falling back to keywords."""
+    if domain:
+        normalized = assets_manager.normalize_asset_key(domain)
+        if normalized in _DOMAIN_THEMES:
+            return normalized
+    lower = (scene_text or "").lower()
+    if any(token in lower for token in ("chemical", "laboratory", "lab", "reagent", "solvent", "corrosive")):
+        return "chemical_laboratory"
+    if any(token in lower for token in ("construction", "ground site", "height", "lifting", "crane", "scaffold")):
+        return "construction"
+    return "manufacturing"
+
+
+def _character_state_from_path(path: Path | str | None) -> str:
+    """Infer the presentation state (safe/warning/neutral) from an asset stem."""
+    stem = Path(path).stem.lower() if path else ""
+    if "warning" in stem:
+        return "warning"
+    if "safe" in stem:
+        return "safe"
+    return "neutral"
+
+
+# --------------------------------------------------------------------------
+# Scene + worker rendering
+# --------------------------------------------------------------------------
 
 def render_scenario_visual(
     background_path: str | Path | None,
     character_path: str | Path | None,
     caption: str | None = None,
     selected_ppe: list[str] | None = None,
+    domain: str | None = None,
 ) -> None:
-    """Render animated 2D workplace context and an animated PPE worker."""
+    """Render an animated 2D workplace scene and an animated PPE worker.
+
+    ``domain`` is an optional, presentation-only hint (e.g. ``"construction"``)
+    used to pick the correct animated illustration set. When omitted, the
+    domain is inferred from ``caption``/``background_path`` keywords, exactly
+    as in earlier releases, so existing call sites keep working unchanged.
+    """
     background = _safe_image_path(background_path, "background")
     character = _safe_image_path(character_path, "character")
     scene_text = " ".join(
@@ -154,15 +262,32 @@ def render_scenario_visual(
             Path(background_path).stem if background_path is not None else "",
         ) if part
     ).lower()
+    domain_key = _resolve_domain_key(domain, scene_text)
+    state = _character_state_from_path(character_path)
+
     background_column, character_column = st.columns([3, 1])
     with background_column:
-        components.html(_animated_workplace_scene(scene_text, caption), height=385, scrolling=False)
+        components.html(_domain_scene_html(domain_key, caption), height=410, scrolling=False)
     with character_column:
-        render_dynamic_ppe_worker(character, selected_ppe or [])
+        render_dynamic_ppe_worker(character, selected_ppe or [], domain=domain_key, state=state)
     for path in (background, character):
         placeholder, category, name = _placeholder_details(path)
         if placeholder:
             render_placeholder_notice(category, name)
+
+
+def _image_data_uri(path: Path) -> str | None:
+    """Encode a validated local image for a self-contained HTML layer."""
+    if not assets_manager.image_exists(path):
+        return None
+    mime = {".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp"}.get(
+        path.suffix.lower(), "image/png"
+    )
+    try:
+        encoded = base64.b64encode(path.read_bytes()).decode("ascii")
+    except OSError:
+        return None
+    return f"data:{mime};base64,{encoded}"
 
 
 _PPE_OVERLAY_POSITIONS = {
@@ -190,20 +315,6 @@ _PPE_OVERLAY_POSITIONS = {
 }
 
 
-def _image_data_uri(path: Path) -> str | None:
-    """Encode a validated local image for a self-contained HTML layer."""
-    if not assets_manager.image_exists(path):
-        return None
-    mime = {".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp"}.get(
-        path.suffix.lower(), "image/png"
-    )
-    try:
-        encoded = base64.b64encode(path.read_bytes()).decode("ascii")
-    except OSError:
-        return None
-    return f"data:{mime};base64,{encoded}"
-
-
 def _ppe_overlay_model(selected_ppe: list[str]) -> list[dict[str, str]]:
     """Return fixed presentation coordinates; no scientific state is read."""
     layers = []
@@ -221,7 +332,6 @@ def _ppe_overlay_model(selected_ppe: list[str]) -> list[dict[str, str]]:
             {"ppe_id": key, "src": source, "left": left, "top": top, "width": width}
         )
     return layers
-
 
 
 def _normalized_ppe_set(selected_ppe: list[str]) -> set[str]:
@@ -252,9 +362,26 @@ def _normalized_ppe_set(selected_ppe: list[str]) -> set[str]:
     return categories
 
 
-def _animated_worker_svg(selected_ppe: list[str]) -> str:
+_WORKER_UNIFORM_BY_DOMAIN = {
+    "manufacturing": {"body": "#2563EB", "sleeve": "#1D4ED8", "boot": "#1F2937"},
+    "chemical_laboratory": {"body": "#E2E8F0", "sleeve": "#CBD5E1", "boot": "#334155"},
+    "construction": {"body": "#EA580C", "sleeve": "#C2410C", "boot": "#3F2E1E"},
+}
+
+_STATE_GLOW = {
+    "safe": "#22c55e",
+    "warning": "#ef4444",
+    "neutral": "#38bdf8",
+}
+
+
+def _animated_worker_svg(selected_ppe: list[str], domain: str = "manufacturing", state: str = "neutral") -> str:
     """Return a self-contained animated SVG worker with attached PPE layers."""
     ppe = _normalized_ppe_set(selected_ppe)
+    uniform = _WORKER_UNIFORM_BY_DOMAIN.get(domain, _WORKER_UNIFORM_BY_DOMAIN["manufacturing"])
+    body_color = uniform["body"]
+    sleeve_color = uniform["sleeve"]
+    boot_color = uniform["boot"]
 
     helmet = """
       <g class="ppe-layer">
@@ -341,26 +468,70 @@ def _animated_worker_svg(selected_ppe: list[str]) -> str:
       </g>
     """ if "shoes" in ppe else ""
 
+    glow = _STATE_GLOW.get(state, _STATE_GLOW["neutral"])
+
     return f"""
     <svg viewBox="0 0 200 205" xmlns="http://www.w3.org/2000/svg"
          role="img" aria-label="Animated PPE training worker">
+      <defs>
+        <radialGradient id="stateGlow" cx="50%" cy="46%" r="55%">
+          <stop offset="0%" stop-color="{glow}" stop-opacity="0.32"/>
+          <stop offset="100%" stop-color="{glow}" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="100" cy="100" r="98" fill="url(#stateGlow)" class="state-halo"/>
       <ellipse cx="100" cy="195" rx="48" ry="7" fill="#0F172A" fill-opacity=".10"/>
       <g class="worker-idle">
-        <circle cx="100" cy="64" r="21" fill="#E8B17D" stroke="#7C5232" stroke-width="2"/>
-        <path d="M81 57 Q100 42 119 57" fill="#263238"/>
-        <rect x="73" y="88" width="54" height="61" rx="15" fill="#2563EB"/>
-        <rect x="52" y="92" width="18" height="55" rx="9" fill="#2563EB" transform="rotate(7 61 92)"/>
-        <rect x="130" y="92" width="18" height="55" rx="9" fill="#2563EB" transform="rotate(-7 139 92)"/>
+        <g class="worker-leg-left"><rect x="78" y="145" width="20" height="37" rx="8" fill="{sleeve_color}"/>
+          <rect x="72" y="178" width="29" height="11" rx="5" fill="{boot_color}"/></g>
+        <g class="worker-leg-right"><rect x="102" y="145" width="20" height="37" rx="8" fill="{sleeve_color}"/>
+          <rect x="99" y="178" width="29" height="11" rx="5" fill="{boot_color}"/></g>
+        <rect x="73" y="88" width="54" height="61" rx="15" fill="{body_color}"/>
+        <rect x="52" y="92" width="18" height="55" rx="9" fill="{body_color}" transform="rotate(7 61 92)"/>
+        <rect x="130" y="92" width="18" height="55" rx="9" fill="{body_color}" transform="rotate(-7 139 92)"/>
         <circle cx="54" cy="140" r="7" fill="#E8B17D"/>
         <circle cx="146" cy="140" r="7" fill="#E8B17D"/>
-        <rect x="78" y="145" width="20" height="37" rx="8" fill="#1E3A8A"/>
-        <rect x="102" y="145" width="20" height="37" rx="8" fill="#1E3A8A"/>
-        <rect x="72" y="178" width="29" height="11" rx="5" fill="#374151"/>
-        <rect x="99" y="178" width="29" height="11" rx="5" fill="#374151"/>
+        <circle cx="100" cy="64" r="21" fill="#E8B17D" stroke="#7C5232" stroke-width="2"/>
+        <path d="M81 57 Q100 42 119 57" fill="#263238"/>
+        <g class="worker-blink">
+          <ellipse cx="92" cy="63" rx="2.4" ry="2.6" fill="#1f2937"/>
+          <ellipse cx="108" cy="63" rx="2.4" ry="2.6" fill="#1f2937"/>
+        </g>
+        <path d="M90 72 Q100 76 110 72" stroke="#7C5232" stroke-width="2" fill="none" stroke-linecap="round"/>
         {coat}{vest}{harness}{helmet}{hearing}{goggles}{shield}{respirator}{gloves}{shoes}
       </g>
     </svg>
     """
+
+
+def _hazard_symbol(hazard_id: str) -> str:
+    """Return a licensing-safe visual symbol for a hazard badge."""
+    key = assets_manager.normalize_asset_key(hazard_id)
+    if "fall" in key and "object" in key:
+        return "\U0001FAA8"
+    if "moving_equipment" in key or "vehicle" in key:
+        return "\U0001F69C"
+    if "dust" in key:
+        return "\U0001F32B️"
+    if "debris" in key:
+        return "\U0001F4A5"
+    if "noise" in key:
+        return "\U0001F50A"
+    if "height" in key:
+        return "\U0001FA9C"
+    if "sharp" in key or "glass" in key:
+        return "\U0001F52A"
+    if "corrosive" in key:
+        return "\U0001F9EA"
+    if "toxic" in key or "vapour" in key or "vapor" in key:
+        return "\U00002623️"
+    if "splash" in key:
+        return "\U0001F4A7"
+    if "flammable" in key or "solvent" in key:
+        return "\U0001F525"
+    if "ventilation" in key:
+        return "\U0001F32C️"
+    return "\U000026A0️"
 
 
 def _ppe_symbol(ppe_id: str) -> str:
@@ -369,84 +540,443 @@ def _ppe_symbol(ppe_id: str) -> str:
     if "helmet" in key:
         return "⛑️"
     if "goggle" in key or "eye" in key:
-        return "🥽"
+        return "\U0001F97D"
     if "face_shield" in key:
-        return "🛡️"
+        return "\U0001F6E1️"
     if "respirator" in key:
-        return "😷"
+        return "\U0001F637"
     if "hearing" in key:
-        return "🎧"
+        return "\U0001F3A7"
     if "vest" in key or "visibility" in key:
-        return "🦺"
+        return "\U0001F9BA"
     if "coat" in key:
-        return "🥼"
+        return "\U0001F97C"
     if "harness" in key or "fall_arrest" in key:
-        return "🪢"
+        return "\U0001FA79"
     if "glove" in key:
-        return "🧤"
+        return "\U0001F9E4"
     if "shoe" in key or "footwear" in key:
-        return "🥾"
-    return "🧰"
+        return "\U0001F97E"
+    return "\U0001F9F0"
 
 
-def _animated_workplace_scene(scene_text: str, caption: str | None) -> str:
-    """Create a dynamic, licensing-safe 2D scene for the active task."""
-    label = _safe_text(caption or "Active workplace training scenario")
-    lower = (scene_text or "").lower()
-    if any(token in lower for token in ("chemical", "laboratory", "lab", "reagent")):
-        theme, title, moving, station, secondary = "laboratory", "CHEMICAL LABORATORY", "🧪", "⚗️", "🧫"
-        floor, sky = "#e8eef5", "#eaf7ff"
-    elif any(token in lower for token in ("construction", "ground site", "height", "lifting", "crane")):
-        theme, title, moving, station, secondary = "construction", "CONSTRUCTION SITE", "🚜", "🏗️", "🚧"
-        floor, sky = "#e4d2b4", "#e8f4ff"
-    else:
-        theme, title, moving, station, secondary = "manufacturing", "MATERIAL HANDLING", "🚜", "🏭", "📦"
-        floor, sky = "#e5e7eb", "#e7f5ff"
-    conveyor = '<div class="conveyor"></div>' if theme == 'manufacturing' else ''
+# --------------------------------------------------------------------------
+# Shared CSS building blocks for the self-contained scene / worker iframes
+# --------------------------------------------------------------------------
+
+_SCENE_BASE_CSS = """
+html,body{margin:0;padding:0;background:transparent;font-family:'Segoe UI',Arial,sans-serif;overflow:hidden}
+.scene{position:relative;height:398px;overflow:hidden;border:1px solid #cbd5e1;border-radius:20px;
+  box-shadow:0 10px 26px -14px rgba(9,30,42,.38);}
+.scene-title{position:absolute;top:16px;left:50%;transform:translateX(-50%);z-index:5;
+  display:flex;align-items:center;gap:.4rem;padding:.32rem .85rem;border-radius:999px;
+  background:rgba(15,23,42,.62);color:#fff;font-weight:700;font-size:13px;letter-spacing:.05em;
+  backdrop-filter:blur(2px);}
+.scene-caption{position:absolute;left:16px;right:16px;bottom:14px;z-index:5;text-align:center;
+  padding:.4rem .7rem;border-radius:.6rem;background:rgba(255,255,255,.86);color:#1f2937;
+  font-size:12.5px;font-weight:600;box-shadow:0 2px 8px rgba(15,23,42,.12);}
+.hazard-ring{position:absolute;z-index:4;width:66px;height:66px;border-radius:50%;
+  border:4px solid rgba(239,68,68,.45);animation:raca-pulse 1.7s ease-out infinite;}
+.hazard-flag{position:absolute;z-index:5;transform:translate(-50%,-135%);
+  padding:.16rem .5rem;border-radius:.4rem;background:#ef4444;color:#fff;font-size:10.5px;
+  font-weight:800;letter-spacing:.03em;white-space:nowrap;box-shadow:0 3px 8px rgba(239,68,68,.4);}
+.dust-mote{position:absolute;border-radius:50%;background:rgba(255,255,255,.55);
+  animation:raca-float-up linear infinite;}
+.beacon{position:absolute;border-radius:50%;filter:blur(.5px);
+  animation:raca-beacon-spin 1.1s linear infinite;}
+@keyframes raca-pulse{0%{transform:scale(.55);opacity:.95}100%{transform:scale(1.9);opacity:0}}
+@keyframes raca-float-up{0%{transform:translateY(0) translateX(0);opacity:0}
+  10%{opacity:.8}90%{opacity:.5}100%{transform:translateY(-160px) translateX(14px);opacity:0}}
+@keyframes raca-beacon-spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+@keyframes raca-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes raca-drift{0%{transform:translateX(-60px)}100%{transform:translateX(70px)}}
+"""
+
+
+def _scene_shell(
+    domain_key: str,
+    caption: str | None,
+    body: str,
+    extra_style: str,
+    hazard_label: str,
+    hazard_pos: tuple[str, str],
+    scale: float = 1.0,
+) -> str:
+    """Wrap per-domain scene markup in the shared animated iframe document.
+
+    ``scale`` shrinks the whole 398px-tall scene proportionally via a CSS
+    transform (used for compact recap previews) while keeping every
+    absolutely-positioned element's relative layout intact — changing the
+    declared scene height directly would misalign them instead.
+    """
+    theme = _DOMAIN_THEMES[domain_key]
+    label = _safe_text(caption or f"{theme['label'].title()} training context.")
+    left, top = hazard_pos
+    outer_height = round(398 * scale)
+    scene_style = ""
+    if abs(scale - 1.0) > 1e-6:
+        scene_style = f' style="transform:scale({scale:.4f});transform-origin:top left;width:{100 / scale:.3f}%"'
     return f"""<!doctype html>
-<html><head><meta charset='utf-8'><style>
-html,body{{margin:0;padding:0;background:transparent;font-family:Arial,sans-serif;overflow:hidden}}
-.scene{{height:350px;position:relative;overflow:hidden;border:1px solid #cbd5e1;border-radius:18px;background:linear-gradient(180deg,{sky} 0 64%,{floor} 64% 100%);box-shadow:0 8px 22px rgba(15,23,42,.08)}}
-.title{{position:absolute;top:20px;left:0;right:0;text-align:center;font-weight:700;font-size:21px;color:#475569;letter-spacing:.04em}}
-.station{{position:absolute;right:8%;bottom:78px;font-size:78px;filter:drop-shadow(0 3px 2px rgba(0,0,0,.13));animation:bob 2.4s ease-in-out infinite}}
-.secondary{{position:absolute;right:31%;bottom:81px;font-size:45px;animation:bob 2s ease-in-out infinite reverse}}
-.vehicle{{position:absolute;left:-95px;bottom:77px;font-size:70px;animation:travel 6.5s linear infinite;filter:drop-shadow(0 3px 2px rgba(0,0,0,.15))}}
-.line{{position:absolute;left:5%;right:5%;bottom:67px;border-bottom:4px dashed #64748b}}
-.warning{{position:absolute;right:22%;top:28%;width:78px;height:78px;border:5px solid rgba(239,68,68,.34);border-radius:50%;animation:pulse 1.55s ease-out infinite}}
-.cloud{{position:absolute;width:86px;height:22px;background:rgba(255,255,255,.75);border-radius:30px}}
-.cloud:before,.cloud:after{{content:"";position:absolute;background:inherit;border-radius:50%}}
-.cloud:before{{width:32px;height:32px;left:14px;top:-14px}}.cloud:after{{width:40px;height:40px;right:11px;top:-19px}}
-.c1{{left:8%;top:17%;animation:cloud 11s linear infinite}}.c2{{left:48%;top:12%;animation:cloud 15s linear infinite reverse}}
-.conveyor{{position:absolute;left:15%;bottom:105px;width:46%;height:12px;background:#64748b;border-radius:7px}}
-.conveyor:before{{content:"📦  📦  📦";position:absolute;left:5%;top:-38px;font-size:27px;letter-spacing:28px;white-space:nowrap;animation:boxes 4s linear infinite}}
-.caption{{position:absolute;left:20px;right:20px;bottom:18px;text-align:center;color:#475569;font-size:13px;font-weight:600}}
-@keyframes travel{{0%{{transform:translateX(0)}}100%{{transform:translateX(780px)}}}}
-@keyframes pulse{{0%{{transform:scale(.55);opacity:.9}}100%{{transform:scale(1.75);opacity:0}}}}
-@keyframes bob{{0%,100%{{transform:translateY(0)}}50%{{transform:translateY(-5px)}}}}
-@keyframes cloud{{0%{{transform:translateX(-40px)}}100%{{transform:translateX(150px)}}}}
-@keyframes boxes{{0%{{transform:translateX(-40px)}}100%{{transform:translateX(65px)}}}}
-</style></head><body>
-<div class='scene'><div class='title'>{title}</div><div class='cloud c1'></div><div class='cloud c2'></div><div class='station'>{station}</div><div class='secondary'>{secondary}</div>{conveyor}<div class='vehicle'>{moving}</div><div class='warning'></div><div class='line'></div><div class='caption'>{label}</div></div>
+<html><head><meta charset='utf-8'><style>{_SCENE_BASE_CSS}{extra_style}
+.scene-outer{{height:{outer_height}px;overflow:hidden}}
+</style></head>
+<body>
+<div class="scene-outer"><div class="scene"{scene_style}>
+  <div class="scene-title">{theme['icon']} {theme['label']}</div>
+  {body}
+  <div class="hazard-ring" style="left:{left};top:{top}"></div>
+  <div class="hazard-flag" style="left:{left};top:{top}">{html.escape(hazard_label)}</div>
+  <div class="scene-caption">{label}</div>
+</div></div>
+{_GSAP_TAG}
+<script>
+(function(){{
+  function sprinkle(className, count, zoneSel){{
+    try {{
+      var zone = document.querySelector(zoneSel);
+      if(!zone) return;
+      for (var i=0;i<count;i++){{
+        var el = document.createElement('div');
+        el.className = className;
+        el.style.left = (8 + Math.random()*84) + '%';
+        el.style.animationDelay = (Math.random()*3.2) + 's';
+        el.style.animationDuration = (2.4 + Math.random()*2.2) + 's';
+        zone.appendChild(el);
+      }}
+    }} catch(e) {{}}
+  }}
+  sprinkle('dust-mote raca-mote', 10, '.scene');
+  if (window.gsap && !window.__racaGsapFailed) {{
+    try {{
+      gsap.utils.toArray('.raca-gsap-sway').forEach(function(el, i){{
+        gsap.to(el, {{rotation: (i % 2 ? 4 : -4), transformOrigin: 'top center',
+          duration: 2.6 + (i % 3) * 0.4, yoyo: true, repeat: -1, ease: 'sine.inOut'}});
+      }});
+      gsap.utils.toArray('.raca-gsap-spark').forEach(function(el){{
+        gsap.to(el, {{opacity: 1, scale: 1.3, duration: 0.18, repeat: -1,
+          repeatDelay: 0.6 + Math.random()*0.8, yoyo: true, ease: 'power2.out'}});
+      }});
+    }} catch(e) {{}}
+  }}
+}})();
+</script>
 </body></html>"""
 
 
-def render_dynamic_ppe_worker(character_path: str | Path | None, selected_ppe: list[str]) -> None:
-    """Render animated SVG worker with selected PPE visibly attached."""
+def _domain_scene_html(domain_key: str, caption: str | None, scale: float = 1.0) -> str:
+    """Dispatch to the correct richly animated, licensing-safe domain scene."""
+    builder = {
+        "manufacturing": _scene_manufacturing,
+        "chemical_laboratory": _scene_chemical_lab,
+        "construction": _scene_construction,
+    }.get(domain_key, _scene_manufacturing)
+    return builder(caption, scale)
+
+
+def _scene_manufacturing(caption: str | None, scale: float = 1.0) -> str:
+    style = """
+    .sky{position:absolute;inset:0 0 42% 0;background:linear-gradient(180deg,#dfe7ee 0%,#c9d6e0 100%)}
+    .wall-grid{position:absolute;inset:0 0 42% 0;opacity:.5;
+      background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.5) 0 2px,transparent 2px 96px),
+        repeating-linear-gradient(0deg,rgba(255,255,255,.35) 0 2px,transparent 2px 60px)}
+    .floor{position:absolute;left:0;right:0;bottom:0;height:42%;background:linear-gradient(180deg,#e7ebef 0%,#cfd8de 100%)}
+    .floor-line{position:absolute;left:4%;right:4%;bottom:36px;height:4px;background:#94a3b8;border-radius:3px}
+    .safety-tape{position:absolute;left:0;right:0;bottom:0;height:10px;
+      background-image:repeating-linear-gradient(135deg,#f59e0b 0 16px,#1f2937 16px 32px)}
+    .rail{position:absolute;left:4%;right:4%;top:52px;height:6px;background:#64748b;border-radius:3px;box-shadow:0 2px 3px rgba(0,0,0,.15)}
+    .trolley{position:absolute;top:52px;width:34px;height:14px;background:#334155;border-radius:3px;
+      animation:raca-trolley 8s ease-in-out infinite}
+    .hook-cable{position:absolute;top:66px;left:17px;width:2px;background:#1f2937;
+      animation:raca-cable 8s ease-in-out infinite}
+    .hook-load{position:absolute;top:0;left:-13px;width:28px;height:24px;background:#f59e0b;
+      border:2px solid #b45309;border-radius:3px;animation:raca-cable-load 8s ease-in-out infinite}
+    @keyframes raca-trolley{0%,100%{left:6%}50%{left:64%}}
+    @keyframes raca-cable{0%,100%{height:26px}30%,70%{height:74px}}
+    @keyframes raca-cable-load{0%,100%{top:26px}30%,70%{top:74px}}
+    .conveyor{position:absolute;left:12%;bottom:96px;width:44%;height:14px;background:#475569;border-radius:8px;
+      box-shadow:0 3px 4px rgba(0,0,0,.18)}
+    .roller{position:absolute;bottom:-3px;width:12px;height:12px;border-radius:50%;background:#94a3b8;
+      border:2px solid #334155;animation:raca-roll .9s linear infinite}
+    .cbox{position:absolute;bottom:12px;width:26px;height:22px;background:#c98a3f;border:2px solid #7c4a12;
+      border-radius:2px;animation:raca-conveyor-move 4.2s linear infinite}
+    @keyframes raca-roll{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
+    @keyframes raca-conveyor-move{0%{left:-8%;opacity:0}8%{opacity:1}92%{opacity:1}100%{left:104%;opacity:0}}
+    .forklift{position:absolute;bottom:44px;width:64px;height:34px;animation:raca-forklift 9s ease-in-out infinite}
+    .fk-body{position:absolute;bottom:10px;left:10px;width:44px;height:20px;background:#facc15;border:2px solid #92620a;border-radius:4px}
+    .fk-cab{position:absolute;bottom:26px;left:16px;width:22px;height:14px;background:#fde68a;border:2px solid #92620a;border-radius:3px 3px 0 0}
+    .fk-mast{position:absolute;bottom:6px;left:2px;width:4px;height:34px;background:#334155}
+    .fk-fork{position:absolute;bottom:6px;left:0px;width:14px;height:4px;background:#334155}
+    .fk-wheel{position:absolute;bottom:0;width:12px;height:12px;border-radius:50%;background:#1f2937;
+      border:2px solid #64748b;animation:raca-roll .5s linear infinite}
+    @keyframes raca-forklift{0%,100%{left:2%;transform:scaleX(1)}45%{left:58%;transform:scaleX(1)}
+      50%{left:58%;transform:scaleX(-1)}95%{left:2%;transform:scaleX(-1)}}
+    .grinder{position:absolute;right:9%;bottom:78px;width:30px;height:30px}
+    .grinder-wheel{position:absolute;inset:0;border-radius:50%;border:5px solid #475569;border-top-color:#facc15;
+      animation:raca-roll .35s linear infinite}
+    .spark{position:absolute;width:5px;height:5px;border-radius:50%;background:#fbbf24;opacity:0;
+      box-shadow:0 0 6px 1px rgba(251,191,36,.9)}
+    .beacon{right:8%;top:16%;width:16px;height:16px;
+      background:conic-gradient(from 0deg,#ef4444 0deg 40deg,transparent 40deg 360deg)}
+    .beacon-glow{position:absolute;right:calc(8% - 10px);top:calc(16% - 10px);width:36px;height:36px;border-radius:50%;
+      background:radial-gradient(circle,rgba(239,68,68,.35),transparent 70%);animation:raca-pulse 1.4s ease-out infinite}
+    """
+    body = """
+    <div class="sky"></div><div class="wall-grid"></div><div class="floor"></div>
+    <div class="floor-line"></div><div class="safety-tape"></div>
+    <div class="rail"></div>
+    <div class="trolley"><div class="hook-cable"><div class="hook-load"></div></div></div>
+    <div class="conveyor">
+      <div class="roller" style="left:2px"></div><div class="roller" style="left:34%"></div>
+      <div class="roller" style="left:64%"></div><div class="roller" style="right:2px"></div>
+      <div class="cbox" style="animation-delay:0s"></div>
+      <div class="cbox" style="animation-delay:-1.4s"></div>
+      <div class="cbox" style="animation-delay:-2.8s"></div>
+    </div>
+    <div class="forklift">
+      <div class="fk-mast"></div><div class="fk-fork"></div><div class="fk-cab"></div><div class="fk-body"></div>
+      <div class="fk-wheel" style="left:14px"></div><div class="fk-wheel" style="left:40px"></div>
+    </div>
+    <div class="grinder"><div class="grinder-wheel"></div>
+      <div class="spark raca-gsap-spark" style="left:26px;top:6px;animation:raca-pulse 1.1s ease-out infinite"></div>
+      <div class="spark raca-gsap-spark" style="left:4px;top:18px;animation:raca-pulse 1.3s ease-out .3s infinite"></div>
+      <div class="spark raca-gsap-spark" style="left:20px;top:24px;animation:raca-pulse 1s ease-out .6s infinite"></div>
+    </div>
+    <div class="beacon-glow"></div><div class="beacon"></div>
+    """
+    return _scene_shell("manufacturing", caption, body, style, "Moving equipment", ("60%", "55%"), scale)
+
+
+def _scene_chemical_lab(caption: str | None, scale: float = 1.0) -> str:
+    style = """
+    .lab-wall{position:absolute;inset:0 0 38% 0;background:linear-gradient(180deg,#eaf6f5 0%,#d9efec 100%)}
+    .tiles{position:absolute;inset:0 0 38% 0;opacity:.5;
+      background-image:repeating-linear-gradient(90deg,rgba(255,255,255,.6) 0 2px,transparent 2px 40px),
+        repeating-linear-gradient(0deg,rgba(255,255,255,.4) 0 2px,transparent 2px 40px)}
+    .bench{position:absolute;left:0;right:0;bottom:0;height:38%;background:linear-gradient(180deg,#e7ece9 0%,#c9d6d2 100%)}
+    .bench-edge{position:absolute;left:0;right:0;bottom:calc(38% - 6px);height:6px;background:#64748b}
+    .hood{position:absolute;right:6%;bottom:38%;width:120px;height:150px;background:rgba(219,234,254,.35);
+      border:2px solid #60a5fa;border-radius:6px 6px 0 0}
+    .hood-sash{position:absolute;left:6px;right:6px;top:14px;height:5px;background:#1d4ed8;border-radius:3px}
+    .hood-flow{position:absolute;width:3px;height:26px;background:linear-gradient(180deg,rgba(96,165,250,.05),rgba(96,165,250,.5));
+      border-radius:2px;animation:raca-hoodflow 2.4s linear infinite}
+    @keyframes raca-hoodflow{0%{transform:translateY(20px);opacity:0}30%{opacity:.8}100%{transform:translateY(-90px);opacity:0}}
+    .stand{position:absolute;left:14%;bottom:38%;width:4px;height:120px;background:#94a3b8}
+    .stand-base{position:absolute;left:calc(14% - 20px);bottom:calc(38% - 4px);width:46px;height:6px;background:#64748b;border-radius:2px}
+    .burette{position:absolute;left:calc(14% - 2px);bottom:calc(38% + 60px);width:6px;height:52px;background:rgba(20,184,166,.55);
+      border:1px solid #0f766e;border-radius:2px}
+    .drop{position:absolute;left:calc(14% + 1px);bottom:calc(38% + 4px);width:4px;height:6px;border-radius:50% 50% 50% 0;
+      background:#14b8a6;transform:rotate(45deg);animation:raca-drop 1.8s ease-in infinite}
+    @keyframes raca-drop{0%{transform:translateY(0) rotate(45deg);opacity:0}
+      10%{opacity:1}90%{transform:translateY(46px) rotate(45deg);opacity:1}100%{transform:translateY(50px) rotate(45deg);opacity:0}}
+    .beaker{position:absolute;left:calc(14% - 11px);bottom:38%;width:26px;height:20px;border:2px solid #64748b;
+      border-top:none;border-radius:0 0 6px 6px;background:rgba(148,163,184,.25)}
+    .flask-wrap{position:absolute;left:38%;bottom:38%;width:70px;height:96px;animation:raca-bob 3.2s ease-in-out infinite}
+    .flask-neck{position:absolute;left:29px;bottom:78px;width:12px;height:20px;background:rgba(226,232,240,.55);border:2px solid #94a3b8;border-bottom:none}
+    .flask-body{position:absolute;left:6px;bottom:16px;width:58px;height:62px;border-radius:0 0 30px 30px;
+      background:rgba(226,232,240,.35);border:2px solid #94a3b8;overflow:hidden}
+    .flask-liquid{position:absolute;left:-2px;right:-2px;bottom:-2px;height:60%;
+      background:linear-gradient(180deg,#5eead4,#0d9488);animation:raca-liquid 4s ease-in-out infinite}
+    @keyframes raca-liquid{0%,100%{height:55%}50%{height:62%}}
+    .bubble{position:absolute;width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.85);
+      animation:raca-bubble 2.2s ease-in infinite}
+    @keyframes raca-bubble{0%{transform:translateY(0) scale(.4);opacity:0}20%{opacity:.9}
+      100%{transform:translateY(-46px) scale(1);opacity:0}}
+    .stirrer{position:absolute;left:16px;bottom:38%;width:46px;height:10px;background:#1f2937;border-radius:3px}
+    .stir-glow{position:absolute;left:12px;bottom:calc(38% - 4px);width:54px;height:14px;border-radius:50%;
+      background:radial-gradient(ellipse,rgba(249,115,22,.5),transparent 70%);animation:raca-pulse 1.6s ease-out infinite}
+    .vapor{position:absolute;left:52%;bottom:calc(38% + 88px);width:20px;height:26px;border-radius:50%;
+      background:radial-gradient(circle,rgba(255,255,255,.75),rgba(255,255,255,0) 70%);
+      animation:raca-vapor 3.4s ease-out infinite}
+    @keyframes raca-vapor{0%{transform:translate(0,0) scale(.5);opacity:0}
+      15%{opacity:.85}100%{transform:translate(18px,-92px) scale(1.6);opacity:0}}
+    .eyewash{position:absolute;left:2%;bottom:calc(38% + 40px);width:20px;height:26px;background:#e2e8f0;
+      border:2px solid #64748b;border-radius:4px}
+    .eyewash-led{position:absolute;left:2%;bottom:calc(38% + 62px);width:6px;height:6px;border-radius:50%;
+      background:#22c55e;animation:raca-led 1.4s ease-in-out infinite}
+    @keyframes raca-led{0%,100%{opacity:1;box-shadow:0 0 4px 1px #22c55e}50%{opacity:.35;box-shadow:none}}
+    """
+    body = """
+    <div class="lab-wall"></div><div class="tiles"></div><div class="bench"></div><div class="bench-edge"></div>
+    <div class="hood"><div class="hood-sash"></div>
+      <div class="hood-flow" style="left:24px;animation-delay:0s"></div>
+      <div class="hood-flow" style="left:56px;animation-delay:.8s"></div>
+      <div class="hood-flow" style="left:88px;animation-delay:1.6s"></div>
+    </div>
+    <div class="eyewash"></div><div class="eyewash-led"></div>
+    <div class="stand-base"></div><div class="stand"></div><div class="burette"></div>
+    <div class="drop"></div><div class="beaker"></div>
+    <div class="flask-wrap raca-gsap-sway">
+      <div class="flask-neck"></div>
+      <div class="flask-body">
+        <div class="flask-liquid"></div>
+        <div class="bubble" style="left:14px;bottom:8px;animation-delay:0s"></div>
+        <div class="bubble" style="left:30px;bottom:4px;animation-delay:.7s"></div>
+        <div class="bubble" style="left:42px;bottom:10px;animation-delay:1.3s"></div>
+      </div>
+    </div>
+    <div class="stirrer"></div><div class="stir-glow"></div>
+    <div class="vapor" style="animation-delay:0s"></div>
+    <div class="vapor" style="animation-delay:1.1s;left:56%"></div>
+    <div class="vapor" style="animation-delay:2.2s;left:49%"></div>
+    """
+    return _scene_shell("chemical_laboratory", caption, body, style, "Chemical exposure", ("47%", "48%"), scale)
+
+
+def _scene_construction(caption: str | None, scale: float = 1.0) -> str:
+    style = """
+    .sky{position:absolute;inset:0 0 34% 0;background:linear-gradient(180deg,#dbeeff 0%,#eaf4ff 100%)}
+    .cloud{position:absolute;width:70px;height:18px;background:rgba(255,255,255,.85);border-radius:30px}
+    .cloud::before,.cloud::after{content:"";position:absolute;background:inherit;border-radius:50%}
+    .cloud::before{width:26px;height:26px;left:10px;top:-11px}.cloud::after{width:32px;height:32px;right:8px;top:-15px}
+    .c1{left:10%;top:14%;animation:raca-drift 16s linear infinite}
+    .c2{left:52%;top:9%;animation:raca-drift 21s linear infinite reverse}
+    .ground{position:absolute;left:0;right:0;bottom:0;height:34%;background:linear-gradient(180deg,#e4d2b4 0%,#cdb488 100%)}
+    .frame{position:absolute;left:8%;bottom:34%;width:180px;height:180px}
+    .beam{position:absolute;background:#94a3b8}
+    .caution{position:absolute;left:0;right:0;bottom:8px;height:9px;
+      background-image:repeating-linear-gradient(135deg,#f59e0b 0 16px,#1f2937 16px 32px);
+      animation:raca-tape-wave 3.4s ease-in-out infinite}
+    @keyframes raca-tape-wave{0%,100%{transform:skewY(0)}50%{transform:skewY(.35deg)}}
+    .mast{position:absolute;right:22%;bottom:34%;width:8px;height:190px;background:#475569;border-radius:2px}
+    .jib{position:absolute;right:calc(22% - 4px);bottom:216px;width:150px;height:6px;background:#334155;border-radius:3px;
+      transform-origin:8px 3px;animation:raca-jib 5.6s ease-in-out infinite}
+    .counterjib{position:absolute;right:calc(22% + 46px);bottom:216px;width:44px;height:6px;background:#1f2937;border-radius:3px;
+      transform-origin:right center;animation:raca-jib 5.6s ease-in-out infinite}
+    @keyframes raca-jib{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(7deg)}}
+    .cable{position:absolute;right:16.6%;top:222px;width:2px;height:58px;background:#1f2937;
+      transform-origin:top center;animation:raca-swing 5.6s ease-in-out infinite}
+    .load{position:absolute;top:56px;left:-13px;width:28px;height:22px;background:#f59e0b;border:2px solid #b45309;border-radius:3px}
+    @keyframes raca-swing{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}
+    .scaffold{position:absolute;left:36%;bottom:34%;width:96px;height:150px;opacity:.85}
+    .bar{position:absolute;background:#64748b}
+    .dumptruck{position:absolute;bottom:26px;width:60px;height:30px;animation:raca-truck 8.5s linear infinite}
+    .dt-body{position:absolute;bottom:8px;left:0;width:44px;height:18px;background:#fb923c;border:2px solid #9a3412;border-radius:3px}
+    .dt-cab{position:absolute;bottom:8px;left:44px;width:16px;height:20px;background:#fdba74;border:2px solid #9a3412;border-radius:3px}
+    .dt-wheel{position:absolute;bottom:0;width:11px;height:11px;border-radius:50%;background:#1f2937;border:2px solid #64748b;
+      animation:raca-roll .5s linear infinite}
+    @keyframes raca-truck{0%{left:-10%}100%{left:104%}}
+    .drill{position:absolute;left:60%;bottom:40px;width:10px;height:34px;background:#334155;border-radius:2px;
+      animation:raca-jitter .12s linear infinite}
+    @keyframes raca-jitter{0%,100%{transform:translateX(0)}50%{transform:translateX(1.4px)}}
+    .puff{position:absolute;width:14px;height:14px;border-radius:50%;background:rgba(180,142,94,.6);
+      animation:raca-puff 1.6s ease-out infinite}
+    @keyframes raca-puff{0%{transform:translateY(0) scale(.4);opacity:0}20%{opacity:.75}
+      100%{transform:translateY(-38px) scale(1.5);opacity:0}}
+    """
+    body = """
+    <div class="sky"></div><div class="cloud c1"></div><div class="cloud c2"></div><div class="ground"></div>
+    <div class="scaffold">
+      <div class="bar" style="left:0;top:0;width:4px;height:150px"></div>
+      <div class="bar" style="right:0;top:0;width:4px;height:150px"></div>
+      <div class="bar" style="left:0;top:20px;width:96px;height:4px"></div>
+      <div class="bar" style="left:0;top:75px;width:96px;height:4px"></div>
+      <div class="bar" style="left:0;top:130px;width:96px;height:4px"></div>
+    </div>
+    <div class="mast"></div>
+    <div class="jib"><div class="cable"><div class="load"></div></div></div>
+    <div class="counterjib"></div>
+    <div class="dumptruck">
+      <div class="dt-body"></div><div class="dt-cab"></div>
+      <div class="dt-wheel" style="left:8px"></div><div class="dt-wheel" style="left:30px"></div>
+    </div>
+    <div class="drill"></div>
+    <div class="puff" style="left:59%;bottom:70px;animation-delay:0s"></div>
+    <div class="puff" style="left:62%;bottom:70px;animation-delay:.5s"></div>
+    <div class="puff" style="left:57%;bottom:70px;animation-delay:1s"></div>
+    <div class="caution"></div>
+    """
+    return _scene_shell("construction", caption, body, style, "Work at height", ("18%", "40%"), scale)
+
+
+def render_dynamic_ppe_worker(
+    character_path: str | Path | None,
+    selected_ppe: list[str],
+    domain: str | None = None,
+    state: str | None = None,
+) -> None:
+    """Render an animated SVG worker with selected PPE visibly attached.
+
+    ``domain`` selects the illustrated uniform archetype (manufacturing
+    coverall, laboratory coat, or hi-vis construction gear); ``state``
+    (``"safe"``/``"warning"``/``"neutral"``) drives a soft presentation-only
+    colour halo that echoes the evaluated decision without altering it.
+    """
+    domain_key = domain if domain in _DOMAIN_THEMES else _resolve_domain_key(domain, "")
+    state_key = state if state in _STATE_GLOW else "neutral"
     selected_label = ", ".join(_label(item) for item in selected_ppe) or "No PPE selected"
     worker_html = f"""<!doctype html>
 <html><head><meta charset='utf-8'><style>
 html,body{{margin:0;padding:0;background:transparent;font-family:Arial,sans-serif;overflow:hidden}}
-.card{{height:350px;border-radius:18px;padding:8px 8px 0;background:linear-gradient(180deg,#e0f2fe 0 69%,#f8fafc 69%);border:1px solid #cbd5e1;position:relative;overflow:hidden;box-shadow:0 8px 22px rgba(15,23,42,.08)}}
-.card:before{{content:"";position:absolute;left:-10%;right:-10%;bottom:25%;height:4px;background:#94a3b8;box-shadow:0 17px 0 #cbd5e1}}
-.stage{{position:relative;z-index:2;max-width:230px;margin:10px auto 0}}.stage svg{{display:block;width:100%;height:auto}}
-.worker-idle{{transform-origin:100px 190px;animation:idle 1.65s ease-in-out infinite}}.ppe-layer{{animation:attach .22s ease-out both}}
-.pulse{{position:absolute;right:8%;top:13%;width:60px;height:60px;border:4px solid rgba(239,68,68,.27);border-radius:50%;animation:pulse 1.6s ease-out infinite}}
-.label{{position:absolute;z-index:3;left:8px;right:8px;bottom:11px;text-align:center;font-size:12px;color:#334155;background:rgba(255,255,255,.78);padding:5px;border-radius:8px}}
-@keyframes idle{{0%,100%{{transform:translateY(0) rotate(0)}}50%{{transform:translateY(-5px) rotate(.45deg)}}}}
-@keyframes attach{{from{{opacity:0;transform:scale(.78)}}to{{opacity:1;transform:scale(1)}}}}
-@keyframes pulse{{0%{{transform:scale(.5);opacity:.8}}100%{{transform:scale(1.65);opacity:0}}}}
-</style></head><body><div class='card'><div class='pulse'></div><div class='stage'>{_animated_worker_svg(selected_ppe)}</div><div class='label'><b>Selected PPE:</b> {_safe_text(selected_label)}</div></div></body></html>"""
-    components.html(worker_html, height=370, scrolling=False)
+.card{{height:398px;border-radius:20px;padding:10px 8px 0;
+  background:linear-gradient(180deg,#e6f3fa 0 68%,#f8fafc 68%);border:1px solid #cbd5e1;position:relative;
+  overflow:hidden;box-shadow:0 10px 26px -14px rgba(9,30,42,.38)}}
+.card:before{{content:"";position:absolute;left:-10%;right:-10%;bottom:27%;height:4px;background:#94a3b8;box-shadow:0 17px 0 #cbd5e1}}
+.stage{{position:relative;z-index:2;max-width:230px;margin:8px auto 0}}.stage svg{{display:block;width:100%;height:auto}}
+.worker-idle{{transform-origin:100px 190px;animation:idle 2.1s ease-in-out infinite}}
+.ppe-layer{{animation:attach .26s cubic-bezier(.22,.8,.32,1) both}}
+.worker-blink{{animation:blink 4.6s ease-in-out infinite}}
+.worker-leg-left{{transform-origin:88px 145px;animation:step 2.1s ease-in-out infinite}}
+.worker-leg-right{{transform-origin:112px 145px;animation:step 2.1s ease-in-out infinite reverse}}
+.state-halo{{animation:halo-breathe 2.6s ease-in-out infinite}}
+.label{{position:absolute;z-index:3;left:8px;right:8px;bottom:12px;text-align:center;font-size:12px;color:#334155;
+  background:rgba(255,255,255,.82);padding:5px 7px;border-radius:8px;font-weight:600}}
+@keyframes idle{{0%,100%{{transform:translateY(0) rotate(0)}}50%{{transform:translateY(-5px) rotate(.5deg)}}}}
+@keyframes step{{0%,100%{{transform:rotate(0)}}50%{{transform:rotate(2.4deg)}}}}
+@keyframes blink{{0%,92%,100%{{transform:scaleY(1)}}95%{{transform:scaleY(.12)}}}}
+@keyframes halo-breathe{{0%,100%{{opacity:.65}}50%{{opacity:1}}}}
+@keyframes attach{{from{{opacity:0;transform:scale(.72) translateY(-6px)}}to{{opacity:1;transform:scale(1) translateY(0)}}}}
+</style></head><body>
+<div class='card'><div class='stage'>{_animated_worker_svg(selected_ppe, domain_key, state_key)}</div>
+<div class='label'><b>Selected PPE:</b> {_safe_text(selected_label)}</div></div>
+{_GSAP_TAG}
+</body></html>"""
+    components.html(worker_html, height=400, scrolling=False)
+
+
+def render_domain_scene_preview(domain: str, caption: str | None = None, height: int = 260) -> None:
+    """Render the same animated domain scene used on the Serious Game page.
+
+    Reused on the Training Dashboard's "Most Recent Scenario" recap so it
+    shows a genuine illustrated, moving scene instead of the raw generator-
+    stamped placeholder background PNG. ``height`` should stay well below
+    the Serious Game page's own 410px so the recap reads as a compact echo
+    rather than a second full gameplay scene.
+    """
+    domain_key = _resolve_domain_key(domain, "")
+    doc = _domain_scene_html(domain_key, caption, scale=height / 398)
+    components.html(doc, height=height, scrolling=False)
+
+
+def render_scenario_chip(domain: str, title: str, caption: str | None = None) -> None:
+    """Render a compact, non-animated scenario chip (icon + title + caption).
+
+    Used where a full animated scene per row would be wasteful — e.g. once
+    per episode in a potentially long Decision Trace list — while still
+    replacing the raw placeholder background PNG with a clean presentation.
+    """
+    domain_key = _resolve_domain_key(domain, "")
+    theme = _DOMAIN_THEMES.get(domain_key, _DOMAIN_THEMES["manufacturing"])
+    caption_html = f'<div class="raca-scene-chip-caption">{_safe_text(caption)}</div>' if caption else ""
+    st.markdown(
+        '<div class="raca-scene-chip">'
+        f'<div class="raca-scene-chip-icon">{theme["icon"]}</div>'
+        '<div>'
+        f'<div class="raca-scene-chip-title">{_safe_text(title)}</div>'
+        f'{caption_html}'
+        "</div></div>",
+        unsafe_allow_html=True,
+    )
+
+
+def render_risk_badge_chip(risk_category: str | None) -> None:
+    """Render a compact colour-coded risk chip in place of the placeholder badge image."""
+    category = assets_manager.normalize_asset_key(str(risk_category or ""))
+    class_map = {"low": "risk-low", "medium": "risk-medium", "high": "risk-high", "critical": "risk-critical"}
+    symbol_map = {"low": "✅", "medium": "⚠️", "high": "\U0001F7E0", "critical": "\U0001F534"}
+    css_class = class_map.get(category, "status-badge")
+    symbol = symbol_map.get(category, "ℹ️")
+    label = _label(risk_category) if risk_category else "Not available"
+    st.markdown(f'<span class="{css_class} raca-risk-chip">{symbol} {label} risk</span>', unsafe_allow_html=True)
 
 
 def render_hazard_badges(hazards: list[dict[str, Any]] | list[str]) -> None:
@@ -460,23 +990,73 @@ def render_hazard_badges(hazards: list[dict[str, Any]] | list[str]) -> None:
         hazard_id = str(record.get("id") or record.get("hazard_id") or record.get("name") or "unknown")
         name = str(record.get("display_name") or record.get("name") or _label(hazard_id))
         metadata = record.get("severity", record.get("risk", record.get("criticality")))
+        severity_key = assets_manager.normalize_asset_key(str(metadata or ""))
+        severity_class = {
+            "critical": "hazard-sev-critical",
+            "high": "hazard-sev-high",
+            "medium": "hazard-sev-medium",
+            "low": "hazard-sev-low",
+        }.get(severity_key, "")
         icon = assets_manager.get_hazard_icon(hazard_id)
-        placeholder, category, asset_name = _placeholder_details(icon)
+        # Every shipped hazard icon asset is currently generator-stamped
+        # development artwork, so hazard badges always use a clean, custom
+        # vector/emoji symbol rather than that placeholder art. A hazard id
+        # that fails to resolve to *any* known icon (parent dir is the
+        # shared placeholders/ folder) is flagged separately below.
+        unmapped, category, asset_name = _placeholder_details(icon)
+        icon_inner = f'<span>{_hazard_symbol(hazard_id)}</span>'
+        meta_line = f'<div class="hazard-badge-meta">Severity / risk: {_safe_text(metadata, "Not specified")}</div>' if metadata is not None else ""
         with columns[index % len(columns)]:
-            with st.container(border=True):
-                if placeholder:
-                    hazard_symbol = "⚠️"
-                    st.markdown(
-                        f'<div style="font-size:2.2rem;line-height:1;text-align:center;margin:.2rem 0 .55rem">{hazard_symbol}</div>',
-                        unsafe_allow_html=True,
-                    )
-                else:
-                    st.image(str(icon), width=52)
-                st.markdown(f"**{name}**")
-                if metadata is not None:
-                    st.caption(f"Severity / risk: {metadata}")
-                if placeholder:
-                    st.caption("Built-in presentation symbol in use.")
+            st.markdown(
+                f'<div class="hazard-badge {severity_class}">'
+                f'<div class="hazard-badge-icon is-symbol">{icon_inner}</div>'
+                f'<div class="hazard-badge-name">{_safe_text(name)}</div>'
+                f'{meta_line}'
+                '</div>',
+                unsafe_allow_html=True,
+            )
+            if unmapped:
+                st.caption("Unmapped hazard identifier — built-in fallback symbol shown.")
+
+
+def _risk_gauge_html(category: str, percentage: float | None) -> str:
+    """Small self-contained animated radial risk gauge (decorative only)."""
+    colors = {
+        "low": "#0e7a4d",
+        "medium": "#b8790f",
+        "high": "#c2500f",
+        "critical": "#b6323f",
+        "unknown": "#64748b",
+    }
+    color = colors.get(category, colors["unknown"])
+    target = 0 if percentage is None else max(0.0, min(100.0, percentage))
+    circumference = 2 * 3.14159265 * 42
+    offset = circumference * (1 - target / 100.0)
+    symbol = {"low": "✅", "medium": "⚠️", "high": "\U0001F7E0", "critical": "\U0001F534"}.get(category, "ℹ️")
+    display_value = "N/A" if percentage is None else f"{target:.0f}%"
+    return f"""<!doctype html>
+<html><head><meta charset='utf-8'><style>
+html,body{{margin:0;padding:0;background:transparent;overflow:hidden;font-family:Arial,sans-serif}}
+.wrap{{display:flex;align-items:center;justify-content:center;height:112px}}
+svg{{transform:rotate(-90deg)}}
+.track{{fill:none;stroke:#e6edf0;stroke-width:9}}
+.fill{{fill:none;stroke:{color};stroke-width:9;stroke-linecap:round;
+  stroke-dasharray:{circumference:.2f};stroke-dashoffset:{circumference:.2f};
+  animation:raca-gauge-fill 1.1s cubic-bezier(.22,.8,.32,1) forwards .1s}}
+@keyframes raca-gauge-fill{{to{{stroke-dashoffset:{offset:.2f}}}}}
+.center{{position:absolute;display:flex;flex-direction:column;align-items:center;font-family:Arial,sans-serif}}
+.emoji{{font-size:19px;line-height:1}}
+.pct{{font-size:15px;font-weight:800;color:#0f2233;margin-top:1px}}
+.holder{{position:relative;width:104px;height:104px;display:flex;align-items:center;justify-content:center}}
+</style></head><body>
+<div class="wrap"><div class="holder">
+<svg width="104" height="104" viewBox="0 0 104 104">
+  <circle class="track" cx="52" cy="52" r="42"/>
+  <circle class="fill" cx="52" cy="52" r="42"/>
+</svg>
+<div class="center"><div class="emoji">{symbol}</div><div class="pct">{display_value}</div></div>
+</div></div>
+</body></html>"""
 
 
 def render_risk_panel(
@@ -491,13 +1071,7 @@ def render_risk_panel(
         st.subheader("Contextual Risk")
         badge_column, detail_column = st.columns([1, 4])
         with badge_column:
-            risk_symbol = {"low": "✅", "medium": "⚠️", "high": "🟠", "critical": "🔴"}.get(
-                model["category"], "ℹ️"
-            )
-            st.markdown(
-                f'<div style="font-size:2.7rem;text-align:center;padding-top:.25rem">{risk_symbol}</div>',
-                unsafe_allow_html=True,
-            )
+            components.html(_risk_gauge_html(model["category"], model["percentage"]), height=116, scrolling=False)
         with detail_column:
             if model["score"] is None:
                 st.write("Risk score: Not available")
@@ -505,6 +1079,14 @@ def render_risk_panel(
             else:
                 st.metric("Normalized risk", f'{model["percentage"]:.1f}%')
                 st.progress(model["score"], text=f'{model["category"].title()} risk')
+            category_class = {
+                "low": "risk-low", "medium": "risk-medium", "high": "risk-high", "critical": "risk-critical",
+            }.get(model["category"])
+            if category_class:
+                st.markdown(
+                    f'<span class="{category_class}">{model["category"].title()} risk category</span>',
+                    unsafe_allow_html=True,
+                )
         st.caption(f"Urgency: {urgency or 'Not available'} · Active hazards: {len(active_hazards or [])}")
 
 
@@ -549,28 +1131,40 @@ def render_ppe_selection_cards(
         label = str(item.get("display_name") or item.get("name") or _label(ppe_id))
         description = str(item.get("description") or "No description available.")
         icon = assets_manager.get_ppe_icon(ppe_id)
+        widget_key = _stable_widget_key(key_prefix, ppe_id, index)
+        # Session state already reflects the widget's latest value before it
+        # is (re)declared this run, so the icon frame can react live to the
+        # user's most recent click without waiting for a second rerun.
+        is_checked_now = bool(st.session_state.get(widget_key, ppe_id in previously_selected))
         with columns[index % len(columns)]:
             with st.container(border=True):
-                placeholder, category, asset_name = _placeholder_details(icon)
-                if placeholder:
-                    st.markdown(
-                        f'<div style="font-size:2.6rem;line-height:1;text-align:center;margin:.25rem 0 .65rem">{_ppe_symbol(ppe_id)}</div>',
-                        unsafe_allow_html=True,
-                    )
-                else:
-                    st.image(str(icon), width=72)
+                # Every shipped PPE icon asset is currently generator-stamped
+                # development artwork, so PPE cards always use a clean, custom
+                # vector/emoji symbol instead. A PPE id that fails to resolve
+                # to *any* known icon is flagged separately below.
+                unmapped, category, asset_name = _placeholder_details(icon)
+                frame_state = " is-selected" if is_checked_now else ""
+                st.markdown(
+                    f'<div class="ppe-icon-frame is-symbol{frame_state}">{_ppe_symbol(ppe_id)}</div>',
+                    unsafe_allow_html=True,
+                )
                 checked = st.checkbox(
                     label,
                     value=ppe_id in previously_selected,
-                    key=_stable_widget_key(key_prefix, ppe_id, index),
+                    key=widget_key,
                     help=description,
                 )
                 st.caption(description)
-                st.caption("Status: Selected" if checked else "Status: Not selected")
+                chip_class = "selected" if checked else "unselected"
+                chip_text = "Selected" if checked else "Not selected"
+                st.markdown(
+                    f'<span class="ppe-status-chip {chip_class}">{chip_text}</span>',
+                    unsafe_allow_html=True,
+                )
                 if checked:
                     selected.append(ppe_id)
-                if placeholder:
-                    st.caption("Built-in vector/symbol presentation asset in use.")
+                if unmapped:
+                    st.caption("Unmapped PPE identifier — built-in fallback symbol shown.")
     return selected
 
 
@@ -650,11 +1244,18 @@ def render_game_status_bar(
 ) -> None:
     """Render compact episode, score, difficulty, and assistance status."""
     score = _clamp_display_score(current_score)
-    columns = st.columns(4)
-    columns[0].metric("Episode", f"{episode} / {max_episodes}")
-    columns[1].metric("Current score", "—" if score is None else f"{score * 100:.1f}%")
-    columns[2].metric("Difficulty", difficulty if difficulty is not None else "—")
-    columns[3].metric("Assistance", _label(assistance_mode))
+    tiles = [
+        ("\U0001F3AF Episode", f"{episode} / {max_episodes}"),
+        ("\U0001F4CA Current score", "—" if score is None else f"{score * 100:.1f}%"),
+        ("\U0001F39A️ Difficulty", str(difficulty) if difficulty is not None else "—"),
+        ("\U0001FA79 Assistance", _label(assistance_mode)),
+    ]
+    tiles_html = "".join(
+        f'<div class="raca-status-tile"><span class="raca-status-label">{label}</span>'
+        f'<span class="raca-status-value">{_safe_text(value)}</span></div>'
+        for label, value in tiles
+    )
+    st.markdown(f'<div class="raca-status-bar">{tiles_html}</div>', unsafe_allow_html=True)
 
 
 def render_placeholder_notice(asset_category: str, asset_name: str) -> None:

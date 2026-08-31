@@ -1,6 +1,7 @@
 """Version 4 scientific-validation workbench."""
 import json
 import streamlit as st
+import ui_visuals
 from experiments.ablation_engine import run_ablation
 from experiments.domain_adapter import DOMAIN_REGISTRY,validate_all_domains
 from experiments.replication_engine import run_cross_domain_replication
@@ -11,7 +12,8 @@ from experiments.trace_audit import run_trace_audit
 from experiments.validation_export import serialize_outputs
 
 st.set_page_config(page_title="Scientific Validation",page_icon="🔬",layout="wide")
-st.title("Version 4 Scientific Validation")
+ui_visuals.inject_game_css()
+ui_visuals.render_page_header("🔬", "Version 4 Scientific Validation", "Ablation, sensitivity, replication, and decision-trace audit workbench.")
 st.warning("All outcomes are synthetic simulation results and are not evidence of human learning or accident reduction.")
 for key in ("v4_ablation","v4_sensitivity","v4_replication","v4_audit"):
     st.session_state.setdefault(key,None)

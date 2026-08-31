@@ -29,11 +29,11 @@ if "trainee_id" not in st.session_state:
     st.session_state.trainee_id = "Anonymous Reviewer"
 traces = st.session_state.decision_traces
 
-st.title("Training Dashboard")
 domain = trace_visuals.infer_trace_domain(traces[-1]) if traces else domain
 domain_config = scenario_visual_map.DOMAIN_VISUAL_CONFIG.get(domain, {})
 domain_label = html.escape(str(domain_config.get("display_name", "Unknown Domain")), quote=True)
 trainee_label = html.escape(str(st.session_state.trainee_id), quote=True)
+ui_visuals.render_page_header("📊", "Training Dashboard", "Current-session summaries, mastery, and unchanged raw downloads.")
 st.markdown(
     f'<span class="status-badge">Domain: {domain_label}</span> '
     f'<span class="status-badge">Trainee: {trainee_label}</span>',
@@ -117,11 +117,7 @@ recent_scenario = str(trace_visuals.trace_filter_value(recent, "scenario_id"))
 recent_visual = scenario_visual_map.get_scenario_visual_config(recent_domain, recent_scenario, recent.get("task"))
 preview, details = st.columns([2, 3])
 with preview:
-    st.image(
-        str(assets_manager.PROJECT_ROOT / recent_visual["background"]),
-        caption=recent_visual["caption"],
-        use_column_width=True,
-    )
+    ui_visuals.render_domain_scene_preview(recent_domain, recent_visual["caption"], height=260)
 with details:
     st.write(f"**{recent_visual['visual_title']}**")
     st.write(f"Scenario: {recent_scenario} · Episode: {recent.get('episode', 'Unavailable')}")

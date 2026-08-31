@@ -1,32 +1,109 @@
 /* RACA PPE serious-game visual layer. Component-scoped; no remote resources. */
 
+:root {
+  --raca-ink: #0f2233;
+  --raca-ink-soft: #37515f;
+  --raca-paper: #ffffff;
+  --raca-paper-soft: #f4f8fa;
+  --raca-line: #cfdce1;
+  --raca-teal-900: #0b3446;
+  --raca-teal-700: #10516b;
+  --raca-teal-500: #1c7d9e;
+  --raca-teal-300: #6fc3d8;
+  --raca-amber-600: #b8790f;
+  --raca-amber-100: #fff2cf;
+  --raca-orange-600: #c2500f;
+  --raca-orange-100: #ffe6d2;
+  --raca-green-700: #0e7a4d;
+  --raca-green-100: #d9f5e6;
+  --raca-red-700: #b6323f;
+  --raca-red-100: #fbdde0;
+  --raca-violet-700: #5b3fa0;
+  --raca-violet-100: #ece6fa;
+  --raca-radius-lg: 1rem;
+  --raca-radius-md: 0.75rem;
+  --raca-radius-sm: 0.5rem;
+  --raca-shadow-soft: 0 1px 2px rgba(9, 30, 42, 0.08), 0 8px 20px -12px rgba(9, 30, 42, 0.22);
+  --raca-shadow-lift: 0 10px 26px -14px rgba(9, 30, 42, 0.38);
+  --raca-ease: cubic-bezier(0.22, 0.8, 0.32, 1);
+}
+
+/* ---------------------------------------------------------------------- */
+/* Header                                                                  */
+/* ---------------------------------------------------------------------- */
+
 .game-header {
+  position: relative;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1rem 1.125rem;
-  margin: 0 0 1rem;
-  color: #f7fbfd;
-  background: #173f55;
-  border: 1px solid #2c6078;
-  border-radius: 0.75rem;
+  padding: 1.15rem 1.35rem;
+  margin: 0 0 1.1rem;
+  overflow: hidden;
+  color: #f4fbfd;
+  background:
+    radial-gradient(120% 180% at 0% 0%, rgba(111, 195, 216, 0.35), transparent 55%),
+    linear-gradient(120deg, var(--raca-teal-900) 0%, var(--raca-teal-700) 55%, #144a63 100%);
+  border: 1px solid rgba(111, 195, 216, 0.35);
+  border-radius: var(--raca-radius-lg);
+  box-shadow: var(--raca-shadow-lift);
+}
+
+.game-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.05) 0px,
+    rgba(255, 255, 255, 0.05) 2px,
+    transparent 2px,
+    transparent 14px
+  );
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.game-header::after {
+  content: "";
+  position: absolute;
+  top: -60%;
+  left: -20%;
+  width: 45%;
+  height: 220%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.16), transparent);
+  transform: rotate(8deg);
+  animation: raca-header-sheen 6.5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes raca-header-sheen {
+  0% { left: -30%; }
+  55%, 100% { left: 120%; }
 }
 
 .game-header-title {
+  position: relative;
   margin: 0;
   color: #ffffff;
-  font-size: clamp(1.15rem, 2vw, 1.45rem);
-  font-weight: 700;
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  font-weight: 750;
   line-height: 1.3;
+  letter-spacing: 0.005em;
 }
 
 .game-subtitle {
-  margin: 0.35rem 0 0;
-  color: #d8e9f0;
+  position: relative;
+  margin: 0.4rem 0 0;
+  color: #d8eef4;
   font-size: 0.95rem;
-  line-height: 1.45;
+  line-height: 1.5;
 }
+
+/* ---------------------------------------------------------------------- */
+/* Generic elevated cards (reusable presentation surfaces)                 */
+/* ---------------------------------------------------------------------- */
 
 .scenario-card,
 .risk-panel,
@@ -34,22 +111,77 @@
 .adaptation-card,
 .competence-card,
 .metric-tile {
-  padding: 1rem;
-  background: #ffffff;
-  color: #17242c;
-  border: 1px solid #ccd8de;
-  border-radius: 0.7rem;
-  box-shadow: 0 1px 2px rgba(17, 39, 51, 0.08);
+  padding: 1.05rem 1.1rem;
+  background: linear-gradient(180deg, var(--raca-paper) 0%, var(--raca-paper-soft) 100%);
+  color: var(--raca-ink);
+  border: 1px solid var(--raca-line);
+  border-radius: var(--raca-radius-md);
+  box-shadow: var(--raca-shadow-soft);
+  transition: transform 220ms var(--raca-ease), box-shadow 220ms var(--raca-ease), border-color 220ms var(--raca-ease);
 }
+
+.scenario-card:hover,
+.risk-panel:hover,
+.feedback-card:hover,
+.adaptation-card:hover,
+.competence-card:hover,
+.metric-tile:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--raca-shadow-lift);
+}
+
+/* Best-effort styling of Streamlit's own bordered layout containers so the
+   native st.container(border=True) cards used throughout the app pick up
+   the same elevated, interactive look as the classes above. Falls back
+   silently to plain Streamlit styling on Streamlit builds that use a
+   different internal test id. */
+div[data-testid="stVerticalBlockBorderWrapper"] {
+  border-radius: var(--raca-radius-md) !important;
+  transition: transform 200ms var(--raca-ease), box-shadow 200ms var(--raca-ease), border-color 200ms var(--raca-ease) !important;
+}
+
+div[data-testid="stVerticalBlockBorderWrapper"]:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--raca-shadow-lift);
+  border-color: var(--raca-teal-300) !important;
+}
+
+div[data-testid="stVerticalBlockBorderWrapper"]:has(input[type="checkbox"]:checked) {
+  border-color: var(--raca-teal-500) !important;
+  box-shadow: 0 0 0 3px rgba(28, 125, 158, 0.18), var(--raca-shadow-lift);
+}
+
+/* st.columns() renders each column as an equal flex-basis:0 flex item, so
+   with three narrow PPE/hazard cards side by side the browser can shrink
+   a column (and every element inside it, including checkbox labels) far
+   below any readable width, down to near single-character line wrapping.
+   Give every Streamlit column a sane floor so its contents always have
+   room to wrap at word boundaries instead of per character; columns still
+   stack responsively on genuinely narrow viewports. */
+div[data-testid="column"] {
+  min-width: 150px !important;
+}
+
+.stCheckbox,
+.stCheckbox label {
+  width: 100% !important;
+  word-break: normal !important;
+  overflow-wrap: normal !important;
+  hyphens: none !important;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Dynamic worker / scene frames                                          */
+/* ---------------------------------------------------------------------- */
 
 .dynamic-worker-frame {
   position: relative;
   width: min(100%, 320px);
   margin: 0 auto;
   overflow: hidden;
-  border: 1px solid #94a3b8;
-  border-radius: 0.75rem;
-  background: #f8fafc;
+  border: 1px solid var(--raca-line);
+  border-radius: var(--raca-radius-md);
+  background: var(--raca-paper-soft);
 }
 
 .dynamic-worker-base {
@@ -66,22 +198,26 @@
   filter: drop-shadow(0 1px 2px rgba(15, 23, 42, 0.35));
 }
 
+/* ---------------------------------------------------------------------- */
+/* Paper / screenshot mode                                                */
+/* ---------------------------------------------------------------------- */
+
 .paper-screenshot-panel {
   min-height: 12rem;
   margin: 0.9rem 0;
   padding: 1rem;
-  color: #17242c;
-  background: #ffffff;
-  border: 1px solid #bccbd1;
-  border-radius: 0.7rem;
+  color: var(--raca-ink);
+  background: var(--raca-paper);
+  border: 1px solid var(--raca-line);
+  border-radius: var(--raca-radius-md);
   box-shadow: 0 1px 2px rgba(17, 39, 51, 0.06);
 }
 
 .paper-screenshot-footer {
   margin-top: 1.5rem;
   padding-top: 0.65rem;
-  color: #536770;
-  border-top: 1px solid #cbd7dc;
+  color: var(--raca-ink-soft);
+  border-top: 1px solid var(--raca-line);
   font-size: 0.88rem;
   text-align: center;
 }
@@ -91,7 +227,14 @@
     break-inside: avoid;
     box-shadow: none;
   }
+  .game-header::after {
+    display: none;
+  }
 }
+
+/* ---------------------------------------------------------------------- */
+/* Scenario / character image frames                                      */
+/* ---------------------------------------------------------------------- */
 
 .scenario-image-frame,
 .character-frame {
@@ -100,9 +243,9 @@
   justify-content: center;
   width: 100%;
   overflow: hidden;
-  background: #edf3f5;
-  border: 1px solid #c6d4da;
-  border-radius: 0.65rem;
+  background: var(--raca-paper-soft);
+  border: 1px solid var(--raca-line);
+  border-radius: var(--raca-radius-md);
 }
 
 .scenario-image-frame img,
@@ -118,8 +261,12 @@
   max-height: 28rem;
 }
 
+/* ---------------------------------------------------------------------- */
+/* Risk panel + risk category chips                                       */
+/* ---------------------------------------------------------------------- */
+
 .risk-panel {
-  border-left: 0.35rem solid #456979;
+  border-left: 0.35rem solid var(--raca-teal-700);
 }
 
 .risk-low,
@@ -131,97 +278,247 @@
 .assistance-badge {
   display: inline-flex;
   align-items: center;
-  min-height: 1.9rem;
-  padding: 0.25rem 0.65rem;
+  gap: 0.35rem;
+  min-height: 1.95rem;
+  padding: 0.28rem 0.75rem;
   border: 1px solid transparent;
   border-radius: 999px;
   font-size: 0.88rem;
-  font-weight: 650;
+  font-weight: 700;
   line-height: 1.25;
+  letter-spacing: 0.01em;
+  transition: transform 160ms var(--raca-ease);
 }
 
 .risk-low {
-  color: #0b4b30;
-  background: #d9f2e5;
-  border-color: #69a787;
+  color: var(--raca-green-700);
+  background: var(--raca-green-100);
+  border-color: #7fc7a1;
 }
 
 .risk-medium {
-  color: #583d00;
-  background: #fff0c2;
-  border-color: #bc8b19;
+  color: var(--raca-amber-600);
+  background: var(--raca-amber-100);
+  border-color: #d9ac4a;
 }
 
 .risk-high {
-  color: #713100;
-  background: #ffe2c5;
-  border-color: #c66a22;
+  color: var(--raca-orange-600);
+  background: var(--raca-orange-100);
+  border-color: #e08a4d;
 }
 
 .risk-critical {
-  color: #741f28;
-  background: #f8d7da;
-  border-color: #bf5963;
+  color: var(--raca-red-700);
+  background: var(--raca-red-100);
+  border-color: #dd8790;
+  animation: raca-risk-critical-pulse 1.7s ease-in-out infinite;
 }
 
+@keyframes raca-risk-critical-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(182, 50, 63, 0.35); }
+  50% { box-shadow: 0 0 0 6px rgba(182, 50, 63, 0); }
+}
+
+/* ---------------------------------------------------------------------- */
+/* Hazard badges                                                          */
+/* ---------------------------------------------------------------------- */
+
 .hazard-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
   min-height: 2.25rem;
-  padding: 0.4rem 0.65rem;
-  color: #283940;
-  background: #f2f6f7;
-  border: 1px solid #bccbd1;
-  border-radius: 0.55rem;
+  padding: 0.85rem 0.8rem 0.7rem;
+  color: var(--raca-ink);
+  background: linear-gradient(180deg, #ffffff 0%, #f5f9fb 100%);
+  border: 1px solid var(--raca-line);
+  border-top: 0.28rem solid var(--raca-orange-600);
+  border-radius: var(--raca-radius-md);
   font-size: 0.92rem;
   font-weight: 600;
+  box-shadow: var(--raca-shadow-soft);
+  transition: transform 200ms var(--raca-ease), box-shadow 200ms var(--raca-ease);
 }
+
+.hazard-badge:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--raca-shadow-lift);
+}
+
+.hazard-badge-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.9rem;
+  height: 2.9rem;
+  margin: 0 auto;
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 30%, #fff 0%, #fde9d6 55%, #fbd7ae 100%);
+  border: 1px solid #eab27a;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+}
+
+.hazard-badge-icon img {
+  width: 1.65rem;
+  height: 1.65rem;
+  object-fit: contain;
+}
+
+.hazard-badge-icon.is-symbol {
+  font-size: 1.4rem;
+}
+
+.hazard-badge-name {
+  text-align: center;
+  color: var(--raca-ink);
+}
+
+.hazard-badge-meta {
+  text-align: center;
+  color: var(--raca-ink-soft);
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.hazard-sev-critical { border-top-color: var(--raca-red-700); }
+.hazard-sev-high { border-top-color: var(--raca-orange-600); }
+.hazard-sev-medium { border-top-color: var(--raca-amber-600); }
+.hazard-sev-low { border-top-color: var(--raca-green-700); }
+
+/* ---------------------------------------------------------------------- */
+/* PPE selection cards                                                    */
+/* ---------------------------------------------------------------------- */
 
 .ppe-card {
   min-height: 11rem;
   padding: 0.85rem;
-  color: #1a2a31;
-  background: #ffffff;
-  border: 1px solid #c8d5da;
-  border-radius: 0.7rem;
-  transition: border-color 120ms ease, background-color 120ms ease;
+  color: var(--raca-ink);
+  background: var(--raca-paper);
+  border: 1px solid var(--raca-line);
+  border-radius: var(--raca-radius-md);
+  transition: border-color 160ms var(--raca-ease), background-color 160ms var(--raca-ease), transform 160ms var(--raca-ease);
 }
 
 .ppe-card-selected {
-  color: #12394a;
-  background: #e8f4f8;
-  border: 2px solid #236881;
+  color: #0d3446;
+  background: #eaf6fa;
+  border: 2px solid var(--raca-teal-500);
 }
 
 .ppe-card:focus-within,
 .ppe-card-selected:focus-within,
 .scenario-card:focus-within {
-  outline: 3px solid #2c79a0;
+  outline: 3px solid var(--raca-teal-500);
   outline-offset: 2px;
 }
 
+.ppe-icon-frame {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  margin: 0.1rem auto 0.75rem;
+  border-radius: 1.1rem;
+  background: linear-gradient(155deg, #eef6f9 0%, #dcedf2 100%);
+  border: 1px solid var(--raca-line);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  transition: transform 200ms var(--raca-ease), box-shadow 200ms var(--raca-ease), background 200ms var(--raca-ease);
+}
+
+.ppe-icon-frame img {
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 3px rgba(15, 23, 42, 0.18));
+}
+
+.ppe-icon-frame.is-symbol {
+  font-size: 2.1rem;
+}
+
+.ppe-icon-frame.is-selected {
+  background: linear-gradient(155deg, #d8f0f7 0%, #b9e4ef 100%);
+  border-color: var(--raca-teal-500);
+  transform: scale(1.05) rotate(-1deg);
+  box-shadow: 0 0 0 4px rgba(28, 125, 158, 0.16), var(--raca-shadow-soft);
+}
+
+.ppe-icon-frame.is-selected::after {
+  content: "\2713";
+  position: absolute;
+  right: -0.35rem;
+  top: -0.35rem;
+  width: 1.35rem;
+  height: 1.35rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  background: var(--raca-teal-500);
+  border: 2px solid #ffffff;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 900;
+  animation: raca-check-pop 260ms var(--raca-ease) both;
+}
+
+@keyframes raca-check-pop {
+  from { transform: scale(0.3); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.ppe-status-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.35rem;
+  padding: 0.12rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.ppe-status-chip.selected {
+  color: var(--raca-teal-900);
+  background: #d8f0f7;
+}
+
+.ppe-status-chip.unselected {
+  color: var(--raca-ink-soft);
+  background: #eef2f4;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Feedback / adaptation / competence cards                               */
+/* ---------------------------------------------------------------------- */
+
 .feedback-card {
-  border-left: 0.35rem solid #546b76;
+  border-left: 0.35rem solid var(--raca-ink-soft);
 }
 
 .feedback-correct {
-  background: #e7f4eb;
-  border-color: #39855a;
+  background: var(--raca-green-100);
+  border-color: var(--raca-green-700);
 }
 
 .feedback-warning {
-  background: #fff4d6;
-  border-color: #ad7611;
+  background: var(--raca-amber-100);
+  border-color: var(--raca-amber-600);
 }
 
 .feedback-incorrect {
-  background: #fbe5e7;
-  border-color: #ad3f4b;
+  background: var(--raca-red-100);
+  border-color: var(--raca-red-700);
 }
 
 .adaptation-card {
-  background: #eef5f8;
+  background: linear-gradient(180deg, #eef6f9 0%, #e3f0f5 100%);
   border-color: #8caeba;
 }
 
@@ -229,23 +526,151 @@
   min-height: 7rem;
 }
 
+/* Native st.progress() bar, restyled in place (replaces the old duplicate
+   custom fill bar so each mastery/completeness value renders as a single
+   bar instead of two stacked ones). */
+div[data-testid="stProgress"] div[data-baseweb="progress-bar"] {
+  border-radius: 999px;
+  overflow: hidden;
+  background: #e6edf0 !important;
+}
+
+div[data-testid="stProgress"] div[data-baseweb="progress-bar"] > div {
+  background: transparent !important;
+}
+
+div[data-testid="stProgress"] div[data-baseweb="progress-bar"] > div > div {
+  position: relative;
+  border-radius: 999px;
+  overflow: hidden;
+  background: linear-gradient(90deg, var(--raca-teal-500), var(--raca-teal-300)) !important;
+  transition: width 620ms var(--raca-ease);
+}
+
+div[data-testid="stProgress"] div[data-baseweb="progress-bar"] > div > div::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    110deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.55) 45%,
+    transparent 65%
+  );
+  background-size: 200% 100%;
+  animation: raca-bar-shimmer 2.4s linear infinite;
+}
+
+div[data-testid="stProgress"] div[data-testid="stMarkdownContainer"] p {
+  font-weight: 600;
+  color: var(--raca-ink-soft);
+}
+
+@keyframes raca-bar-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -60% 0; }
+}
+
+/* ---------------------------------------------------------------------- */
+/* Status badges                                                          */
+/* ---------------------------------------------------------------------- */
+
 .status-badge {
-  color: #163b4b;
+  color: var(--raca-teal-900);
   background: #e6f1f5;
   border-color: #7da4b4;
 }
 
 .difficulty-badge {
   color: #4d3505;
-  background: #f9ebc8;
+  background: var(--raca-amber-100);
   border-color: #ae842b;
 }
 
 .assistance-badge {
-  color: #3e3163;
-  background: #ece7f8;
+  color: var(--raca-violet-700);
+  background: var(--raca-violet-100);
   border-color: #8d7ab5;
 }
+
+/* ---------------------------------------------------------------------- */
+/* Status bar / metric tiles                                              */
+/* ---------------------------------------------------------------------- */
+
+.metric-tile {
+  min-height: 5.75rem;
+  border-top: 0.25rem solid var(--raca-teal-500);
+}
+
+.raca-status-bar {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin: 0 0 1.1rem;
+}
+
+.raca-status-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.75rem 0.9rem;
+  background: linear-gradient(180deg, #ffffff 0%, #f4f9fa 100%);
+  border: 1px solid var(--raca-line);
+  border-top: 0.22rem solid var(--raca-teal-500);
+  border-radius: var(--raca-radius-md);
+  box-shadow: var(--raca-shadow-soft);
+  transition: transform 200ms var(--raca-ease);
+}
+
+.raca-status-tile:hover {
+  transform: translateY(-2px);
+}
+
+.raca-status-tile .raca-status-label {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--raca-ink-soft);
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.raca-status-tile .raca-status-value {
+  color: var(--raca-ink);
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+@media (max-width: 800px) {
+  .raca-status-bar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ---------------------------------------------------------------------- */
+/* Achievement badges                                                     */
+/* ---------------------------------------------------------------------- */
+
+.raca-achievement {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.2rem 0.1rem;
+}
+
+.raca-achievement .status-badge {
+  background: linear-gradient(120deg, #fff3d6 0%, #ffe4a8 100%);
+  border-color: #d9ac4a;
+  color: #6b4a03;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Placeholder notice                                                      */
+/* ---------------------------------------------------------------------- */
 
 .placeholder-notice {
   margin-top: 0.4rem;
@@ -258,10 +683,171 @@
   line-height: 1.4;
 }
 
-.metric-tile {
-  min-height: 5.75rem;
-  border-top: 0.25rem solid #47798e;
+/* ---------------------------------------------------------------------- */
+/* App-wide native widget polish (metrics, tabs, dataframe, expander)     */
+/* Applied globally via stable data-testid hooks so every page that calls */
+/* inject_game_css() — dashboard, decision trace, experiment simulator,   */
+/* scientific validation — benefits without per-page markup changes.      */
+/* ---------------------------------------------------------------------- */
+
+div[data-testid="stMetric"] {
+  padding: 0.75rem 0.95rem;
+  background: linear-gradient(180deg, #ffffff 0%, #f4f9fa 100%);
+  border: 1px solid var(--raca-line);
+  border-top: 0.22rem solid var(--raca-teal-500);
+  border-radius: var(--raca-radius-md);
+  box-shadow: var(--raca-shadow-soft);
+  transition: transform 200ms var(--raca-ease), box-shadow 200ms var(--raca-ease);
 }
+
+div[data-testid="stMetric"]:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--raca-shadow-lift);
+}
+
+div[data-testid="stMetricLabel"] {
+  color: var(--raca-ink-soft);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+div[data-testid="stMetricValue"] {
+  color: var(--raca-ink);
+  font-weight: 800;
+}
+
+div[data-testid="stExpander"] {
+  border: 1px solid var(--raca-line) !important;
+  border-radius: var(--raca-radius-md) !important;
+  box-shadow: var(--raca-shadow-soft);
+  overflow: hidden;
+}
+
+div[data-testid="stTabs"] button[role="tab"] {
+  border-radius: 999px 999px 0 0;
+  font-weight: 600;
+}
+
+div[data-testid="stTabs"] button[aria-selected="true"] {
+  color: var(--raca-teal-900);
+  background: #e6f1f5;
+}
+
+div[data-testid="stDataFrame"] {
+  border: 1px solid var(--raca-line);
+  border-radius: var(--raca-radius-md);
+  overflow: hidden;
+  box-shadow: var(--raca-shadow-soft);
+}
+
+/* ---------------------------------------------------------------------- */
+/* Reusable page hero (landing page + dashboard/trace/experiment headers) */
+/* Shares the .game-header look so every page in the app reads as one     */
+/* consistent product rather than a Serious Game screen bolted onto plain */
+/* Streamlit defaults elsewhere.                                          */
+/* ---------------------------------------------------------------------- */
+
+.raca-page-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 1.15rem 1.35rem;
+  margin: 0 0 1.1rem;
+  color: #f4fbfd;
+  background:
+    radial-gradient(120% 180% at 0% 0%, rgba(111, 195, 216, 0.35), transparent 55%),
+    linear-gradient(120deg, var(--raca-teal-900) 0%, var(--raca-teal-700) 55%, #144a63 100%);
+  border: 1px solid rgba(111, 195, 216, 0.35);
+  border-radius: var(--raca-radius-lg);
+  box-shadow: var(--raca-shadow-lift);
+}
+
+.raca-page-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.05) 0px,
+    rgba(255, 255, 255, 0.05) 2px,
+    transparent 2px,
+    transparent 14px
+  );
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.raca-page-hero-title {
+  position: relative;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #ffffff;
+  font-size: clamp(1.2rem, 2.2vw, 1.65rem);
+  font-weight: 750;
+  line-height: 1.3;
+}
+
+.raca-page-hero-subtitle {
+  position: relative;
+  margin: 0.4rem 0 0;
+  color: #d8eef4;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  max-width: 62rem;
+}
+
+/* Small static (non-animated) scenario chip used where rendering a full
+   animated scene per row would be wasteful (e.g. one per trace episode in
+   a long Decision Trace list). */
+.raca-scene-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0.9rem;
+  background: linear-gradient(155deg, #eef6f9 0%, #dcedf2 100%);
+  border: 1px solid var(--raca-line);
+  border-radius: var(--raca-radius-md);
+}
+
+.raca-scene-chip-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: 0 0 auto;
+  border-radius: 0.75rem;
+  background: #ffffff;
+  border: 1px solid var(--raca-line);
+  font-size: 1.4rem;
+}
+
+.raca-scene-chip-title {
+  color: var(--raca-ink);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+.raca-scene-chip-caption {
+  color: var(--raca-ink-soft);
+  font-size: 0.82rem;
+}
+
+/* Compact risk badge chip replacing the old placeholder risk-badge image. */
+.raca-risk-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+/* ---------------------------------------------------------------------- */
+/* Responsive tuning                                                      */
+/* ---------------------------------------------------------------------- */
 
 @media (max-width: 800px) {
   .game-header {
@@ -287,7 +873,11 @@
 
 @media (prefers-reduced-motion: reduce) {
   .ppe-card,
-  .ppe-card-selected {
+  .ppe-card-selected,
+  .game-header::after,
+  .risk-critical,
+  div[data-testid="stProgress"] div[data-baseweb="progress-bar"] > div > div::after {
+    animation: none;
     transition: none;
   }
 }

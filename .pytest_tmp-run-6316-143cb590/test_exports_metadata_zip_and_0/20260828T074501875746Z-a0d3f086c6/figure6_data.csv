@@ -1,0 +1,2 @@
+method,episode,mean_RWCS,std_RWCS,ci95_lower,ci95_upper,count
+static,1,0.296608,0,0.296608,0.296608,1

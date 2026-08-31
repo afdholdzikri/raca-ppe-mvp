@@ -21,7 +21,7 @@ data = canonical_ui.load_canonical_domain(domain)
 if "decision_traces" not in st.session_state:
     st.session_state.decision_traces = []
 traces = st.session_state.decision_traces
-st.title("Decision Trace")
+ui_visuals.render_page_header("🔎", "Decision Trace", "Filterable, backward-compatible current-session trace inspection.")
 if not traces:
     st.info("No decision traces exist in this session. Complete a Serious Game episode to inspect its explanation flow.")
     st.stop()
@@ -77,14 +77,10 @@ for trace in filtered:
         visual = scenario_visual_map.get_scenario_visual_config(domain, scenario_id, trace.get("task"))
         image_column, context_column = st.columns([2, 3])
         with image_column:
-            st.image(
-                str(assets_manager.PROJECT_ROOT / visual["background"]),
-                caption=visual["caption"],
-                use_column_width=True,
-            )
+            ui_visuals.render_scenario_chip(domain, visual["visual_title"], visual["caption"])
         with context_column:
             risk_category = str(trace_visuals.trace_filter_value(trace, "risk_category"))
-            st.image(str(assets_manager.get_risk_badge(risk_category)), width=72)
+            ui_visuals.render_risk_badge_chip(risk_category)
             st.markdown(
                 f'<span class="status-badge">Domain: {html.escape(str(visual["domain_label"]))}</span> '
                 f'<span class="status-badge">Rule: {html.escape(selected_rule)}</span>',

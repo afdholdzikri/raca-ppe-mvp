@@ -2,6 +2,7 @@
 from pathlib import Path
 import pandas as pd
 import streamlit as st
+import ui_visuals
 from experiments.experiment_config import ExperimentConfig,VALID_METHODS,VALID_PROFILES
 from experiments.simulation_engine import run_batch_experiments
 from experiments.export_manager import build_exports,save_exports
@@ -11,7 +12,8 @@ from experiments.ui_state import (clear_experiment_state,
     initialize_experiment_state,store_completed_experiment)
 
 st.set_page_config(page_title="Experiment Simulator",page_icon="🧪",layout="wide")
-st.title("Version 3 — Research Experiment Engine")
+ui_visuals.inject_game_css()
+ui_visuals.render_page_header("🧪", "Version 3 — Research Experiment Engine", "Controlled synthetic-participant experiment runner.")
 st.warning("This synthetic-participant simulation is computational proof-of-work and mechanistic validation only. It does not establish human learning, behavioural transfer, or accident reduction.")
 initialize_experiment_state(st.session_state)
 

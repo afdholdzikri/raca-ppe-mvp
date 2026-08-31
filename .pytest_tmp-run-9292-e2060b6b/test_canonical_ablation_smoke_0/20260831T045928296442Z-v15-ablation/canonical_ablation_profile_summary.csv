@@ -1,0 +1,331 @@
+configuration,profile,metric,count,mean,std,summary_type,orientation,mean_paired_difference,median_paired_difference,mc95_lower,mc95_upper,win_rate,matched_pairs
+complete_framework,T1,CCG_star,2,0.054778,0.003263,aggregate,,,,,,,
+complete_framework,T1,RWCS_star,2,0.36184,0.001844,aggregate,,,,,,,
+complete_framework,T1,TAR,2,0.0,0.0,aggregate,,,,,,,
+complete_framework,T1,AR,2,1.0,0.0,aggregate,,,,,,,
+complete_framework,T1,DC,2,1.0,0.0,aggregate,,,,,,,
+complete_framework,T1,TC,2,1.0,0.0,aggregate,,,,,,,
+complete_framework,T1,CER,2,1.0,0.0,aggregate,,,,,,,
+complete_framework,T1,CMR,2,0.630953,0.107142,aggregate,,,,,,,
+complete_framework,T1,SOR,2,0.0,0.0,aggregate,,,,,,,
+complete_framework,T1,episodes_to_target,2,5.0,0.0,aggregate,,,,,,,
+complete_framework,T1,adaptation_latency_ms,2,0.01025,0.00045,aggregate,,,,,,,
+complete_framework,T2,CCG_star,2,0.037436,0.000989,aggregate,,,,,,,
+complete_framework,T2,RWCS_star,2,0.455381,0.001911,aggregate,,,,,,,
+complete_framework,T2,TAR,2,0.0,0.0,aggregate,,,,,,,
+complete_framework,T2,AR,2,1.0,0.0,aggregate,,,,,,,
+complete_framework,T2,DC,2,1.0,0.0,aggregate,,,,,,,
+complete_framework,T2,TC,2,1.0,0.0,aggregate,,,,,,,
+complete_framework,T2,CER,2,1.0,0.0,aggregate,,,,,,,
+complete_framework,T2,CMR,2,0.559524,0.107143,aggregate,,,,,,,
+complete_framework,T2,SOR,2,0.0,0.0,aggregate,,,,,,,
+complete_framework,T2,episodes_to_target,2,5.0,0.0,aggregate,,,,,,,
+complete_framework,T2,adaptation_latency_ms,2,0.00997,0.00015,aggregate,,,,,,,
+risk_only,T1,CCG_star,2,0.055154,0.003639,aggregate,,,,,,,
+risk_only,T1,RWCS_star,2,0.363873,0.003878,aggregate,,,,,,,
+risk_only,T1,TAR,2,0.0,0.0,aggregate,,,,,,,
+risk_only,T1,AR,2,1.0,0.0,aggregate,,,,,,,
+risk_only,T1,DC,2,1.0,0.0,aggregate,,,,,,,
+risk_only,T1,TC,2,1.0,0.0,aggregate,,,,,,,
+risk_only,T1,CER,2,1.0,0.0,aggregate,,,,,,,
+risk_only,T1,CMR,2,0.630953,0.107142,aggregate,,,,,,,
+risk_only,T1,SOR,2,0.166666,0.166666,aggregate,,,,,,,
+risk_only,T1,episodes_to_target,2,5.0,0.0,aggregate,,,,,,,
+risk_only,T1,adaptation_latency_ms,2,0.01169,1e-05,aggregate,,,,,,,
+risk_only,T2,CCG_star,2,0.038425,0.0,aggregate,,,,,,,
+risk_only,T2,RWCS_star,2,0.457292,0.0,aggregate,,,,,,,
+risk_only,T2,TAR,2,0.0,0.0,aggregate,,,,,,,
+risk_only,T2,AR,2,1.0,0.0,aggregate,,,,,,,
+risk_only,T2,DC,2,1.0,0.0,aggregate,,,,,,,
+risk_only,T2,TC,2,1.0,0.0,aggregate,,,,,,,
+risk_only,T2,CER,2,1.0,0.0,aggregate,,,,,,,
+risk_only,T2,CMR,2,0.559524,0.107143,aggregate,,,,,,,
+risk_only,T2,SOR,2,0.0,0.0,aggregate,,,,,,,
+risk_only,T2,episodes_to_target,2,5.0,0.0,aggregate,,,,,,,
+risk_only,T2,adaptation_latency_ms,2,0.01009,0.00021,aggregate,,,,,,,
+without_assistance,T1,CCG_star,2,0.061942,0.0,aggregate,,,,,,,
+without_assistance,T1,RWCS_star,2,0.365242,0.0,aggregate,,,,,,,
+without_assistance,T1,TAR,2,0.0,0.0,aggregate,,,,,,,
+without_assistance,T1,AR,2,1.0,0.0,aggregate,,,,,,,
+without_assistance,T1,DC,2,1.0,0.0,aggregate,,,,,,,
+without_assistance,T1,TC,2,1.0,0.0,aggregate,,,,,,,
+without_assistance,T1,CER,2,1.0,0.0,aggregate,,,,,,,
+without_assistance,T1,CMR,2,0.642858,0.119048,aggregate,,,,,,,
+without_assistance,T1,SOR,2,0.0,0.0,aggregate,,,,,,,
+without_assistance,T1,episodes_to_target,2,5.0,0.0,aggregate,,,,,,,
+without_assistance,T1,adaptation_latency_ms,2,0.01022,0.00014,aggregate,,,,,,,
+without_assistance,T2,CCG_star,2,0.038425,0.0,aggregate,,,,,,,
+without_assistance,T2,RWCS_star,2,0.457292,0.0,aggregate,,,,,,,
+without_assistance,T2,TAR,2,0.0,0.0,aggregate,,,,,,,
+without_assistance,T2,AR,2,1.0,0.0,aggregate,,,,,,,
+without_assistance,T2,DC,2,1.0,0.0,aggregate,,,,,,,
+without_assistance,T2,TC,2,1.0,0.0,aggregate,,,,,,,
+without_assistance,T2,CER,2,1.0,0.0,aggregate,,,,,,,
+without_assistance,T2,CMR,2,0.559524,0.107143,aggregate,,,,,,,
+without_assistance,T2,SOR,2,0.0,0.0,aggregate,,,,,,,
+without_assistance,T2,episodes_to_target,2,5.0,0.0,aggregate,,,,,,,
+without_assistance,T2,adaptation_latency_ms,2,0.0106,0.0005,aggregate,,,,,,,
+without_history,T1,CCG_star,2,0.051515,0.0,aggregate,,,,,,,
+without_history,T1,RWCS_star,2,0.359996,0.0,aggregate,,,,,,,
+without_history,T1,TAR,2,0.0,0.0,aggregate,,,,,,,
+without_history,T1,AR,2,1.0,0.0,aggregate,,,,,,,
+without_history,T1,DC,2,1.0,0.0,aggregate,,,,,,,
+without_history,T1,TC,2,1.0,0.0,aggregate,,,,,,,
+without_history,T1,CER,2,1.0,0.0,aggregate,,,,,,,
+without_history,T1,CMR,2,0.630953,0.107142,aggregate,,,,,,,
+without_history,T1,SOR,2,0.0,0.0,aggregate,,,,,,,
+without_history,T1,episodes_to_target,2,5.0,0.0,aggregate,,,,,,,
+without_history,T1,adaptation_latency_ms,2,0.01016,2e-05,aggregate,,,,,,,
+without_history,T2,CCG_star,2,0.037436,0.000989,aggregate,,,,,,,
+without_history,T2,RWCS_star,2,0.455381,0.001911,aggregate,,,,,,,
+without_history,T2,TAR,2,0.0,0.0,aggregate,,,,,,,
+without_history,T2,AR,2,1.0,0.0,aggregate,,,,,,,
+without_history,T2,DC,2,1.0,0.0,aggregate,,,,,,,
+without_history,T2,TC,2,1.0,0.0,aggregate,,,,,,,
+without_history,T2,CER,2,1.0,0.0,aggregate,,,,,,,
+without_history,T2,CMR,2,0.559524,0.107143,aggregate,,,,,,,
+without_history,T2,SOR,2,0.0,0.0,aggregate,,,,,,,
+without_history,T2,episodes_to_target,2,5.0,0.0,aggregate,,,,,,,
+without_history,T2,adaptation_latency_ms,2,0.01023,0.00021,aggregate,,,,,,,
+without_risk,T1,CCG_star,2,0.054778,0.003263,aggregate,,,,,,,
+without_risk,T1,RWCS_star,2,0.36184,0.001844,aggregate,,,,,,,
+without_risk,T1,TAR,2,0.0,0.0,aggregate,,,,,,,
+without_risk,T1,AR,2,1.0,0.0,aggregate,,,,,,,
+without_risk,T1,DC,2,1.0,0.0,aggregate,,,,,,,
+without_risk,T1,TC,2,1.0,0.0,aggregate,,,,,,,
+without_risk,T1,CER,2,1.0,0.0,aggregate,,,,,,,
+without_risk,T1,CMR,2,0.630953,0.107142,aggregate,,,,,,,
+without_risk,T1,SOR,2,0.0,0.0,aggregate,,,,,,,
+without_risk,T1,episodes_to_target,2,5.0,0.0,aggregate,,,,,,,
+without_risk,T1,adaptation_latency_ms,2,0.01009,0.00033,aggregate,,,,,,,
+without_risk,T2,CCG_star,2,0.037436,0.000989,aggregate,,,,,,,
+without_risk,T2,RWCS_star,2,0.455381,0.001911,aggregate,,,,,,,
+without_risk,T2,TAR,2,0.0,0.0,aggregate,,,,,,,
+without_risk,T2,AR,2,1.0,0.0,aggregate,,,,,,,
+without_risk,T2,DC,2,1.0,0.0,aggregate,,,,,,,
+without_risk,T2,TC,2,1.0,0.0,aggregate,,,,,,,
+without_risk,T2,CER,2,1.0,0.0,aggregate,,,,,,,
+without_risk,T2,CMR,2,0.559524,0.107143,aggregate,,,,,,,
+without_risk,T2,SOR,2,0.0,0.0,aggregate,,,,,,,
+without_risk,T2,episodes_to_target,2,5.0,0.0,aggregate,,,,,,,
+without_risk,T2,adaptation_latency_ms,2,0.01405,0.00403,aggregate,,,,,,,
+without_rule_engine,T1,CCG_star,2,0.058195,0.00656,aggregate,,,,,,,
+without_rule_engine,T1,RWCS_star,2,0.367113,0.00699,aggregate,,,,,,,
+without_rule_engine,T1,TAR,2,0.0,0.0,aggregate,,,,,,,
+without_rule_engine,T1,AR,2,1.0,0.0,aggregate,,,,,,,
+without_rule_engine,T1,DC,2,1.0,0.0,aggregate,,,,,,,
+without_rule_engine,T1,TC,2,1.0,0.0,aggregate,,,,,,,
+without_rule_engine,T1,CER,2,1.0,0.0,aggregate,,,,,,,
+without_rule_engine,T1,CMR,2,0.630953,0.107142,aggregate,,,,,,,
+without_rule_engine,T1,SOR,2,0.0,0.0,aggregate,,,,,,,
+without_rule_engine,T1,episodes_to_target,2,5.0,0.0,aggregate,,,,,,,
+without_rule_engine,T1,adaptation_latency_ms,2,0.00456,4e-05,aggregate,,,,,,,
+without_rule_engine,T2,CCG_star,2,0.047198,0.0,aggregate,,,,,,,
+without_rule_engine,T2,RWCS_star,2,0.46689,0.0,aggregate,,,,,,,
+without_rule_engine,T2,TAR,2,0.0,0.0,aggregate,,,,,,,
+without_rule_engine,T2,AR,2,1.0,0.0,aggregate,,,,,,,
+without_rule_engine,T2,DC,2,1.0,0.0,aggregate,,,,,,,
+without_rule_engine,T2,TC,2,1.0,0.0,aggregate,,,,,,,
+without_rule_engine,T2,CER,2,1.0,0.0,aggregate,,,,,,,
+without_rule_engine,T2,CMR,2,0.559524,0.107143,aggregate,,,,,,,
+without_rule_engine,T2,SOR,2,0.0,0.0,aggregate,,,,,,,
+without_rule_engine,T2,episodes_to_target,2,5.0,0.0,aggregate,,,,,,,
+without_rule_engine,T2,adaptation_latency_ms,2,0.00429,9e-05,aggregate,,,,,,,
+without_trace,T1,CCG_star,2,0.054778,0.003263,aggregate,,,,,,,
+without_trace,T1,RWCS_star,2,0.36184,0.001844,aggregate,,,,,,,
+without_trace,T1,TAR,2,0.0,0.0,aggregate,,,,,,,
+without_trace,T1,AR,2,1.0,0.0,aggregate,,,,,,,
+without_trace,T1,DC,2,1.0,0.0,aggregate,,,,,,,
+without_trace,T1,TC,2,0.0,0.0,aggregate,,,,,,,
+without_trace,T1,CER,2,1.0,0.0,aggregate,,,,,,,
+without_trace,T1,CMR,2,0.630953,0.107142,aggregate,,,,,,,
+without_trace,T1,SOR,2,0.0,0.0,aggregate,,,,,,,
+without_trace,T1,episodes_to_target,2,5.0,0.0,aggregate,,,,,,,
+without_trace,T1,adaptation_latency_ms,2,0.01043,0.00023,aggregate,,,,,,,
+without_trace,T2,CCG_star,2,0.037436,0.000989,aggregate,,,,,,,
+without_trace,T2,RWCS_star,2,0.455381,0.001911,aggregate,,,,,,,
+without_trace,T2,TAR,2,0.0,0.0,aggregate,,,,,,,
+without_trace,T2,AR,2,1.0,0.0,aggregate,,,,,,,
+without_trace,T2,DC,2,1.0,0.0,aggregate,,,,,,,
+without_trace,T2,TC,2,0.0,0.0,aggregate,,,,,,,
+without_trace,T2,CER,2,1.0,0.0,aggregate,,,,,,,
+without_trace,T2,CMR,2,0.559524,0.107143,aggregate,,,,,,,
+without_trace,T2,SOR,2,0.0,0.0,aggregate,,,,,,,
+without_trace,T2,episodes_to_target,2,5.0,0.0,aggregate,,,,,,,
+without_trace,T2,adaptation_latency_ms,2,0.0098,0.00024,aggregate,,,,,,,
+without_urgency,T1,CCG_star,2,0.06039,0.008875,aggregate,,,,,,,
+without_urgency,T1,RWCS_star,2,0.365218,0.005222,aggregate,,,,,,,
+without_urgency,T1,TAR,2,0.0,0.0,aggregate,,,,,,,
+without_urgency,T1,AR,2,1.0,0.0,aggregate,,,,,,,
+without_urgency,T1,DC,2,1.0,0.0,aggregate,,,,,,,
+without_urgency,T1,TC,2,1.0,0.0,aggregate,,,,,,,
+without_urgency,T1,CER,2,1.0,0.0,aggregate,,,,,,,
+without_urgency,T1,CMR,2,0.630953,0.107142,aggregate,,,,,,,
+without_urgency,T1,SOR,2,0.0,0.0,aggregate,,,,,,,
+without_urgency,T1,episodes_to_target,2,5.0,0.0,aggregate,,,,,,,
+without_urgency,T1,adaptation_latency_ms,2,0.01045,0.00045,aggregate,,,,,,,
+without_urgency,T2,CCG_star,2,0.037436,0.000989,aggregate,,,,,,,
+without_urgency,T2,RWCS_star,2,0.455381,0.001911,aggregate,,,,,,,
+without_urgency,T2,TAR,2,0.0,0.0,aggregate,,,,,,,
+without_urgency,T2,AR,2,1.0,0.0,aggregate,,,,,,,
+without_urgency,T2,DC,2,1.0,0.0,aggregate,,,,,,,
+without_urgency,T2,TC,2,1.0,0.0,aggregate,,,,,,,
+without_urgency,T2,CER,2,1.0,0.0,aggregate,,,,,,,
+without_urgency,T2,CMR,2,0.559524,0.107143,aggregate,,,,,,,
+without_urgency,T2,SOR,2,0.0,0.0,aggregate,,,,,,,
+without_urgency,T2,episodes_to_target,2,5.0,0.0,aggregate,,,,,,,
+without_urgency,T2,adaptation_latency_ms,2,0.01049,0.00065,aggregate,,,,,,,
+risk_only,T1,CCG_star,,,,paired,positive = Complete Framework is better,-0.000376,-0.000376,-0.000733,-1.9e-05,0.0,2
+risk_only,T1,RWCS_star,,,,paired,positive = Complete Framework is better,-0.002033,-0.002033,-0.003965,-0.000102,0.0,2
+risk_only,T1,TAR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+risk_only,T1,AR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+risk_only,T1,DC,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+risk_only,T1,TC,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+risk_only,T1,CER,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+risk_only,T1,CMR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+risk_only,T1,SOR,,,,paired,positive = Complete Framework is better,0.166666,0.166666,0.008333,0.325,0.5,2
+risk_only,T1,episodes_to_target,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+risk_only,T1,adaptation_latency_ms,,,,paired,positive = Complete Framework is better,0.00144,0.00144,0.001022,0.001858,1.0,2
+risk_only,T2,CCG_star,,,,paired,positive = Complete Framework is better,-0.000989,-0.000989,-0.001929,-4.9e-05,0.0,2
+risk_only,T2,RWCS_star,,,,paired,positive = Complete Framework is better,-0.001911,-0.001911,-0.003726,-9.6e-05,0.0,2
+risk_only,T2,TAR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+risk_only,T2,AR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+risk_only,T2,DC,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+risk_only,T2,TC,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+risk_only,T2,CER,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+risk_only,T2,CMR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+risk_only,T2,SOR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+risk_only,T2,episodes_to_target,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+risk_only,T2,adaptation_latency_ms,,,,paired,positive = Complete Framework is better,0.00012,0.00012,6.3e-05,0.000177,1.0,2
+without_risk,T1,CCG_star,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_risk,T1,RWCS_star,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_risk,T1,TAR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_risk,T1,AR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_risk,T1,DC,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_risk,T1,TC,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_risk,T1,CER,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_risk,T1,CMR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_risk,T1,SOR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_risk,T1,episodes_to_target,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_risk,T1,adaptation_latency_ms,,,,paired,positive = Complete Framework is better,-0.00016,-0.00016,-0.000274,-4.6e-05,0.0,2
+without_risk,T2,CCG_star,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_risk,T2,RWCS_star,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_risk,T2,TAR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_risk,T2,AR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_risk,T2,DC,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_risk,T2,TC,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_risk,T2,CER,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_risk,T2,CMR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_risk,T2,SOR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_risk,T2,episodes_to_target,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_risk,T2,adaptation_latency_ms,,,,paired,positive = Complete Framework is better,0.00408,0.00408,0.000394,0.007766,1.0,2
+without_history,T1,CCG_star,,,,paired,positive = Complete Framework is better,0.003263,0.003263,0.000163,0.006363,0.5,2
+without_history,T1,RWCS_star,,,,paired,positive = Complete Framework is better,0.001844,0.001844,9.2e-05,0.003596,0.5,2
+without_history,T1,TAR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_history,T1,AR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_history,T1,DC,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_history,T1,TC,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_history,T1,CER,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_history,T1,CMR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_history,T1,SOR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_history,T1,episodes_to_target,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_history,T1,adaptation_latency_ms,,,,paired,positive = Complete Framework is better,-9e-05,-9e-05,-0.000536,0.000357,0.5,2
+without_history,T2,CCG_star,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_history,T2,RWCS_star,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_history,T2,TAR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_history,T2,AR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_history,T2,DC,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_history,T2,TC,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_history,T2,CER,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_history,T2,CMR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_history,T2,SOR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_history,T2,episodes_to_target,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_history,T2,adaptation_latency_ms,,,,paired,positive = Complete Framework is better,0.00026,0.00026,0.000203,0.000317,1.0,2
+without_urgency,T1,CCG_star,,,,paired,positive = Complete Framework is better,-0.005612,-0.005612,-0.010944,-0.000281,0.0,2
+without_urgency,T1,RWCS_star,,,,paired,positive = Complete Framework is better,-0.003378,-0.003378,-0.006587,-0.000169,0.0,2
+without_urgency,T1,TAR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_urgency,T1,AR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_urgency,T1,DC,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_urgency,T1,TC,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_urgency,T1,CER,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_urgency,T1,CMR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_urgency,T1,SOR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_urgency,T1,episodes_to_target,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_urgency,T1,adaptation_latency_ms,,,,paired,positive = Complete Framework is better,0.0002,0.0002,0.0002,0.0002,1.0,2
+without_urgency,T2,CCG_star,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_urgency,T2,RWCS_star,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_urgency,T2,TAR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_urgency,T2,AR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_urgency,T2,DC,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_urgency,T2,TC,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_urgency,T2,CER,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_urgency,T2,CMR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_urgency,T2,SOR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_urgency,T2,episodes_to_target,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_urgency,T2,adaptation_latency_ms,,,,paired,positive = Complete Framework is better,0.00052,0.00052,4.5e-05,0.000995,1.0,2
+without_assistance,T1,CCG_star,,,,paired,positive = Complete Framework is better,-0.007164,-0.007164,-0.010264,-0.004064,0.0,2
+without_assistance,T1,RWCS_star,,,,paired,positive = Complete Framework is better,-0.003402,-0.003402,-0.005154,-0.00165,0.0,2
+without_assistance,T1,TAR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_assistance,T1,AR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_assistance,T1,DC,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_assistance,T1,TC,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_assistance,T1,CER,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_assistance,T1,CMR,,,,paired,positive = Complete Framework is better,0.011905,0.011905,0.000595,0.023215,0.5,2
+without_assistance,T1,SOR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_assistance,T1,episodes_to_target,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_assistance,T1,adaptation_latency_ms,,,,paired,positive = Complete Framework is better,-3e-05,-3e-05,-0.00059,0.00053,0.5,2
+without_assistance,T2,CCG_star,,,,paired,positive = Complete Framework is better,-0.000989,-0.000989,-0.001929,-4.9e-05,0.0,2
+without_assistance,T2,RWCS_star,,,,paired,positive = Complete Framework is better,-0.001911,-0.001911,-0.003726,-9.6e-05,0.0,2
+without_assistance,T2,TAR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_assistance,T2,AR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_assistance,T2,DC,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_assistance,T2,TC,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_assistance,T2,CER,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_assistance,T2,CMR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_assistance,T2,SOR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_assistance,T2,episodes_to_target,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_assistance,T2,adaptation_latency_ms,,,,paired,positive = Complete Framework is better,0.00063,0.00063,0.000297,0.000962,1.0,2
+without_trace,T1,CCG_star,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_trace,T1,RWCS_star,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_trace,T1,TAR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_trace,T1,AR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_trace,T1,DC,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_trace,T1,TC,,,,paired,positive = Complete Framework is better,1.0,1.0,1.0,1.0,1.0,2
+without_trace,T1,CER,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_trace,T1,CMR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_trace,T1,SOR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_trace,T1,episodes_to_target,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_trace,T1,adaptation_latency_ms,,,,paired,positive = Complete Framework is better,0.00018,0.00018,-2.9e-05,0.000389,0.5,2
+without_trace,T2,CCG_star,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_trace,T2,RWCS_star,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_trace,T2,TAR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_trace,T2,AR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_trace,T2,DC,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_trace,T2,TC,,,,paired,positive = Complete Framework is better,1.0,1.0,1.0,1.0,1.0,2
+without_trace,T2,CER,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_trace,T2,CMR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_trace,T2,SOR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_trace,T2,episodes_to_target,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_trace,T2,adaptation_latency_ms,,,,paired,positive = Complete Framework is better,-0.00017,-0.00017,-0.000255,-8.5e-05,0.0,2
+without_rule_engine,T1,CCG_star,,,,paired,positive = Complete Framework is better,-0.003417,-0.003417,-0.012749,0.005915,0.5,2
+without_rule_engine,T1,RWCS_star,,,,paired,positive = Complete Framework is better,-0.005274,-0.005274,-0.013665,0.003118,0.5,2
+without_rule_engine,T1,TAR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_rule_engine,T1,AR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_rule_engine,T1,DC,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_rule_engine,T1,TC,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_rule_engine,T1,CER,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_rule_engine,T1,CMR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_rule_engine,T1,SOR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_rule_engine,T1,episodes_to_target,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_rule_engine,T1,adaptation_latency_ms,,,,paired,positive = Complete Framework is better,-0.00569,-0.00569,-0.006079,-0.0053,0.0,2
+without_rule_engine,T2,CCG_star,,,,paired,positive = Complete Framework is better,-0.009762,-0.009762,-0.010702,-0.008822,0.0,2
+without_rule_engine,T2,RWCS_star,,,,paired,positive = Complete Framework is better,-0.011509,-0.011509,-0.013324,-0.009694,0.0,2
+without_rule_engine,T2,TAR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_rule_engine,T2,AR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_rule_engine,T2,DC,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_rule_engine,T2,TC,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_rule_engine,T2,CER,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_rule_engine,T2,CMR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_rule_engine,T2,SOR,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_rule_engine,T2,episodes_to_target,,,,paired,positive = Complete Framework is better,0.0,0.0,0.0,0.0,0.0,2
+without_rule_engine,T2,adaptation_latency_ms,,,,paired,positive = Complete Framework is better,-0.00568,-0.00568,-0.005908,-0.005452,0.0,2

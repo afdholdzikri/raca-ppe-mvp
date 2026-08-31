@@ -210,6 +210,7 @@ with visual_column:
         assets_manager.get_domain_character(st.session_state.active_domain, character_state),
         caption=visual["caption"],
         selected_ppe=selected_ppe,
+        domain=st.session_state.active_domain,
     )
     hazard_records = [
         {
