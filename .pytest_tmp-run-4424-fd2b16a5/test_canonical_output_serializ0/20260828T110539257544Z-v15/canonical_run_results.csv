@@ -1,7 +1,0 @@
-experiment_id,canonical_run_id,method,simulation_only,profile,repetition,base_seed,repetition_seed,episodes_completed,target_reached,episodes_to_target,censored,SOR,CCG_star,RWCS_star,TAR,CER,CMR,AR,DC,TC,CDRS,adaptation_latency_ms
-20260828T110539257544Z-v15,v15-s42-T1-r0-static,static,False,T1,0,42,2532612968,1,False,1,True,0.0,-0.0006,0.304353,0.0,1.0,0.642857,1.0,1.0,1.0,1.0,0.0055
-20260828T110539257544Z-v15,v15-s42-T1-r0-random,random,False,T1,0,42,2532612968,1,False,1,True,0.0,-0.0006,0.304353,0.0,1.0,0.642857,1.0,1.0,1.0,1.0,0.0394
-20260828T110539257544Z-v15,v15-s42-T1-r0-score_adaptive,score_adaptive,False,T1,0,42,2532612968,1,False,1,True,0.0,-0.0006,0.304353,0.0,1.0,0.642857,1.0,1.0,1.0,1.0,0.0076
-20260828T110539257544Z-v15,v15-s42-T1-r0-competence_adaptive,competence_adaptive,False,T1,0,42,2532612968,1,False,1,True,0.0,-0.0006,0.304353,0.0,1.0,0.642857,1.0,1.0,1.0,1.0,0.0238
-20260828T110539257544Z-v15,v15-s42-T1-r0-proposed,proposed,False,T1,0,42,2532612968,1,False,1,True,0.0,-0.0006,0.304353,0.0,1.0,0.642857,1.0,1.0,1.0,1.0,0.0189
-20260828T110539257544Z-v15,v15-s42-T1-r0-oracle,oracle,True,T1,0,42,2532612968,1,False,1,True,0.0,-0.0006,0.304353,0.0,1.0,0.642857,1.0,1.0,1.0,1.0,0.0156

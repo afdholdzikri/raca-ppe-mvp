@@ -1,6 +1,0 @@
-method,metric,count,mean,std,median,min,max,standard_error,ci95_lower,ci95_upper
-static,CCG,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-static,RWCS,1,0.296608,0.0,0.296608,0.296608,0.296608,0.0,0.296608,0.296608
-static,CER,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-static,AR,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
-static,SE,1,2.0,0.0,2.0,2.0,2.0,0.0,2.0,2.0
