@@ -1,0 +1,9 @@
+﻿TABLE S4. CROSS-DOMAIN PORTABILITY AND RULE-STABILITY RESULTS,,,,,,,,,
+,,,,,,,,,
+Domain,Runs,Valid Runs,Rules Exercised,RAC,AR,DC,TC,CDRS,Latency (ms)
+Manufacturing,150,150,5-Apr,0.8,1,1,1,1,0.0116
+Chemical Laboratory,150,150,5-Apr,0.8,1,1,1,1,0.0119
+Construction,150,150,5-Mar,0.6,1,1,1,1,0.0121
+Overall,450,450,5-Apr,0.8,1,1,1,1,0.0119
+,,,,,,,,,
+Footnote,"RAC denotes Rule-Activation Coverage. AR, DC, TC, and CDRS are software-verification indicators and are not measures of educational effectiveness. Valid Run Rate (VRR) and Scenario Validity Rate (SVR) were 1.000 in each domain. Four of the five canonical rules were exercised across the combined replication; R3 was not triggered under the evaluated trajectories. Latency is reported only as an engineering feasibility measure. These results support software-level portability and procedural stability, not equivalent pedagogical effectiveness across occupational domains.",,,,,,,,

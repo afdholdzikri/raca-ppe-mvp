@@ -1,0 +1,13 @@
+﻿TABLE S2. ABLATION RESULTS FOR THE PROPOSED FRAMEWORK,,,,,,
+Mean over 150 runs per configuration,,,,,,
+,,,,,,
+Configuration,CCG* ↑,RWCS* ↑,CER ↓,CMR ↓,TAR ↑,SOR ↓
+Complete Proposed,0.1139,0.6099,0.8444,0.4386,0.1247,0.089
+No Contextual Risk,0.1022,0.6013,0.8511,0.4457,0.1127,0.0924
+No Urgency,0.1116,0.6077,0.8467,0.4413,0.1213,0.0919
+No Error History,0.1098,0.6063,0.8489,0.4432,0.118,0.0943
+No Rule Engine,0.0839,0.5808,0.9067,0.5006,0,0.199
+Risk-Only,0.1457,0.6389,0.8067,0.3948,0.1733,0.2686
+No Trace Persistence,0.1139,0.6099,0.8444,0.4386,0.1247,0.089
+,,,,,,
+Footnote,"Bold values in the manuscript indicate the best value within the ablation configurations for each metric. Lower values are preferred for CER, CMR, and SOR. The Risk-Only configuration improves several synthetic latent and post-test outcomes but substantially increases scenario oscillation, illustrating a trade-off rather than uniform superiority. The No Trace Persistence configuration reproduces the Complete Proposed learning outcomes because trace persistence does not participate in policy selection or latent-state evolution; its contribution is limited to procedural reconstruction, auditability, and trace completeness.",,,,,

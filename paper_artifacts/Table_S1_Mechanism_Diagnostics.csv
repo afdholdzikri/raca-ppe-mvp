@@ -1,0 +1,12 @@
+﻿TABLE S1. MECHANISM-DIAGNOSTIC RESULTS,,,,,
+Mean over 150 runs per policy,,,,,
+,,,,,
+Method,MAE_l ↓,PRA ↑,TTA ↑,DCM ↓,NCCE ↑
+Static,0.0835,0.5623,0.4936,0.354,0.9499
+Random,0.0801,0.5966,0.5227,0.3698,0.9392
+Score-Adaptive,0.0754,0.6646,0.4622,0.4062,0.9499
+Competence-Adaptive,0.0667,0.7244,0.4202,0.5467,0.9096
+Proposed,0.0681,0.5721,0.346,0.4672,0.8365
+Oracle†,0.0859,0.4349,0.244,0.2061,0.9127
+,,,,,
+Footnote,"† Oracle is a privileged simulation-only reference. PRA and TTA compare the engine-computable risk-aware priority with its latent-reference counterpart along each policy-induced trajectory. These metrics correspond to the actual competence-targeting mechanism only for the Proposed Framework, which directly uses the risk-aware priority ranking. For the other policies, PRA and TTA characterize the diagnostic agreement of the risk-aware ranking along their induced trajectories rather than the targeting rule used by those policies. DCM and NCCE characterize policy-induced practice allocation.",,,,

@@ -1,0 +1,12 @@
+﻿TABLE S3. PRACTICE-MONOTONIC FALSIFICATION RESULTS,,,,,
+Mean over 150 runs per policy,,,,,
+,,,,,
+Method,CCG* ↑,RWCS* ↑,CER ↓,CMR ↓,TAR ↑
+Static,0.3174,0.8232,0.6489,0.194,0.56
+Random,0.3012,0.8107,0.6622,0.2016,0.5973
+Score-Adaptive,0.3174,0.8232,0.6489,0.194,0.56
+Competence-Adaptive,0.3271,0.8335,0.64,0.1948,0.574
+Proposed,0.3526,0.8453,0.5933,0.2022,0.5607
+Oracle†,0.3538,0.8507,0.6111,0.2,0.54
+,,,,,
+Footnote,"† Oracle is a privileged simulation-only reference. Bold values in the manuscript indicate the best deployable result for each metric. The practice-monotonic environment removes the Gaussian difficulty–competence matching term while preserving the canonical practice rate, latent decay, initial latent states, trainee profiles, policy definitions, episode budget, response-generation process, and matched stochastic pairing. This environment is used as a falsification test and is not claimed to be more realistic than the canonical challenge-matched environment.",,,,
