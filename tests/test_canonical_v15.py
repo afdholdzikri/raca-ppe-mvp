@@ -11,8 +11,10 @@ from experiments.canonical_engine import _fixed_posttest,_target,canonical_run_i
 from experiments.canonical_export import save_canonical
 from experiments.canonical_latent import (ASSISTANCE_ENCODING,DIFFICULTY_ENCODING,LatentState,
  evolve_latent,generate_observations,observation_score,update_engine_estimate)
-from experiments.canonical_methods import (DeployableContext,OracleContext,
- calculate_oracle_priorities,choose_oracle_difficulty,decide)
+from experiments.canonical_methods import (
+ DeployableContext,OracleContext,RWUCB1Context,
+ calculate_oracle_priorities,calculate_rw_ucb1_indices,
+ choose_oracle_difficulty,decide)
 from experiments.canonical_metrics import (HIGHER_BETTER,LOWER_BETTER,latent_outcomes,
  paired_differences,posttest_metrics,scenario_oscillation_rate)
 from experiments.experiment_metrics import competence_contextual_risks,competence_risk_weights
@@ -26,12 +28,27 @@ def test_deployable_context_has_no_theta_and_oracle_registry_is_privileged():
  assert all(not METHOD_REGISTRY[m]["theta_star_access"] for m in DEPLOYABLE_METHODS)
  assert METHOD_REGISTRY["oracle"]=={"label":"Oracle (privileged reference)","simulation_only":True,"theta_star_access":True}
 
+def test_rw_ucb1_is_deployable_and_has_no_theta_access():
+ assert "rw_ucb1" in DEPLOYABLE_METHODS
+ assert "theta_star" not in RWUCB1Context.__dataclass_fields__
+ assert METHOD_REGISTRY["rw_ucb1"]=={
+  "label":"Risk-Weighted UCB1 (RW-UCB1)",
+  "simulation_only":False,
+  "theta_star_access":False,
+ }
+
 def test_deployable_rejects_oracle_context_and_oracle_accepts_it():
  data=load_all_data();cfg=CanonicalConfig(episodes=1,repetitions=1);s=data["scenarios"]["S1"]
  mi=MethodInput(s,data["scenarios"],{c:.4 for c in data["competencies"]},{c:0 for c in data["competencies"]},1,["S1"],[],{"scenario_risk":.4},cfg,False,[(next(iter(data["competencies"])),1)])
  dep=DeployableContext(mi,{c:.4 for c in data["competencies"]},data["competencies"],42);oracle=OracleContext(dep,{c:.4 for c in data["competencies"]},{c:.4 for c in data["competencies"]})
  with pytest.raises(PermissionError):decide("proposed",oracle)
  assert decide("oracle",oracle)["selected_rule"]=="oracle_latent_priority"
+
+def test_rw_ucb1_requires_observable_state_context():
+ data=load_all_data();cfg=CanonicalConfig(episodes=1,repetitions=1);s=data["scenarios"]["S1"]
+ mi=MethodInput(s,data["scenarios"],{c:.4 for c in data["competencies"]},{c:0 for c in data["competencies"]},1,["S1"],[],{"scenario_risk":.4},cfg,False,[(next(iter(data["competencies"])),1)])
+ dep=DeployableContext(mi,competence_risk_weights(data),data["competencies"],42)
+ with pytest.raises(PermissionError):decide("rw_ucb1",dep)
 
 def test_random_deterministic_and_seed_sensitive():
  data=load_all_data();cfg=CanonicalConfig(episodes=1,repetitions=1);s=data["scenarios"]["S1"]
@@ -63,10 +80,32 @@ def test_sor_and_censored_target():
  _,run,_=run_single("static","T1",0,CanonicalConfig(methods=["static"],profiles=["T1"],episodes=1,repetitions=1))
  assert run["censored"] is True and run["episodes_to_target"]==1
 
-def test_six_methods_and_matched_seeds():
- assert CANONICAL_METHODS==("static","random","score_adaptive","competence_adaptive","proposed","oracle")
+def test_seven_methods_and_matched_seeds():
+ assert CANONICAL_METHODS==("static","random","score_adaptive","competence_adaptive","rw_ucb1","proposed","oracle")
  cfg=CanonicalConfig(episodes=1,repetitions=1,profiles=["T1"],methods=list(CANONICAL_METHODS));result=run_canonical(cfg)
- assert len(result["run_rows"])==6 and len({r["repetition_seed"] for r in result["run_rows"]})==1
+ assert len(result["run_rows"])==7 and len({r["repetition_seed"] for r in result["run_rows"]})==1
+
+def test_rw_ucb1_index_matches_canonical_formula():
+ from math import log,sqrt
+ risk_weights={"c1":.8,"c2":.4};counts={"c1":4,"c2":2};sums={"c1":.4,"c2":.3}
+ values=calculate_rw_ucb1_indices(risk_weights,counts,sums,10,c=1.0)
+ assert values["c1"]==pytest.approx(.8*((.4/4)+sqrt(2*log(10)/4)))
+ assert values["c2"]==pytest.approx(.4*((.3/2)+sqrt(2*log(10)/2)))
+
+def test_rw_ucb1_unvisited_first_and_fixed_configuration():
+ data=load_all_data();cfg=CanonicalConfig(episodes=1,repetitions=1);s=data["scenarios"]["S1"]
+ ids=sorted(data["competencies"]);scores={c:.4 for c in ids};errors={c:0 for c in ids}
+ mi=MethodInput(s,data["scenarios"],scores,errors,s.base_difficulty,["S1"],[],{"scenario_risk":.4},cfg,False,[(ids[0],1)])
+ dep=DeployableContext(mi,competence_risk_weights(data),data["competencies"],42)
+ counts={c:1 for c in ids};counts[ids[0]]=0
+ ctx=RWUCB1Context(dep,counts,{c:0.0 for c in ids},5)
+ decision=decide("rw_ucb1",ctx)
+ assert decision["highest_priority_competence"]==ids[0]
+ assert decision["selected_rule"]=="rw_ucb1_unvisited"
+ assert decision["assistance"]=="limited_visual_guidance"
+ assert decision["distractor_level"]=="low"
+ assert decision["feedback"]=="direct_explanation"
+ assert decision["next_difficulty"]==data["scenarios"][decision["next_scenario"]].base_difficulty
 
 def test_positive_paired_orientation():
  base={"profile":"T1","repetition":0,"AR":1,"DC":1,"TC":1,"CDRS":1,"CCG_star":1,"RWCS_star":1,"TAR":1,"CER":0,"CMR":0,"SOR":0,"episodes_to_target":1}
@@ -74,7 +113,7 @@ def test_positive_paired_orientation():
  values=paired_differences(rows);assert all(r["mean_paired_difference"]>=0 for r in values)
 
 def test_canonical_deterministic_science():
- cfg=CanonicalConfig(episodes=2,repetitions=1,profiles=["T1"],methods=["static","random","proposed","oracle"])
+ cfg=CanonicalConfig(episodes=2,repetitions=1,profiles=["T1"],methods=["static","random","rw_ucb1","proposed","oracle"])
  a=run_canonical(cfg);b=run_canonical(cfg)
  for rows in (a["cycle_rows"],b["cycle_rows"]):
   for row in rows:row.pop("experiment_id",None);row.pop("adaptation_latency_ms",None)
@@ -100,10 +139,10 @@ def test_fixed_posttest_smoke_traceability_and_counts(tmp_path):
   rows=list(csv.DictReader(stream))
  required={"canonical_run_id","method","profile","repetition","repetition_seed","scenario_id","item","assistance",
   "scenario_risk","selected_ppe","required_ppe","missing_ppe","correct","critical_error","critical_miss"}
- assert required<=set(rows[0]) and len(rows)==432
+ assert required<=set(rows[0]) and len(rows)==504
  assert Counter(r["method"] for r in rows)==Counter({method:72 for method in CANONICAL_METHODS})
  run_counts=Counter(r["canonical_run_id"] for r in rows)
- assert len(run_counts)==24 and set(run_counts.values())=={18}
+ assert len(run_counts)==28 and set(run_counts.values())=={18}
  for profile in ("T1","T2"):
   for repetition in ("0","1"):
    matched={r["repetition_seed"] for r in rows if r["profile"]==profile and r["repetition"]==repetition}
